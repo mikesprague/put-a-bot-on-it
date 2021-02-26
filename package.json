@@ -1,0 +1,130 @@
+{
+  "name": "discord-bot",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon ./index.js",
+    "start": "cross-env NODE_ENV=production node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Michael Sprague <mikesprague@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.1",
+    "@babel/eslint-plugin": "7.13.0",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.7",
+    "@babel/preset-env": "^7.13.5",
+    "@babel/runtime": "^7.13.7",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-compat": "^3.9.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-security": "^1.4.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "prettier-eslint": "^12.0.0"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "corejs": false,
+          "helpers": true,
+          "regenerator": true,
+          "useESModules": true
+        }
+      ]
+    ],
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "14"
+          }
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "airbnb-base",
+      "plugin:security/recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "babel",
+      "compat",
+      "import",
+      "prettier",
+      "security"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint",
+      "ecmaVersion": 11,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "modules": true
+      }
+    },
+    "rules": {
+      "curly": "error",
+      "object-curly-newline": "error",
+      "semi": "error",
+      "prefer-arrow-callback": "warn",
+      "arrow-spacing": "error",
+      "eqeqeq": "error",
+      "quotes": [
+        "error",
+        "single",
+        {
+          "avoidEscape": true,
+          "allowTemplateLiterals": true
+        }
+      ],
+      "import/no-cycle": [
+        "warn",
+        {
+          "maxDepth": 1
+        }
+      ],
+      "func-names": "off",
+      "no-await-in-loop": "off",
+      "no-console": "off",
+      "no-param-reassign": "warn",
+      "no-unused-vars": "warn",
+      "import/prefer-default-export": "off",
+      "no-restricted-syntax": "off",
+      "no-underscore-dangle": "warn",
+      "array-callback-return": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "semi": true,
+    "tabWidth": 2
+  }
+}
