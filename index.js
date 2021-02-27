@@ -70,7 +70,7 @@ client.on('message', async (msg) => {
   }
   const greetings = ['hi', 'hello', 'sup', 'yo', 'hola', 'bon jour'];
   if (greetings.includes(msg.content.toLowerCase())) {
-    msg.reply('👋 squawk!');
+    msg.channel.send('👋 squawk!');
   }
 
   const insults = [
