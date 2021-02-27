@@ -31,8 +31,10 @@ const getGifs = async (searchTerm) => {
   return remoteData.data;
 };
 
-const getSteve = async () => {
-  const steveGifs = await getGifs('steve harvey');
+const getSteve = async (term = '') => {
+  const steveGifs = await getGifs(
+    `steve harvey${term.trim().length ? term : ''}`,
+  );
   const randomNum = getRandomNum(steveGifs.length);
   return steveGifs[randomNum].images.original.url;
 };
@@ -108,8 +110,9 @@ client.on('message', async (msg) => {
     );
   }
 
-  if (msg.content.toLowerCase() === '?steve') {
-    const steve = await getSteve();
+  if (msg.content.toLowerCase().includes('?steve')) {
+    const term = msg.content.toLowerCase().replace('?steve ', '');
+    const steve = await getSteve(term);
     msg.channel.send(steve);
   }
 });
