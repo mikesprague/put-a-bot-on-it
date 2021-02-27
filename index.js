@@ -33,7 +33,7 @@ const getGifs = async (searchTerm) => {
 
 const getSteve = async (term = '') => {
   const steveGifs = await getGifs(
-    `steve harvey${term.trim().length ? term : ''}`,
+    term.trim().length ? `steve harvey ${term.trim()}` : '',
   );
   const randomNum = getRandomNum(steveGifs.length);
   return steveGifs[randomNum].images.original.url;
