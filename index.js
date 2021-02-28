@@ -7,7 +7,7 @@ const { initEasterEggs } = require('./lib/easter-eggs');
 const client = new discord.Client();
 
 client.on('ready', () => {
-  console.log('🐦🤖 Bird Bot is ready');
+  console.log('🐦💬 Bird Bot is ready');
 });
 
 client.login(process.env.DISCORD_BOT_TOKEN);
