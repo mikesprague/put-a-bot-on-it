@@ -1,8 +1,9 @@
 {
-  "name": "discord-bot",
+  "name": "put-a-bot-on-it",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "private": "true",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon ./index.js",
     "start": "cross-env NODE_ENV=production node ./index.js",
