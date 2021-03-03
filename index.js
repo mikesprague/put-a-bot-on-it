@@ -9,7 +9,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('America/New_York');
 
-const { birdLog, getGoodMorning } = require('./lib/helpers');
+const { birdLog, getRandomGifByTerm } = require('./lib/helpers');
 const { initCommands } = require('./lib/commands');
 const { initEasterEggs } = require('./lib/easter-eggs');
 
@@ -23,19 +23,21 @@ client.on('ready', () => {
 
 client.login(DISCORD_BOT_TOKEN);
 
-let goodMorningSent = false;
+let greetingSent = false;
 client.setInterval(async () => {
-  const goodMorningHour = 8;
+  const greetingHour = 8;
   const now = dayjs.tz();
-  const hour = dayjs(now).get('hour');
-  if (hour === goodMorningHour && !goodMorningSent) {
-    const gif = await getGoodMorning();
+  const currentHour = dayjs(now).tz().get('hour');
+  const day = dayjs(now).tz().get('day');
+  if (currentHour === greetingHour && !greetingSent) {
+    const searchTerm = day === 5 ? 'tgif' : 'good morning';
+    const gif = await getRandomGifByTerm(searchTerm);
     client.channels.cache.get('756162896634970113').send(gif);
     birdLog(gif);
-    goodMorningSent = true;
+    greetingSent = true;
   }
-  if (hour > goodMorningHour && goodMorningSent) {
-    goodMorningSent = false;
+  if (currentHour > greetingHour && greetingSent) {
+    greetingSent = false;
   }
 }, 600000);
 
