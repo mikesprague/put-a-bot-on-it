@@ -24,8 +24,10 @@ client.on('ready', () => {
 client.login(DISCORD_BOT_TOKEN);
 
 let greetingSent = false;
+let happyHourSent = false;
 client.setInterval(async () => {
   const greetingHour = 8;
+  const happyHour = 17;
   const now = dayjs.tz();
   const currentHour = dayjs(now).tz().get('hour');
   const day = dayjs(now).tz().get('day');
@@ -36,8 +38,17 @@ client.setInterval(async () => {
     birdLog(gif);
     greetingSent = true;
   }
+  if (currentHour === happyHour && !happyHourSent) {
+    const gif = await getRandomGifByTerm('happy hour');
+    client.channels.cache.get('756162896634970113').send(gif);
+    birdLog(gif);
+    happyHourSent = true;
+  }
   if (currentHour > greetingHour && greetingSent) {
     greetingSent = false;
+  }
+  if (currentHour > happyHour && happyHourSent) {
+    happyHourSent = false;
   }
 }, 600000);
 
