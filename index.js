@@ -18,6 +18,7 @@ client.login(DISCORD_BOT_TOKEN);
 client.setInterval(async () => {
   const now = new Date();
   const hour = now.getHours();
+  console.log('hour: ', hour);
   let messageSent = false;
   if (hour === 8 && !messageSent) {
     const gif = await getGoodMorning();
@@ -29,7 +30,7 @@ client.setInterval(async () => {
     messageSent = false;
   }
   console.log('🐦💬 client.setInterval ran');
-}, 600000);
+}, 60000);
 
 client.on('message', async (msg) => {
   await initEasterEggs(msg);
