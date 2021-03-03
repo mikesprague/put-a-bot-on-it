@@ -23,24 +23,21 @@ client.on('ready', () => {
 
 client.login(DISCORD_BOT_TOKEN);
 
+let goodMorningSent = false;
 client.setInterval(async () => {
-  const now = dayjs();
-  console.log('now: ', now.toString());
-  const hour = dayjs(now).format('H');
-  console.log('hour: ', hour);
-  let messageSent = false;
-  if (hour === 8 && !messageSent) {
+  const goodMorningHour = 8;
+  const now = dayjs.tz();
+  const hour = dayjs(now).get('hour');
+  if (hour === goodMorningHour && !goodMorningSent) {
     const gif = await getGoodMorning();
+    client.channels.cache.get('756162896634970113').send(gif);
     birdLog(gif);
-    messageSent = true;
+    goodMorningSent = true;
   }
-  birdLog('messageSent: ');
-  birdLog(messageSent);
-  if (hour > 8 && messageSent) {
-    messageSent = false;
+  if (hour > goodMorningHour && goodMorningSent) {
+    goodMorningSent = false;
   }
-  birdLog('client.setInterval ran');
-}, 60000);
+}, 600000);
 
 client.on('message', async (msg) => {
   await initEasterEggs(msg);
