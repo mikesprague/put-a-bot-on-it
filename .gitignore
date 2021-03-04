@@ -117,6 +117,5 @@ dist
 
 # Misc
 .history
-*.code-workspace
 .vercel
 
