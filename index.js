@@ -2,9 +2,9 @@ const discord = require('discord.js');
 
 require('dotenv').config();
 
-const { birdLog, initGreetingGif } = require('./lib/helpers');
+const { birdLog } = require('./lib/helpers');
 const { initCommands } = require('./lib/commands');
-const { initEasterEggs } = require('./lib/easter-eggs');
+const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
 const { DISCORD_BOT_TOKEN } = process.env;
 
