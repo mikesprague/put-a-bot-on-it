@@ -17,7 +17,7 @@ client.on('ready', () => {
 client.login(DISCORD_BOT_TOKEN);
 
 client.setInterval(async () => {
-  await initGreetingGif(client, 'good morning', 'greetingSent', 8, '*', 5);
+  await initGreetingGif(client, 'morning greeting', 'greetingSent', 8, '*', 5);
   await initGreetingGif(client, 'tgif', 'greetingSent', 8, 5);
   await initGreetingGif(client, 'happy hour', 'happyHourSent', 17);
 }, 600000);
