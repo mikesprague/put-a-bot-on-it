@@ -1,4 +1,13 @@
 const Discord = require('discord.js');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+const defaultTimezone = 'America/New_York';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault(defaultTimezone);
 
 const {
   getRandomNum,
@@ -27,8 +36,15 @@ module.exports = {
           apiData[randomNum];
     const catFactEmbed = new Discord.MessageEmbed()
       .setColor(randomColor)
-      .setThumbnail(catGif)
-      .setTitle(catFact.text);
-    msg.channel.send(catFactEmbed);
+      .setImage(catGif)
+      .setDescription(`**${catFact.text}**`)
+      .setFooter(
+        `${msg.author.username} requested ?catfact at ${dayjs(
+          msg.createdTimestamp,
+        ).format('h:mm a')}`,
+        msg.author.avatarURL(),
+      );
+    await msg.channel.send(catFactEmbed);
+    msg.delete().catch((error) => console.error(error));
   },
 };
