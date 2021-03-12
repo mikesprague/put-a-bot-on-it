@@ -1,4 +1,4 @@
-const { makeApiCall } = require('../lib/helpers');
+const { makeApiCall, prepareEmbed } = require('../lib/helpers');
 const { dadJokeApi } = require('../lib/urls');
 
 module.exports = {
@@ -11,6 +11,12 @@ module.exports = {
     const apiData = await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
     });
-    msg.channel.send(apiData.joke);
+    const dadJokeEmbed = prepareEmbed(this.name, msg, apiData.joke, '');
+    msg.channel
+      .send(dadJokeEmbed)
+      .then(() => {
+        msg.delete();
+      })
+      .catch((error) => console.error(error));
   },
 };

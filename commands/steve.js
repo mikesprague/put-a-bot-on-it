@@ -1,4 +1,4 @@
-const { getRandomNum, getGifs } = require('../lib/helpers');
+const { getRandomNum, getGifs, prepareEmbed } = require('../lib/helpers');
 
 module.exports = {
   name: 'steve',
@@ -12,7 +12,22 @@ module.exports = {
         : 'steve harvey';
     const steveGifs = await getGifs(searchTerm);
     const randomNum = getRandomNum(steveGifs.length);
-    // eslint-disable-next-line security/detect-object-injection
-    msg.channel.send(steveGifs[randomNum].images.original.url);
+    const steveEmbed = prepareEmbed(
+      `${
+        searchTerm.replace('steve harvey', '').trim().length
+          ? `${this.name} ${searchTerm.replace('steve harvey', '').trim()}`
+          : this.name
+      }`,
+      msg,
+      '',
+      // eslint-disable-next-line security/detect-object-injection
+      steveGifs[randomNum].images.original.url,
+    );
+    msg.channel
+      .send(steveEmbed)
+      .then(() => {
+        msg.delete();
+      })
+      .catch((error) => console.error(error));
   },
 };
