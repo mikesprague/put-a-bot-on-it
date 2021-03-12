@@ -24,8 +24,8 @@ module.exports = {
       msg,
       embedColor: randomColor,
       embedDescription: `**${kanyeData.quote}**`,
-      // embedThumbnail: kanyeHeads[getRandomNum(kanyeHeads.length)],
-      embedImage: kanyeHeads[getRandomNum(kanyeHeads.length)],
+      embedThumbnail: kanyeHeads[getRandomNum(kanyeHeads.length)],
+      // embedImage: kanyeHeads[getRandomNum(kanyeHeads.length)],
     });
     sendContent(msg, kanyeEmbed);
   },
