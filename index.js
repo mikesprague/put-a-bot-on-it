@@ -31,7 +31,8 @@ client.on('ready', () => {
 client.setInterval(async () => {
   await initGreetingGif(client, 'morning greeting', 'greetingSent', 8, '*', 5);
   await initGreetingGif(client, 'tgif', 'greetingSent', 8, 5);
-  await initGreetingGif(client, 'happy hour', 'happyHourSent', 17);
+  await initGreetingGif(client, 'happy hour', 'happyHourSent', 17, '*', 5);
+  await initGreetingGif(client, 'happy hour', 'happyHourSent', 16, 5);
 }, 600000);
 
 client.on('message', async (msg) => {
