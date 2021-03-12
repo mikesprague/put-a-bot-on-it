@@ -1,6 +1,10 @@
-const Discord = require('discord.js');
-
-const { getRandomNum, makeApiCall, prepareEmbed } = require('../lib/helpers');
+const {
+  getRandomColor,
+  getRandomNum,
+  makeApiCall,
+  prepareEmbed,
+  sendContent,
+} = require('../lib/helpers');
 const { kanyeHeads } = require('../lib/lists');
 const { kanyeApi } = require('../lib/urls');
 
@@ -12,18 +16,14 @@ module.exports = {
     // console.log(args);
     const apiUrl = kanyeApi();
     const kanyeData = await makeApiCall(apiUrl);
-    const kanyeEmbed = prepareEmbed(
-      this.name,
+    const randomColor = getRandomColor();
+    const kanyeEmbed = prepareEmbed({
+      command: this.name,
       msg,
-      kanyeData.quote,
-      kanyeHeads[getRandomNum(kanyeHeads.length)],
-      true,
-    );
-    msg.channel
-      .send(kanyeEmbed)
-      .then(() => {
-        msg.delete();
-      })
-      .catch((error) => console.error(error));
+      embedColor: randomColor,
+      embedDescription: `**${kanyeData.quote}**`,
+      embedThumbnail: kanyeHeads[getRandomNum(kanyeHeads.length)],
+    });
+    sendContent(msg, kanyeEmbed);
   },
 };

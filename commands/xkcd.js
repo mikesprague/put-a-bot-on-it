@@ -1,6 +1,9 @@
-const Discord = require('discord.js');
-
-const { getRandomNum, makeApiCall } = require('../lib/helpers');
+const {
+  getRandomNum,
+  makeApiCall,
+  prepareEmbed,
+  sendContent,
+} = require('../lib/helpers');
 const { xkcdApi } = require('../lib/urls');
 
 module.exports = {
@@ -13,11 +16,14 @@ module.exports = {
     const apiUrl = isToday ? xkcdApi() : xkcdApi(randumComicNum);
     const apiData = await makeApiCall(apiUrl);
 
-    const xkcdEmbed = new Discord.MessageEmbed()
-      .setTitle(apiData.title)
-      .setURL(`https://xkcd.com/${apiData.num}`)
-      .setImage(apiData.img)
-      .setFooter(apiData.alt);
-    msg.channel.send(xkcdEmbed);
+    const xkcdEmbed = prepareEmbed({
+      command: this.name,
+      msg,
+      embedTtitle: apiData.title,
+      embedUrl: `https://xkcd.com/${apiData.num}`,
+      embedDescription: apiData.alt,
+      embedImage: apiData.img,
+    });
+    sendContent(msg, xkcdEmbed);
   },
 };

@@ -1,4 +1,10 @@
-const { getRandomNum, getGifs, prepareEmbed } = require('../lib/helpers');
+const {
+  getRandomColor,
+  getRandomNum,
+  getGifs,
+  prepareEmbed,
+  sendContent,
+} = require('../lib/helpers');
 
 module.exports = {
   name: 'steve',
@@ -12,22 +18,17 @@ module.exports = {
         : 'steve harvey';
     const steveGifs = await getGifs(searchTerm);
     const randomNum = getRandomNum(steveGifs.length);
-    const steveEmbed = prepareEmbed(
-      `${
+    const randomColor = getRandomColor();
+    const steveEmbed = prepareEmbed({
+      command: `${
         searchTerm.replace('steve harvey', '').trim().length
           ? `${this.name} ${searchTerm.replace('steve harvey', '').trim()}`
           : this.name
       }`,
       msg,
-      '',
-      // eslint-disable-next-line security/detect-object-injection
-      steveGifs[randomNum].images.original.url,
-    );
-    msg.channel
-      .send(steveEmbed)
-      .then(() => {
-        msg.delete();
-      })
-      .catch((error) => console.error(error));
+      embedImage: steveGifs[randomNum].images.original.url,
+      embedColor: randomColor,
+    });
+    sendContent(msg, steveEmbed);
   },
 };

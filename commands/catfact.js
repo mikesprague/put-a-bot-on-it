@@ -1,8 +1,10 @@
 const {
-  getRandomNum,
+  getRandomColor,
   getRandomGifByTerm,
+  getRandomNum,
   makeApiCall,
   prepareEmbed,
+  sendContent,
 } = require('../lib/helpers');
 const { catFactsApi } = require('../lib/urls');
 
@@ -16,18 +18,16 @@ module.exports = {
     const apiData = await makeApiCall(apiUrl);
     const catGif = await getRandomGifByTerm('cat');
     const randomNum = getRandomNum(apiData.length);
-    const catFact =
-      // eslint-disable-next-line security/detect-object-injection
-      apiData[randomNum].text.length > 256
-        ? apiData[getRandomNum(apiData.length)]
-        : // eslint-disable-next-line security/detect-object-injection
-          apiData[randomNum];
-    const catFactEmbed = prepareEmbed(this.name, msg, catFact.text, catGif);
-    msg.channel
-      .send(catFactEmbed)
-      .then(() => {
-        msg.delete();
-      })
-      .catch((error) => console.error(error));
+    const randomColor = getRandomColor();
+    // eslint-disable-next-line security/detect-object-injection
+    const catFact = apiData[randomNum];
+    const catFactEmbed = prepareEmbed({
+      command: this.name,
+      msg,
+      embedDescription: `**${catFact.text}**`,
+      embedImage: catGif,
+      embedColor: randomColor,
+    });
+    sendContent(msg, catFactEmbed);
   },
 };

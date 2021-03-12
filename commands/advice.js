@@ -1,4 +1,9 @@
-const { makeApiCall } = require('../lib/helpers');
+const {
+  getRandomColor,
+  makeApiCall,
+  prepareEmbed,
+  sendContent,
+} = require('../lib/helpers');
 const { adviceApi } = require('../lib/urls');
 
 module.exports = {
@@ -9,6 +14,13 @@ module.exports = {
     // console.log(args);
     const apiUrl = adviceApi();
     const apiData = await makeApiCall(apiUrl);
-    msg.channel.send(apiData.slip.advice);
+    const randomColor = getRandomColor();
+    const adviceEmbed = prepareEmbed({
+      command: this.name,
+      msg,
+      embedDescription: `**${apiData.slip.advice}**`,
+      embedColor: randomColor,
+    });
+    sendContent(msg, adviceEmbed);
   },
 };

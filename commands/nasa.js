@@ -1,6 +1,9 @@
-const Discord = require('discord.js');
-
-const { getRandomNum, makeApiCall } = require('../lib/helpers');
+const {
+  getRandomNum,
+  makeApiCall,
+  prepareEmbed,
+  sendContent,
+} = require('../lib/helpers');
 const { nasaApi } = require('../lib/urls');
 
 module.exports = {
@@ -14,15 +17,18 @@ module.exports = {
     const apiUrlSuffix = isToday ? '' : '&count=50';
     const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
     const randomNum = getRandomNum(apiData.length);
+    const nasaColor = '#113991';
     // eslint-disable-next-line security/detect-object-injection
     const nasaData = isToday ? apiData : apiData[randomNum];
-
-    const nasaEmbed = new Discord.MessageEmbed()
-      .setColor('#113991')
-      .setTitle(nasaData.title)
-      .setURL(nasaData.hdurl || nasaData.url)
-      .setDescription(nasaData.explanation)
-      .setImage(nasaData.url);
-    msg.channel.send(nasaEmbed);
+    const nasaEmbed = prepareEmbed({
+      command: this.name,
+      msg,
+      embedColor: nasaColor,
+      embedTtitle: nasaData.title,
+      embedDescription: nasaData.explanation,
+      embedUrl: nasaData.hdurl || nasaData.url,
+      embedImage: nasaData.url,
+    });
+    sendContent(msg, nasaEmbed);
   },
 };
