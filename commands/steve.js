@@ -8,6 +8,7 @@ const {
 
 module.exports = {
   name: 'steve',
+  args: false,
   description: 'Random Steve Harvey gif',
   async execute(msg, args) {
     // console.log(args);
