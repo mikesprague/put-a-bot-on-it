@@ -1,6 +1,5 @@
 const {
   getRandomColor,
-  getRandomGifByTerm,
   getRandomNum,
   makeApiCall,
   prepareEmbed,
@@ -15,17 +14,19 @@ module.exports = {
   args: false,
   async execute(msg, args) {
     // console.log(args);
+    const isLarge =
+      args.length && args[0].length && args[0].toLowerCase() === 'large';
     const apiUrl = kanyeApi();
     const kanyeData = await makeApiCall(apiUrl);
-    // const kanyeGif = await getRandomGifByTerm('kanye');
     const randomColor = getRandomColor();
+    const randomKanye = kanyeHeads[getRandomNum(kanyeHeads.length)];
     const kanyeEmbed = prepareEmbed({
-      command: this.name,
+      command: isLarge ? `${this.name} large` : this.name,
       msg,
       embedColor: randomColor,
       embedDescription: `**${kanyeData.quote}**`,
-      embedThumbnail: kanyeHeads[getRandomNum(kanyeHeads.length)],
-      // embedImage: kanyeHeads[getRandomNum(kanyeHeads.length)],
+      embedThumbnail: isLarge ? '' : randomKanye,
+      embedImage: isLarge ? randomKanye : '',
     });
     sendContent(msg, kanyeEmbed);
   },
