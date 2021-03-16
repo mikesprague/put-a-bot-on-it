@@ -66,9 +66,10 @@ client.setInterval(async () => {
     storageKey: 'fourTwentySent',
     greetingHour: 16,
     greetingMinute: 20,
-    sendToChannel: '755770945108574291',
+    sendToChannel: null,
+    sendToUser: '755770945108574291',
   });
-}, 360000);
+}, 60000);
 
 client.on('message', async (msg) => {
   try {
