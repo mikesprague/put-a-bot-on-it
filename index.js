@@ -60,7 +60,15 @@ client.setInterval(async () => {
     greetingHour: 16,
     greetingDay: 5,
   });
-}, 600000);
+  await initGreetingGif({
+    discordClient: client,
+    gifSearchTerm: '420',
+    storageKey: 'fourTwentySent',
+    greetingHour: 16,
+    greetingMinute: 20,
+    sendToChannel: '755770945108574291',
+  });
+}, 360000);
 
 client.on('message', async (msg) => {
   try {
