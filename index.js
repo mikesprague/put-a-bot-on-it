@@ -48,7 +48,8 @@ client.setInterval(async () => {
     discordClient: client,
     gifSearchTerm: 'happy hour',
     storageKey: 'happyHourSent',
-    greetingHour: 17,
+    greetingHour: 16,
+    greetingMinute: 30,
     greetingDay: '*',
     excludeDay: 5,
   });
