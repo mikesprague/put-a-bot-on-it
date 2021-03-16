@@ -18,7 +18,7 @@ module.exports = {
     const adviceEmbed = prepareEmbed({
       command: this.name,
       msg,
-      embedDescription: `**${apiData.slip.advice}**`,
+      embedDescription: apiData.slip.advice,
       embedColor: randomColor,
     });
     sendContent(msg, adviceEmbed);

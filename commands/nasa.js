@@ -21,7 +21,7 @@ module.exports = {
     // eslint-disable-next-line security/detect-object-injection
     const nasaData = isToday ? apiData : apiData[randomNum];
     const nasaEmbed = prepareEmbed({
-      command: this.name,
+      command: isToday ? `${this.name} today` : this.name,
       msg,
       embedColor: nasaColor,
       embedTtitle: nasaData.title,

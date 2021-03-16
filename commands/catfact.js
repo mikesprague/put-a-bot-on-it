@@ -24,7 +24,7 @@ module.exports = {
     const catFactEmbed = prepareEmbed({
       command: this.name,
       msg,
-      embedDescription: `**${catFact.text}**`,
+      embedDescription: catFact.text,
       embedImage: catGif,
       embedColor: randomColor,
     });

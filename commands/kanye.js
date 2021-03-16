@@ -24,7 +24,7 @@ module.exports = {
       command: isLarge ? `${this.name} large` : this.name,
       msg,
       embedColor: randomColor,
-      embedDescription: `**${kanyeData.quote}**`,
+      embedDescription: kanyeData.quote,
       embedThumbnail: isLarge ? '' : randomKanye,
       embedImage: isLarge ? randomKanye : '',
     });

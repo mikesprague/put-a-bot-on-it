@@ -17,11 +17,11 @@ module.exports = {
     const apiData = await makeApiCall(apiUrl);
 
     const xkcdEmbed = prepareEmbed({
-      command: this.name,
+      command: isToday ? `${this.name} today` : this.name,
       msg,
       embedTtitle: apiData.title,
       embedUrl: `https://xkcd.com/${apiData.num}`,
-      embedDescription: apiData.alt,
+      embedFooter: apiData.alt,
       embedImage: apiData.img,
     });
     sendContent(msg, xkcdEmbed);

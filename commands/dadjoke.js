@@ -14,7 +14,7 @@ module.exports = {
     const dadJokeEmbed = prepareEmbed({
       command: this.name,
       msg,
-      embedDescription: `**${apiData.joke}**`,
+      embedDescription: apiData.joke,
     });
     sendContent(msg, dadJokeEmbed);
   },
