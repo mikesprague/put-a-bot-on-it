@@ -29,10 +29,36 @@ client.on('ready', () => {
 });
 
 client.setInterval(async () => {
-  await initGreetingGif(client, 'morning greeting', 'greetingSent', 8, '*', 5);
-  await initGreetingGif(client, 'tgif', 'greetingSent', 8, 5);
-  await initGreetingGif(client, 'happy hour', 'happyHourSent', 17, '*', 5);
-  await initGreetingGif(client, 'happy hour', 'happyHourSent', 16, 5);
+  await initGreetingGif({
+    discordClient: client,
+    gifSearchTerm: 'morning greeting',
+    storageKey: 'greetingSent',
+    greetingHour: 8,
+    greetingDay: '*',
+    excludeDay: 5,
+  });
+  await initGreetingGif({
+    discordClient: client,
+    gifSearchTerm: 'tgif',
+    storageKey: 'greetingSent',
+    greetingHour: 8,
+    greetingDay: 5,
+  });
+  await initGreetingGif({
+    discordClient: client,
+    gifSearchTerm: 'happy hour',
+    storageKey: 'happyHourSent',
+    greetingHour: 17,
+    greetingDay: '*',
+    excludeDay: 5,
+  });
+  await initGreetingGif({
+    discordClient: client,
+    gifSearchTerm: 'happy hour',
+    storageKey: 'happyHourSent',
+    greetingHour: 16,
+    greetingDay: 5,
+  });
 }, 600000);
 
 client.on('message', async (msg) => {
