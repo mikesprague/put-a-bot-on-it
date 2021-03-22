@@ -118,4 +118,5 @@ dist
 # Misc
 .history
 .vercel
-
+local-storage/*
+!local-storage/.gitkeep
