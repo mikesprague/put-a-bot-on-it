@@ -49,7 +49,7 @@ client.setInterval(async () => {
     gifSearchTerm: 'happy hour',
     storageKey: 'happyHourSent',
     greetingHour: 16,
-    greetingMinute: 30,
+    greetingMinute: 58,
     greetingDay: '*',
     excludeDay: 5,
   });
@@ -66,7 +66,6 @@ client.setInterval(async () => {
     storageKey: 'fourTwentySent',
     greetingHour: 16,
     greetingMinute: 20,
-    sendToChannel: '776108364911345734',
   });
 }, 60000);
 
