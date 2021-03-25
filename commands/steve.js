@@ -27,7 +27,8 @@ module.exports = {
           : this.name
       }`,
       msg,
-      embedImage: steveGifs[randomNum].images.original.url,
+      // eslint-disable-next-line security/detect-object-injection
+      embedImage: steveGifs[randomNum].images.downsized.url,
       embedColor: randomColor,
     });
     sendContent(msg, steveEmbed);
