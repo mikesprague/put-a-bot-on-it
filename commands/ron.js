@@ -17,8 +17,11 @@ module.exports = {
       args.length && args[0].length && args[0].toLowerCase() === 'large';
     const apiUrl = ronSwansonApi();
     const apiData = await makeApiCall(apiUrl);
-    const allGifs = await getGifs('ron swanson', true);
-    const randomNum = getRandomNum(20);
+    const allGifs = await getGifs({
+      searchTerm: 'ron swanson',
+      stickerSearch: true,
+    });
+    const randomNum = getRandomNum(14);
     const randomColor = getRandomColor();
     const randomSticker = allGifs[randomNum].images.downsized.url;
     const embed = prepareEmbed({

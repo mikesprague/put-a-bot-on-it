@@ -17,7 +17,7 @@ module.exports = {
       args.length && args[0].length
         ? `steve harvey ${args.join(' ').toLowerCase()}`
         : 'steve harvey';
-    const steveGifs = await getGifs(searchTerm);
+    const steveGifs = await getGifs({ searchTerm });
     const randomNum = getRandomNum(steveGifs.length);
     const randomColor = getRandomColor();
     const steveEmbed = prepareEmbed({
