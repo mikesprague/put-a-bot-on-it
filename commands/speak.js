@@ -8,8 +8,7 @@ module.exports = {
   async execute(msg, args) {
     // console.log(args);
     const randonNum = getRandomNum(speakStrings.length);
-    // eslint-disable-next-line security/detect-object-injection
-    const randomMsg = speakStrings[randonNum];
+    const randomMsg = speakStrings[Number(randonNum)];
     msg.channel.send({ tts: true, content: randomMsg });
   },
 };

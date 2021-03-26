@@ -23,13 +23,12 @@ module.exports = {
     });
     const randomNum = getRandomNum(14);
     const randomColor = getRandomColor();
-    const randomSticker = allGifs[randomNum].images.downsized.url;
+    const randomSticker = allGifs[Number(randomNum)].images.downsized.url;
     const embed = prepareEmbed({
       command: isLarge ? `${this.name} large` : this.name,
       msg,
       embedColor: randomColor,
       embedDescription: apiData[0],
-      // eslint-disable-next-line security/detect-object-injection
       embedImage: isLarge ? randomSticker : '',
       embedThumbnail: isLarge ? '' : randomSticker,
     });

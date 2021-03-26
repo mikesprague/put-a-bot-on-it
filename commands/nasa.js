@@ -18,8 +18,7 @@ module.exports = {
     const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
     const randomNum = getRandomNum(apiData.length);
     const nasaColor = '#113991';
-    // eslint-disable-next-line security/detect-object-injection
-    const nasaData = isToday ? apiData : apiData[randomNum];
+    const nasaData = isToday ? apiData : apiData[Number(randomNum)];
     const nasaEmbed = prepareEmbed({
       command: isToday ? `${this.name} today` : this.name,
       msg,

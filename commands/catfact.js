@@ -19,8 +19,7 @@ module.exports = {
     const catGif = await getRandomGifByTerm('cat');
     const randomNum = getRandomNum(apiData.length);
     const randomColor = getRandomColor();
-    // eslint-disable-next-line security/detect-object-injection
-    const catFact = apiData[randomNum];
+    const catFact = apiData[Number(randomNum)];
     const catFactEmbed = prepareEmbed({
       command: this.name,
       msg,

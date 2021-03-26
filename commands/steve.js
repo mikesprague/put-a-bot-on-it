@@ -11,8 +11,6 @@ module.exports = {
   args: false,
   description: 'Random Steve Harvey gif',
   async execute(msg, args) {
-    // console.log(args);
-    // const hasTerm = args.length && args[0].length;
     const searchTerm =
       args.length && args[0].length
         ? `steve harvey ${args.join(' ').toLowerCase()}`
@@ -27,8 +25,7 @@ module.exports = {
           : this.name
       }`,
       msg,
-      // eslint-disable-next-line security/detect-object-injection
-      embedImage: steveGifs[randomNum].images.downsized.url,
+      embedImage: steveGifs[Number(randomNum)].images.downsized.url,
       embedColor: randomColor,
     });
     sendContent(msg, steveEmbed);
