@@ -13,18 +13,22 @@ module.exports = {
   description: 'Random Ron Swanson quote',
   args: false,
   async execute(msg, args) {
+    const isLarge =
+      args.length && args[0].length && args[0].toLowerCase() === 'large';
     const apiUrl = ronSwansonApi();
     const apiData = await makeApiCall(apiUrl);
-    const allGifs = await getGifs('ron swanson');
-    const randomNum = getRandomNum(allGifs.length);
+    const allGifs = await getGifs('ron swanson', true);
+    const randomNum = getRandomNum(20);
     const randomColor = getRandomColor();
+    const randomSticker = allGifs[randomNum].images.downsized.url;
     const embed = prepareEmbed({
-      command: this.name,
+      command: isLarge ? `${this.name} large` : this.name,
       msg,
       embedColor: randomColor,
       embedDescription: apiData[0],
       // eslint-disable-next-line security/detect-object-injection
-      embedImage: allGifs[randomNum].images.downsized.url,
+      embedImage: isLarge ? randomSticker : '',
+      embedThumbnail: isLarge ? '' : randomSticker,
     });
     sendContent(msg, embed);
   },
