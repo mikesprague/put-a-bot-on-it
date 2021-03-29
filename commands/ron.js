@@ -12,9 +12,11 @@ module.exports = {
   name: 'ron',
   description: 'Random Ron Swanson quote',
   args: false,
+  aliases: ['ronswanson', 'swanson'],
   async execute(msg, args) {
+    const argAliases = ['large', 'full'];
     const isLarge =
-      args.length && args[0].length && args[0].toLowerCase() === 'large';
+      args.length && argAliases.includes(args[0].trim().toLowerCase());
     const apiUrl = ronSwansonApi();
     const apiData = await makeApiCall(apiUrl);
     const allGifs = await getGifs({

@@ -10,13 +10,14 @@ const { catFactsApi } = require('../lib/urls');
 
 module.exports = {
   name: 'catfact',
+  aliases: ['cat'],
   description: 'Random fact from the Cat Facts API',
   args: false,
   async execute(msg, args) {
     // console.log(args);
     const apiUrl = catFactsApi();
     const apiData = await makeApiCall(apiUrl);
-    const catGif = await getRandomGifByTerm('cat');
+    const catGif = await getRandomGifByTerm('cat', false);
     const randomNum = getRandomNum(apiData.length);
     const randomColor = getRandomColor();
     const catFact = apiData[Number(randomNum)];

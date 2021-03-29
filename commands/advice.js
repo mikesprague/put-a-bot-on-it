@@ -15,10 +15,11 @@ module.exports = {
     const apiUrl = adviceApi();
     const apiData = await makeApiCall(apiUrl);
     const randomColor = getRandomColor();
+    const adviceContent = apiData.slip.advice;
     const adviceEmbed = prepareEmbed({
       command: this.name,
       msg,
-      embedDescription: apiData.slip.advice,
+      embedDescription: adviceContent,
       embedColor: randomColor,
     });
     sendContent(msg, adviceEmbed);

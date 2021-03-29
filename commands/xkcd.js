@@ -11,13 +11,15 @@ module.exports = {
   description: 'Get curent or random XKCD comic',
   args: false,
   async execute(msg, args) {
-    const isToday = args.length && args[0].toLowerCase() === 'today';
+    const argAliases = ['current', 'today'];
+    const arg = args[0].trim().toLowerCase();
+    const isCurrent = args.length && argAliases.includes(arg);
     const randumComicNum = getRandomNum(2430);
-    const apiUrl = isToday ? xkcdApi() : xkcdApi(randumComicNum);
+    const apiUrl = isCurrent ? xkcdApi() : xkcdApi(randumComicNum);
     const apiData = await makeApiCall(apiUrl);
 
     const xkcdEmbed = prepareEmbed({
-      command: isToday ? `${this.name} today` : this.name,
+      command: isCurrent ? `${this.name} ${arg}` : this.name,
       msg,
       embedTtitle: apiData.title,
       embedUrl: `https://xkcd.com/${apiData.num}`,

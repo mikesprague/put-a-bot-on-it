@@ -10,12 +10,14 @@ const { kanyeApi } = require('../lib/urls');
 
 module.exports = {
   name: 'kanye',
+  aliases: ['kanyewest'],
   description: 'Random Kanye West quote from https://kanye.rest',
   args: false,
   async execute(msg, args) {
     // console.log(args);
+    const argAliases = ['large', 'full'];
     const isLarge =
-      args.length && args[0].length && args[0].toLowerCase() === 'large';
+      args.length && argAliases.includes(args[0].trim().toLowerCase());
     const apiUrl = kanyeApi();
     const kanyeData = await makeApiCall(apiUrl);
     const randomColor = getRandomColor();

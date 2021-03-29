@@ -3,6 +3,7 @@ const { speakStrings } = require('../lib/lists');
 
 module.exports = {
   name: 'speak',
+  aliases: ['talk'],
   description: 'Make Bird Bot say something',
   args: false,
   async execute(msg, args) {
