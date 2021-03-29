@@ -24,7 +24,6 @@ module.exports = {
       embedImage: steveGifs[Number(randomNum)].images.original.url,
       embedColor: randomColor,
     });
-    // sendContent(msg, steveEmbed);
-    msg.edit(steveGifs[Number(randomNum)].images.original.url);
+    sendContent(msg, steveEmbed);
   },
 };
