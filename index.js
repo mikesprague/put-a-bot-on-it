@@ -73,20 +73,25 @@ client.on('message', async (msg) => {
   try {
     await initEasterEggs(msg);
   } catch (error) {
-    console.error('💀 There was an error with an easter egg\n', error);
+    console.error('💀 There was an error with an easter egg: \n', error);
   }
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
-  if (!client.commands.has(commandName)) return;
-
-  const command = client.commands.get(commandName);
-  if (command.args && !args.length) {
-    msg.channel.send(`🐦💬 You didn't provide any arguments, ${msg.author}!`);
+  const command =
+    client.commands.get(commandName) ||
+    client.commands.find(
+      (cmd) => cmd.aliases && cmd.aliases.includes(commandName),
+    );
+  
+    if (!command) return;
+  
+    if (command.args && !args.length) {
+    msg.reply(`⚠ You didn't provide the required arguments!`);
   }
-
+  
   try {
     await command.execute(msg, args);
   } catch (error) {
