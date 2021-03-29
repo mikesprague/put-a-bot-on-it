@@ -10,6 +10,7 @@ const { DISCORD_BOT_TOKEN } = process.env;
 
 const { prefix } = require('./config.json');
 const { birdLog } = require('./lib/helpers');
+const { initReactons } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
 const client = new Discord.Client();
@@ -75,8 +76,15 @@ client.on('message', async (msg) => {
   } catch (error) {
     console.error('💀 There was an error with an easter egg: \n', error);
   }
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  
+  try {
+    await initReactons(msg);
+  } catch (error) {
+    console.error('💀 There was an error with a reaction: \n', error);
+  }
 
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
