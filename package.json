@@ -21,7 +21,7 @@
     "@nastyox/rando.js": "^2.0.5",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
-    "discord.js": "^12.5.2",
+    "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "level": "^6.0.1",
     "node-localstorage": "^2.1.6",
