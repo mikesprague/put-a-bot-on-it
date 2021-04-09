@@ -3,7 +3,6 @@ const { dadJokeApi } = require('../lib/urls');
 
 module.exports = {
   name: 'dadjoke',
-  aliases: ['joke'],
   description: 'Get random dad joke from an API',
   args: false,
   async execute(msg, args) {
