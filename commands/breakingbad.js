@@ -10,6 +10,7 @@ const { breakingBadQuotesApi } = require('../lib/urls');
 
 module.exports = {
   name: 'breakingbad',
+  aliases: ['bbad'],
   description: 'Random Breaking Bad quote',
   args: false,
   async execute(msg, args) {
@@ -35,7 +36,7 @@ module.exports = {
       command: isLarge ? `${this.name} large` : this.name,
       msg,
       embedColor: randomColor,
-      embedDescription: `${apiData[0].quote}\n - ${apiData[0].author}`,
+      embedDescription: `${apiData[0].quote}\n\n - ${apiData[0].author}`,
       embedImage: isLarge ? randomSticker : '',
       embedThumbnail: isLarge ? '' : randomSticker,
     });
