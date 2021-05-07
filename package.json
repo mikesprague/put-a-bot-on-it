@@ -22,7 +22,7 @@
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "discord.js": "^12.5.3",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.0",
     "level": "^7.0.0",
     "node-localstorage": "^2.1.6",
     "randomcolor": "^0.6.2"
