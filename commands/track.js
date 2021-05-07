@@ -1,4 +1,4 @@
-const { makeApiCall } = require('../lib/helpers');
+const { makeApiCall, prepareEmbed, sendContent } = require('../lib/helpers');
 const { packagePlaceApi } = require('../lib/urls');
 
 module.exports = {
@@ -21,9 +21,15 @@ module.exports = {
         typeof latestUpdate.location === 'object'
           ? `${latestUpdate.location.city} ${latestUpdate.location.state}`
           : latestUpdate.location;
-      msg.channel.send(`**Status:** ${latestUpdate.status}
+      const trackingData = `**Status:** ${latestUpdate.status}
 **Last Location:** ${locationString}
-**Timestamp:** ${latestUpdate.timestamp}`);
+**Timestamp:** ${latestUpdate.timestamp}`;
+      const trackingEmbed = prepareEmbed({
+        command: `${this.name} ${trackingId}`,
+        msg,
+        embedDescription: trackingData,
+      });
+      sendContent(msg, trackingEmbed);
     } else {
       msg.channel.send('**Status:** Unknown, try again later');
     }
