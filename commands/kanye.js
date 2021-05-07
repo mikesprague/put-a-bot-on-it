@@ -10,7 +10,7 @@ const { kanyeApi } = require('../lib/urls');
 
 module.exports = {
   name: 'kanye',
-  aliases: ['kanyewest'],
+  aliases: ['kanyewest', 'kayne'],
   description: 'Random Kanye West quote from https://kanye.rest',
   args: false,
   async execute(msg, args) {
