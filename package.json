@@ -20,7 +20,7 @@
   "dependencies": {
     "@nastyox/rando.js": "^2.0.5",
     "axios": "^0.21.1",
-    "dayjs": "^1.10.5",
+    "dayjs": "^1.10.6",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "level": "^7.0.0",
