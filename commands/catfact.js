@@ -16,7 +16,10 @@ module.exports = {
   async execute(msg, args) {
     // console.log(args);
     const apiUrl = catFactsApi();
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = await makeApiCall(apiUrl, 'GET', {
+      Accept: 'application/json',
+      'User-Agent': 'BirdBot (Discord.js bot on private server)',
+    }).then((response) => response.data);
     const catGif = await getRandomGifByTerm('cat', false);
     const randomNum = getRandomNum(apiData.length);
     const randomColor = getRandomColor();
@@ -24,7 +27,7 @@ module.exports = {
     const catFactEmbed = prepareEmbed({
       command: this.name,
       msg,
-      embedDescription: catFact.text,
+      embedDescription: catFact.fact,
       embedImage: catGif,
       embedColor: randomColor,
     });
