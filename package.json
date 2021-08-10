@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": ">= 14.x",
+    "node": ">= 16.6.x",
     "npm": ">= 7.x",
     "yarn": ">= 1.22.x"
   },
@@ -21,7 +21,7 @@
     "@nastyox/rando.js": "^2.0.5",
     "axios": "^0.21.1",
     "dayjs": "^1.10.6",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.0.1",
     "dotenv": "^10.0.0",
     "level": "^7.0.0",
     "node-localstorage": "^2.2.1",
