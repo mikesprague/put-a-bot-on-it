@@ -51,7 +51,7 @@
     "prettier": "^2.3.2",
     "prettier-eslint": "^13.0.0",
     "typescript": "^4.3.5",
-    "webpack": "^5.49.0"
+    "webpack": "^5.50.0"
   },
   "babel": {
     "plugins": [
