@@ -2,7 +2,7 @@ const {
   getRandomNum,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { nasaApi } = require('../lib/urls');
 
@@ -30,6 +30,6 @@ module.exports = {
       embedUrl: nasaData.hdurl || nasaData.url,
       embedImage: nasaData.url,
     });
-    sendContent(msg, nasaEmbed);
+    sendEmbed(msg, nasaEmbed);
   },
 };

@@ -4,7 +4,7 @@ const {
   getRandomNum,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { catFactsApi } = require('../lib/urls');
 
@@ -28,6 +28,6 @@ module.exports = {
       embedImage: catGif,
       embedColor: randomColor,
     });
-    sendContent(msg, catFactEmbed);
+    sendEmbed(msg, catFactEmbed);
   },
 };

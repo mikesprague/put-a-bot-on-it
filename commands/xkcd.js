@@ -2,7 +2,7 @@ const {
   getRandomNum,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { xkcdApi } = require('../lib/urls');
 
@@ -26,6 +26,6 @@ module.exports = {
       embedFooter: apiData.alt,
       embedImage: apiData.img,
     });
-    sendContent(msg, xkcdEmbed);
+    sendEmbed(msg, xkcdEmbed);
   },
 };

@@ -4,7 +4,7 @@ const {
   getRandomNum,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { ronSwansonApi } = require('../lib/urls');
 
@@ -34,6 +34,6 @@ module.exports = {
       embedImage: isLarge ? randomSticker : '',
       embedThumbnail: isLarge ? '' : randomSticker,
     });
-    sendContent(msg, embed);
+    sendEmbed(msg, embed);
   },
 };

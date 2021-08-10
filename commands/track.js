@@ -1,4 +1,4 @@
-const { makeApiCall, prepareEmbed, sendContent } = require('../lib/helpers');
+const { makeApiCall, prepareEmbed, sendEmbed } = require('../lib/helpers');
 const { packagePlaceApi } = require('../lib/urls');
 
 module.exports = {
@@ -29,9 +29,9 @@ module.exports = {
         msg,
         embedDescription: trackingData,
       });
-      sendContent(msg, trackingEmbed);
+      sendEmbed(msg, trackingEmbed);
     } else {
-      msg.channel.send('**Status:** Unknown, try again later');
+      msg.channel.send({ content: '**Status:** Unknown, try again later' });
     }
   },
 };

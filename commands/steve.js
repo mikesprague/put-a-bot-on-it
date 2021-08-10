@@ -3,7 +3,7 @@ const {
   getRandomNum,
   getGifs,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 
 module.exports = {
@@ -24,6 +24,6 @@ module.exports = {
       embedImage: steveGifs[Number(randomNum)].images.original.url,
       embedColor: randomColor,
     });
-    sendContent(msg, steveEmbed);
+    sendEmbed(msg, steveEmbed);
   },
 };

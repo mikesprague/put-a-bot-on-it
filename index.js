@@ -13,7 +13,9 @@ const { birdLog } = require('./lib/helpers');
 const { initReactons } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
-const client = new Discord.Client();
+const client = new Discord.Client({
+  intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES],
+});
 client.commands = new Discord.Collection();
 
 const commandFiles = fs
@@ -29,7 +31,7 @@ client.on('ready', () => {
   birdLog('Bird Bot is online');
 });
 
-client.setInterval(async () => {
+setInterval(async () => {
   await initGreetingGif({
     discordClient: client,
     gifSearchTerm: 'morning greeting',

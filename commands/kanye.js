@@ -3,7 +3,7 @@ const {
   getRandomNum,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { kanyeHeads } = require('../lib/lists');
 const { kanyeApi } = require('../lib/urls');
@@ -30,6 +30,6 @@ module.exports = {
       embedThumbnail: isLarge ? '' : randomKanye,
       embedImage: isLarge ? randomKanye : '',
     });
-    sendContent(msg, kanyeEmbed);
+    sendEmbed(msg, kanyeEmbed);
   },
 };

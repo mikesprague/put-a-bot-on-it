@@ -2,7 +2,7 @@ const {
   getRandomColor,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { adviceApi } = require('../lib/urls');
 
@@ -22,6 +22,6 @@ module.exports = {
       embedDescription: adviceContent,
       embedColor: randomColor,
     });
-    sendContent(msg, adviceEmbed);
+    sendEmbed(msg, adviceEmbed);
   },
 };

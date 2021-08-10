@@ -2,7 +2,7 @@ const {
   getRandomColor,
   makeApiCall,
   prepareEmbed,
-  sendContent,
+  sendEmbed,
 } = require('../lib/helpers');
 const { evilInsultApi } = require('../lib/urls');
 
@@ -21,6 +21,6 @@ module.exports = {
       embedDescription: apiData.insult,
       embedColor: randomColor,
     });
-    sendContent(msg, embed);
+    sendEmbed(msg, embed);
   },
 };
