@@ -4,12 +4,15 @@
   "build": {
     "dockerfile": "Dockerfile",
     // Update 'VARIANT' to pick a Node version: 12, 14, 16
-    "args": { "VARIANT": "16" }
+    "args": {
+      "VARIANT": "16"
+    }
   },
 
   // Set *default* container specific settings.json values on container create.
   "settings": {
-    "terminal.integrated.shell.linux": "/bin/zsh"
+    "git.enableCommitSigning": true,
+    "terminal.integrated.defaultProfile.linux": "zsh"
   },
 
   // Add the IDs of extensions you want installed when the container is created.
@@ -116,6 +119,7 @@
     "urbantrout.refactor-css",
     "vincaslt.highlight-matching-tag",
     "VisualStudioExptTeam.vscodeintellicode",
+    "vscode-icons-team.vscode-icons",
     "waderyan.gitblame",
     "WallabyJs.quokka-vscode",
     "wayou.vscode-todo-highlight",
