@@ -3,6 +3,16 @@
     "path": "."
   }],
   "settings": {
-    "cflint.enabled": false
+    "cflint.enabled": false,
+    "stylelint.validate": [
+      "css",
+      "html",
+      "less",
+      "postcss",
+      "sass",
+      "scss",
+      "source.css.styled",
+      "styled-css"
+    ]
   }
 }
