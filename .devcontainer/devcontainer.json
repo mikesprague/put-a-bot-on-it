@@ -12,7 +12,7 @@
   // Set *default* container specific settings.json values on container create.
   "settings": {
     "git.enableCommitSigning": true,
-    "terminal.integrated.defaultProfile.linux": "zsh"
+    "terminal.integrated.defaultProfile.linux": "zsh",
   },
 
   // Add the IDs of extensions you want installed when the container is created.
@@ -121,7 +121,6 @@
     "VisualStudioExptTeam.vscodeintellicode",
     "vscode-icons-team.vscode-icons",
     "waderyan.gitblame",
-    "WallabyJs.quokka-vscode",
     "wayou.vscode-todo-highlight",
     "wiggin77.codedox",
     "wix.vscode-import-cost",
@@ -193,15 +192,16 @@
     // "vsls-contrib.gistfs",
     // "vsls-contrib.spaces",
     // "WakaTime.vscode-wakatime",
+    // "WallabyJs.quokka-vscode",
     // "WASTeamAccount.WebTemplateStudio-dev-nightly",
     // "wmaurer.vscode-jumpy",
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000]
+  "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "yarn install",
+  "postCreateCommand": "yarn",
 
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   // "remoteUser": "node"
