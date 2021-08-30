@@ -39,10 +39,14 @@ RUN rm -rf /root/.oh-my-zsh \
 RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --depth=0"\n' >> ~/.zshrc \
   && echo '\nalias aptupdate="sudo apt update && sudo apt upgrade"\n' >> ~/.zshrc \
   && echo '\nalias alias ncud="ncu --dep dev -u && yarn"\nalias ncup="ncu --dep prod -u && yarn"\n' >> ~/.zshrc \
+  && echo '\nalias botrestart=heroku ps:restart --app put-a-bot-on-it' >> ~/.zshrc \
+  && echo '\nalias botlogs=heroku logs --tail --app put-a-bot-on-it --force-colors' >> ~/.zshrc \
   && echo '\n\nexport LS_COLORS="su=00:sg=00:ca=00:ow=01;36;40"\n' >> ~/.zshrc \
   && echo '\nzstyle ":completion:*" list-colors "${(@s.:.)LS_COLORS}"\n' >> ~/.zshrc \
   && echo '\neval "$(gh completion --shell zsh)"\n' >> ~/.zshrc \
   && git config  --global --add alias.st status \
+  && git config  --global --add alias.br branch \
+  && git config  --global --add alias.co checkout \
   && git config --global --add alias.lsd 'log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate' \
   && git config --global --add commit.gpgsign true \
   && git config --global --add tag.gpgsign true \
