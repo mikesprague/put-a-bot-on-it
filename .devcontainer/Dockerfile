@@ -6,6 +6,9 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends software-properties-common git curl wget zip unzip git jq nano vim zsh
 
+# install heroku cli
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
 # install github cli
 RUN export DEBIAN_FRONTEND=noninteractive \
   && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -29,8 +32,8 @@ RUN rm -rf /root/.oh-my-zsh \
   && git clone --quiet https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions \
   && sed -i 's/ZSH_THEME="robbyrussell"/# ZSH_THEME="robbyrussell"/g' ~/.zshrc \
   && sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc \
-  && sed -i 's/plugins=(git)/plugins=(git zsh-completions zsh-autosuggestions npm yarn)/g' ~/.zshrc \
-  && sed -i '/plugins=(git zsh-completions zsh-autosuggestions npm yarn)/a autoload -U compinit && compinit' ~/.zshrc
+  && sed -i 's/plugins=(git)/plugins=(git zsh-completions zsh-autosuggestions npm yarn heroku)/g' ~/.zshrc \
+  && sed -i '/plugins=(git zsh-completions zsh-autosuggestions npm yarn heroku)/a autoload -U compinit && compinit' ~/.zshrc
 
 # set some shell aliases and options and set some git aliases and options
 RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --depth=0"\n' >> ~/.zshrc \
