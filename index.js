@@ -72,7 +72,7 @@ setInterval(async () => {
   });
 }, 60000);
 
-client.on('message', async (msg) => {
+client.on('messageCreate', async (msg) => {
   try {
     await initEasterEggs(msg);
   } catch (error) {
