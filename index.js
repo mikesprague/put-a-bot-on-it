@@ -77,15 +77,17 @@ client.on('messageCreate', async (msg) => {
   } catch (error) {
     console.error('💀 There was an error with an easter egg: \n', error);
   }
-  
+
   try {
     await initReactons(msg);
   } catch (error) {
     console.error('💀 There was an error with a reaction: \n', error);
   }
 
-  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
-  
+  if (!msg.content.startsWith(prefix) || msg.author.bot) {
+    return;
+  }
+
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
@@ -94,13 +96,15 @@ client.on('messageCreate', async (msg) => {
     client.commands.find(
       (cmd) => cmd.aliases && cmd.aliases.includes(commandName),
     );
-  
-    if (!command) return;
-  
-    if (command.args && !args.length) {
+
+  if (!command) {
+    return;
+  }
+
+  if (command.args && !args.length) {
     msg.reply(`⚠ You didn't provide the required arguments!`);
   }
-  
+
   try {
     await command.execute(msg, args);
   } catch (error) {
