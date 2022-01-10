@@ -16,6 +16,7 @@ const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 client.commands = new Collection();
+client.slashCommands = new Collection();
 
 const commandFiles = fs
   .readdirSync('./commands')
@@ -26,8 +27,37 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
+const slashCommandFiles = fs
+  .readdirSync('./slash-commands')
+  .filter((file) => file.endsWith('.js'));
+
+for (const file of slashCommandFiles) {
+  const slashCommand = require(`./slash-commands/${file}`);
+  client.slashCommands.set(slashCommand.data.name, slashCommand);
+}
+
 client.on('ready', () => {
   birdLog('Bird Bot is online');
+});
+
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) {
+    return;
+  }
+  const slashCommand = client.slashCommands.get(interaction.commandName);
+  if (!slashCommand) {
+    return;
+  }
+
+  try {
+    await slashCommand.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({
+      content: '💀 There was an error while executing this slash command!',
+      ephemeral: true,
+    });
+  }
 });
 
 setInterval(async () => {
