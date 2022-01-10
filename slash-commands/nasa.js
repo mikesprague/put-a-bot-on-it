@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const {
   getRandomNum,
   makeApiCall,
@@ -10,26 +11,28 @@ module.exports = {
   name: 'nasa',
   description: 'Get curent or random NASA media of the day',
   args: false,
-  async execute(msg, args) {
+  data: new SlashCommandBuilder()
+    .setName('nasa')
+    .setDescription('Get curent or random NASA media of the day')
+    .addBooleanOption((option) =>
+      option.setName('today').setDescription('True for today/Fasle for random'),
+    ),
+  async execute(interaction) {
     const { NASA_API_KEY } = process.env;
     const apiURLBase = nasaApi(NASA_API_KEY);
-    const argAliases = ['today', 'current'];
-    const arg = args[0].trim().toLowerCase();
-    const isToday = args.length && argAliases.includes(arg);
+    const isToday = interaction.options.getBoolean('today');
     const apiUrlSuffix = isToday ? '' : '&count=50';
     const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
     const randomNum = getRandomNum(apiData.length);
     const nasaColor = '#113991';
     const nasaData = isToday ? apiData : apiData[Number(randomNum)];
     const nasaEmbed = prepareEmbed({
-      command: isToday ? `${this.name} ${arg}` : this.name,
-      msg,
       embedColor: nasaColor,
       embedTtitle: nasaData.title,
       embedDescription: nasaData.explanation,
       embedUrl: nasaData.hdurl || nasaData.url,
       embedImage: nasaData.url,
     });
-    sendEmbed(msg, nasaEmbed);
+    sendEmbed(interaction, nasaEmbed);
   },
 };
