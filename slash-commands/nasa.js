@@ -8,14 +8,11 @@ const {
 const { nasaApi } = require('../lib/urls');
 
 module.exports = {
-  name: 'nasa',
-  description: 'Get curent or random NASA media of the day',
-  args: false,
   data: new SlashCommandBuilder()
     .setName('nasa')
     .setDescription('Get curent or random NASA media of the day')
     .addBooleanOption((option) =>
-      option.setName('today').setDescription('True for today/Fasle for random'),
+      option.setName('today').setDescription('True for today/False for random'),
     ),
   async execute(interaction) {
     const { NASA_API_KEY } = process.env;
