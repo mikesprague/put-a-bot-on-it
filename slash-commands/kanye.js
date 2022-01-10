@@ -1,6 +1,7 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const {
-  getRandomColor,
   getRandomNum,
+  getRandomColor,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
@@ -9,27 +10,26 @@ const { kanyeHeads } = require('../lib/lists');
 const { kanyeApi } = require('../lib/urls');
 
 module.exports = {
-  name: 'kanye',
-  aliases: ['kanyewest', 'kayne'],
-  description: 'Random Kanye West quote from https://kanye.rest',
-  args: false,
-  async execute(msg, args) {
-    // console.log(args);
-    const argAliases = ['large', 'full'];
-    const isLarge =
-      args.length && argAliases.includes(args[0].trim().toLowerCase());
+  data: new SlashCommandBuilder()
+    .setName('kanye')
+    .setDescription('Random Kanye West quote from https://kanye.rest')
+    .addBooleanOption((option) =>
+      option.setName('large').setDescription('Use large gif?'),
+    ),
+  async execute(interaction) {
+    const isLarge = interaction.options.getBoolean('large');
     const apiUrl = kanyeApi();
-    const kanyeData = await makeApiCall(apiUrl);
     const randomColor = getRandomColor();
+    const kanyeData = await makeApiCall(apiUrl);
     const randomKanye = kanyeHeads[getRandomNum(kanyeHeads.length)];
     const kanyeEmbed = prepareEmbed({
       command: isLarge ? `${this.name} large` : this.name,
-      msg,
+      interaction,
       embedColor: randomColor,
       embedDescription: kanyeData.quote,
       embedThumbnail: isLarge ? '' : randomKanye,
       embedImage: isLarge ? randomKanye : '',
     });
-    sendEmbed(msg, kanyeEmbed);
+    return sendEmbed(interaction, kanyeEmbed);
   },
 };
