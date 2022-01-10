@@ -47,7 +47,6 @@
     "eslint-plugin-compat": "^4.0.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-security": "^1.4.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "prettier-eslint": "^13.0.0",
@@ -86,15 +85,13 @@
     },
     "extends": [
       "airbnb-base",
-      "plugin:security/recommended",
       "prettier"
     ],
     "plugins": [
       "babel",
       "compat",
       "import",
-      "prettier",
-      "security"
+      "prettier"
     ],
     "parserOptions": {
       "parser": "babel-eslint",
