@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const {
   getRandomColor,
   getRandomGifByTerm,
@@ -9,12 +10,10 @@ const {
 const { catFactsApi } = require('../lib/urls');
 
 module.exports = {
-  name: 'catfact',
-  aliases: ['cat'],
-  description: 'Random fact from the Cat Facts API',
-  args: false,
-  async execute(msg, args) {
-    // console.log(args);
+  data: new SlashCommandBuilder()
+    .setName('catfact')
+    .setDescription('Random fact from the Cat Facts API'),
+  async execute(interaction) {
     const apiUrl = catFactsApi();
     const apiData = await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
@@ -26,11 +25,11 @@ module.exports = {
     const catFact = apiData[Number(randomNum)];
     const catFactEmbed = prepareEmbed({
       command: this.name,
-      msg,
+      interaction,
       embedDescription: catFact.fact,
       embedImage: catGif,
       embedColor: randomColor,
     });
-    sendEmbed(msg, catFactEmbed);
+    return sendEmbed(interaction, catFactEmbed);
   },
 };
