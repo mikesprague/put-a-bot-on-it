@@ -28,8 +28,6 @@ module.exports = {
     const randomColor = getRandomColor();
     const randomSticker = allGifs[Number(randomNum)].images.downsized.url;
     const embed = prepareEmbed({
-      command: isLarge ? `${this.name} large` : this.name,
-      interaction,
       embedColor: randomColor,
       embedDescription: apiData[0],
       embedImage: isLarge ? randomSticker : '',

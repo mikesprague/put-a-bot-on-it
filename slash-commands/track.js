@@ -37,13 +37,11 @@ module.exports = {
 **Last Location:** ${locationString}
 **Timestamp:** ${latestUpdate.timestamp}`;
       const trackingEmbed = prepareEmbed({
-        command: `${this.name} ${trackingId}`,
-        interaction,
         embedDescription: trackingData,
       });
       sendEmbed(interaction, trackingEmbed);
     } else {
-      sendContent(interaction, '**Status:** Unknown, try again later');
+      sendContent(interaction, '**Status:** Unavailable, try again later');
     }
   },
 };

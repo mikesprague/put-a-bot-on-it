@@ -24,8 +24,6 @@ module.exports = {
     const randomColor = getRandomColor();
     const catFact = apiData[Number(randomNum)];
     const catFactEmbed = prepareEmbed({
-      command: this.name,
-      interaction,
       embedDescription: catFact.fact,
       embedImage: catGif,
       embedColor: randomColor,

@@ -23,8 +23,6 @@ module.exports = {
     const kanyeData = await makeApiCall(apiUrl);
     const randomKanye = kanyeHeads[getRandomNum(kanyeHeads.length)];
     const kanyeEmbed = prepareEmbed({
-      command: isLarge ? `${this.name} large` : this.name,
-      interaction,
       embedColor: randomColor,
       embedDescription: kanyeData.quote,
       embedThumbnail: isLarge ? '' : randomKanye,
