@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-/* eslint-disable security/detect-non-literal-require */
-const Discord = require('discord.js');
+const { Client, Intents, Collection } = require('discord.js');
 const fs = require('fs');
 
 require('dotenv').config();
@@ -13,10 +12,10 @@ const { birdLog } = require('./lib/helpers');
 const { initReactons } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
-const client = new Discord.Client({
-  intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES],
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 
 const commandFiles = fs
   .readdirSync('./commands')
