@@ -10,8 +10,7 @@ module.exports = {
   name: 'advice',
   description: 'Get random advice from an API',
   args: false,
-  async execute(msg, args) {
-    // console.log(args);
+  async execute(msg) {
     const apiUrl = adviceApi();
     const apiData = await makeApiCall(apiUrl);
     const randomColor = getRandomColor();
