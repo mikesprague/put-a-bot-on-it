@@ -19,9 +19,11 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
     "@nastyox/rando.js": "^2.0.5",
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
+    "discord-api-types": "^0.26.1",
     "discord.js": "^13.5.1",
     "dotenv": "^10.0.0",
     "level": "^7.0.1",
