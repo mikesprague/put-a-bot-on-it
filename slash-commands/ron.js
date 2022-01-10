@@ -35,6 +35,6 @@ module.exports = {
       embedImage: isLarge ? randomSticker : '',
       embedThumbnail: isLarge ? '' : randomSticker,
     });
-    sendEmbed(interaction, embed);
+    return sendEmbed(interaction, embed);
   },
 };
