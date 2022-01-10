@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const {
   getGifs,
   getRandomColor,
@@ -9,14 +10,14 @@ const {
 const { ronSwansonApi } = require('../lib/urls');
 
 module.exports = {
-  name: 'ron',
-  description: 'Random Ron Swanson quote',
-  args: false,
-  aliases: ['ronswanson', 'swanson'],
-  async execute(msg, args) {
-    const argAliases = ['large', 'full'];
-    const isLarge =
-      args.length && argAliases.includes(args[0].trim().toLowerCase());
+  data: new SlashCommandBuilder()
+    .setName('ron')
+    .setDescription('Random Ron Swanson quote and gif')
+    .addBooleanOption((option) =>
+      option.setName('large').setDescription('Use large gif?'),
+    ),
+  async execute(interaction) {
+    const isLarge = interaction.options.getBoolean('large');
     const apiUrl = ronSwansonApi();
     const apiData = await makeApiCall(apiUrl);
     const allGifs = await getGifs({
@@ -28,12 +29,12 @@ module.exports = {
     const randomSticker = allGifs[Number(randomNum)].images.downsized.url;
     const embed = prepareEmbed({
       command: isLarge ? `${this.name} large` : this.name,
-      msg,
+      interaction,
       embedColor: randomColor,
       embedDescription: apiData[0],
       embedImage: isLarge ? randomSticker : '',
       embedThumbnail: isLarge ? '' : randomSticker,
     });
-    sendEmbed(msg, embed);
+    sendEmbed(interaction, embed);
   },
 };
