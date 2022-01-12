@@ -6,6 +6,7 @@ const {
   makeApiCall,
   prepareEmbed,
   sendEmbed,
+  getCustomEmojiCode,
 } = require('../lib/helpers');
 const { trumpApi } = require('../lib/urls');
 
@@ -19,11 +20,12 @@ module.exports = {
     const topicGif = await getRandomGifByTerm(apiData.tags[0], false);
     const randomColor = getRandomColor();
     const trumpQuote = apiData.value;
+    const trumpEmoji = getCustomEmojiCode('trumphair');
     const trumpQuoteEmbed = prepareEmbed({
       embedDescription: trumpQuote,
       embedImage: topicGif,
       embedColor: randomColor,
     });
-    return sendEmbed(interaction, trumpQuoteEmbed);
+    return sendEmbed(interaction, trumpQuoteEmbed, trumpEmoji);
   },
 };
