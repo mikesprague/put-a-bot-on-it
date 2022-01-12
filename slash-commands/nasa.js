@@ -11,13 +11,18 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('nasa')
     .setDescription('Get curent or random NASA media of the day')
-    .addBooleanOption((option) =>
-      option.setName('today').setDescription('True for today/False for random'),
+    .addStringOption((option) =>
+      option
+        .setName('date')
+        .setDescription('Today or random')
+        .setRequired(true)
+        .addChoice('today', 'today')
+        .addChoice('random', 'random'),
     ),
   async execute(interaction) {
     const { NASA_API_KEY } = process.env;
     const apiURLBase = nasaApi(NASA_API_KEY);
-    const isToday = interaction.options.getBoolean('today');
+    const isToday = interaction.options.getString('date') === 'today';
     const apiUrlSuffix = isToday ? '' : '&count=50';
     const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
     const randomNum = getRandomNum(apiData.length);
