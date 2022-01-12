@@ -11,7 +11,8 @@ module.exports = {
     const apiUrl = jokeApi();
     const apiData = await makeApiCall(apiUrl);
     const { type, joke, setup, delivery } = apiData;
-    const dadJokeContent = type === 'single' ? joke : `${setup}\n\n${delivery}`;
+    const dadJokeContent =
+      type === 'single' ? joke : `${setup}\n\n||${delivery}||`;
     return sendContent(interaction, dadJokeContent);
   },
 };
