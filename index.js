@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const { DISCORD_BOT_TOKEN } = process.env;
 
-const { prefix } = require('./config.json');
+// const { prefix } = require('./config.json');
 const { birdLog } = require('./lib/helpers');
 const { initReactons } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
@@ -15,17 +15,17 @@ const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-client.commands = new Collection();
+// client.commands = new Collection();
 client.slashCommands = new Collection();
 
-const commandFiles = fs
-  .readdirSync('./commands')
-  .filter((file) => file.endsWith('.js'));
+// const commandFiles = fs
+//   .readdirSync('./commands')
+//   .filter((file) => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
+// for (const file of commandFiles) {
+//   const command = require(`./commands/${file}`);
+//   client.commands.set(command.name, command);
+// }
 
 const slashCommandFiles = fs
   .readdirSync('./slash-commands')
@@ -114,33 +114,33 @@ client.on('messageCreate', async (msg) => {
     console.error('💀 There was an error with a reaction: \n', error);
   }
 
-  if (!msg.content.startsWith(prefix) || msg.author.bot) {
-    return;
-  }
+  // if (!msg.content.startsWith(prefix) || msg.author.bot) {
+  //   return;
+  // }
 
-  const args = msg.content.slice(prefix.length).trim().split(/ +/);
-  const commandName = args.shift().toLowerCase();
+  // const args = msg.content.slice(prefix.length).trim().split(/ +/);
+  // const commandName = args.shift().toLowerCase();
 
-  const command =
-    client.commands.get(commandName) ||
-    client.commands.find(
-      (cmd) => cmd.aliases && cmd.aliases.includes(commandName),
-    );
+  // const command =
+  //   client.commands.get(commandName) ||
+  //   client.commands.find(
+  //     (cmd) => cmd.aliases && cmd.aliases.includes(commandName),
+  //   );
 
-  if (!command) {
-    return;
-  }
+  // if (!command) {
+  //   return;
+  // }
 
-  if (command.args && !args.length) {
-    msg.reply(`⚠ You didn't provide the required arguments!`);
-  }
+  // if (command.args && !args.length) {
+  //   msg.reply(`⚠ You didn't provide the required arguments!`);
+  // }
 
-  try {
-    await command.execute(msg, args);
-  } catch (error) {
-    console.error(error);
-    msg.reply('💀 There was an error trying to execute that command!');
-  }
+  // try {
+  //   await command.execute(msg, args);
+  // } catch (error) {
+  //   console.error(error);
+  //   msg.reply('💀 There was an error trying to execute that command!');
+  // }
 });
 
 client.login(DISCORD_BOT_TOKEN);
