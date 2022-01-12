@@ -13,11 +13,12 @@
   "settings": {
     "git.enableCommitSigning": true,
     "terminal.integrated.defaultProfile.linux": "zsh",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active"
   },
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-    "2gua.rainbow-brackets",
     "aaron-bond.better-comments",
     "alefragnani.Bookmarks",
     "alexdima.copy-relative-path",
@@ -36,7 +37,6 @@
     "chrmarti.regex",
     "cmstead.jsrefactor",
     "codezombiech.gitignore",
-    "CoenraadS.bracket-pair-colorizer-2",
     "CoenraadS.disableligatures",
     "cssho.vscode-svgviewer",
     "DavidAnson.vscode-markdownlint",
@@ -201,7 +201,7 @@
   "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "yarn",
+  "postCreateCommand": "yarn"
 
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   // "remoteUser": "node"
