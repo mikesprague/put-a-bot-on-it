@@ -13,11 +13,16 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('kanye')
     .setDescription('Random Kanye West quote from https://kanye.rest')
-    .addBooleanOption((option) =>
-      option.setName('large').setDescription('Use large gif?'),
+    .addStringOption((option) =>
+      option
+        .setName('size')
+        .setDescription('The gif size')
+        .setRequired(true)
+        .addChoice('large', 'large')
+        .addChoice('small', 'small'),
     ),
   async execute(interaction) {
-    const isLarge = interaction.options.getBoolean('large');
+    const isLarge = interaction.options.getString('size') === 'large';
     const apiUrl = kanyeApi();
     const randomColor = getRandomColor();
     const kanyeData = await makeApiCall(apiUrl);
