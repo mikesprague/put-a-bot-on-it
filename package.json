@@ -21,11 +21,11 @@
     "@discordjs/builders": "^0.11.0",
     "@discordjs/rest": "^0.2.0-canary.0",
     "@nastyox/rando.js": "^2.0.5",
-    "axios": "^0.24.0",
+    "axios": "^0.25.0",
     "dayjs": "^1.10.7",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
-    "dotenv": "^12.0.4",
+    "dotenv": "^14.2.0",
     "level": "^7.0.1",
     "node-localstorage": "^2.2.1",
     "randomcolor": "^0.6.2"
