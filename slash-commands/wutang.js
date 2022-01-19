@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const {
+  getCustomEmojiCode,
   getRandomNum,
   getGifs,
   prepareEmbed,
@@ -17,6 +18,7 @@ module.exports = {
     const randomNum = getRandomNum(wuTangGifs.length);
     const embedImage = wuTangGifs[Number(randomNum)].images.original.url;
     const wuTangEmbed = prepareEmbed({ embedImage });
-    sendEmbed(interaction, wuTangEmbed);
+    const wuTangEmoji = getCustomEmojiCode('wutang');
+    sendEmbed(interaction, wuTangEmbed, wuTangEmoji);
   },
 };
