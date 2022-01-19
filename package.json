@@ -6,6 +6,7 @@
   "private": "true",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon ./index.js",
+    "slash-deploy": "cross-env NODE_ENV=production node ./deploy-slash-commands.js",
     "start": "cross-env NODE_ENV=production node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
