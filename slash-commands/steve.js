@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const { getRandomNum, getGifs, sendContent } = require('../lib/helpers');
+const { getRandomNum, getGifs, prepareEmbed } = require('../lib/helpers');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,9 +15,17 @@ module.exports = {
       arg && arg.trim().length ? `steve harvey ${arg}` : 'steve harvey';
     const steveGifs = await getGifs({ searchTerm });
     const randomNum = getRandomNum(steveGifs.length);
-    return sendContent(
-      interaction,
-      steveGifs[Number(randomNum)].images.original.url,
-    );
+    const embedImage = steveGifs[Number(randomNum)].images.original.url;
+    const steveEmbed = prepareEmbed({
+      embedImage,
+    });
+    try {
+      await interaction.reply({ embeds: [steveEmbed] });
+      const message = await interaction.fetchReply();
+      const newSteveEmbed = steveEmbed.setFooter(searchTerm);
+      await message.edit(newSteveEmbed);
+    } catch (error) {
+      console.error('💀 There was an error executing steve: \n', error);
+    }
   },
 };
