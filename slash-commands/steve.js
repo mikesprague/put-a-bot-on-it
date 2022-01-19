@@ -23,7 +23,7 @@ module.exports = {
     const embedImage = steveGifs[Number(randomNum)].images.original.url;
     const steveEmbed = prepareEmbed({
       embedImage,
-      embedFooter: searchTerm,
+      embedFooter: `query: ${searchTerm}`,
     });
     sendEmbed(interaction, steveEmbed);
   },
