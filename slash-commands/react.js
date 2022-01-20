@@ -19,12 +19,17 @@ module.exports = {
         .addChoice('parrot_shuffle', '755823822153842708')
         .addChoice('party_parrot', '755823821830881342')
         .addChoice('ship_it_parrot', '824974802136858624')
+        .addChoice('angry_parrot', '756186838426714202')
         .addChoice('cheers', '933710349704757268'),
     ),
   async execute(interaction) {
     const emojiCode = interaction.options.getString('emoji');
-    console.log(emojiCode);
-    const message = await interaction.fetchReply(interaction);
-    return await message.react(emojiCode);
+    const messages = await interaction.channel.messages.fetch({ limit: 1 });
+    const message = await messages.last();
+    await interaction.channel.messages.react(message, emojiCode);
+    return await interaction.reply({
+      content: `Reaction successfully added`,
+      ephemeral: true,
+    });
   },
 };
