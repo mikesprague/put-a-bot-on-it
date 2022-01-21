@@ -19,8 +19,11 @@ module.exports = {
     // const arg = interaction.options.getString('query');
     // const searchTerm =
     //   arg && arg.trim().length ? `steve harvey ${arg}` : 'steve harvey';
-    const searchTerm = 'snl celebrity jeopardy';
-    const trebekGifs = await getGifs({ searchTerm });
+    const searchTerm1 = '@snl jeopardy';
+    const trebekGifs1 = await getGifs({ searchTerm: searchTerm1 });
+    const searchTerm2 = 'snl celebrity jeopardy';
+    const trebekGifs2 = await getGifs({ searchTerm: searchTerm2 });
+    const trebekGifs = [...trebekGifs1, ...trebekGifs2];
     console.log(trebekGifs.length);
     const randomNum = getRandomNum(trebekGifs.length);
     const embedColor = getRandomColor();
