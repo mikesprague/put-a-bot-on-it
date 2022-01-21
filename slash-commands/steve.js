@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const {
+  getRandomColor,
   getRandomNum,
   getGifs,
   prepareEmbed,
@@ -21,9 +22,11 @@ module.exports = {
     const steveGifs = await getGifs({ searchTerm });
     const randomNum = getRandomNum(steveGifs.length);
     const embedImage = steveGifs[Number(randomNum)].images.original.url;
+    const embedColor = getRandomColor();
     const steveEmbed = prepareEmbed({
       embedImage,
       embedFooter: `query: ${searchTerm}`,
+      embedColor,
     });
     sendEmbed(interaction, steveEmbed);
   },
