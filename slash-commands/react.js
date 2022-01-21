@@ -20,7 +20,8 @@ module.exports = {
         .addChoice('party_wizard', '824974801936056320')
         .addChoice('ship_it_parrot', '824974802136858624')
         .addChoice('this_is_fine', '756184777052389458')
-        .addChoice('unicorn_animated', '801535820062392359'),
+        .addChoice('unicorn_animated', '801535820062392359')
+        .addChoice('zombie', '756184776519450754'),
     ),
   async execute(interaction) {
     const emojiCode = interaction.options.getString('emoji');
