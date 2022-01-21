@@ -15,17 +15,8 @@ const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-// client.commands = new Collection();
 client.slashCommands = new Collection();
-
-// const commandFiles = fs
-//   .readdirSync('./commands')
-//   .filter((file) => file.endsWith('.js'));
-
-// for (const file of commandFiles) {
-//   const command = require(`./commands/${file}`);
-//   client.commands.set(command.name, command);
-// }
+client.animatedEmoji = new Collection();
 
 const slashCommandFiles = fs
   .readdirSync('./slash-commands')
@@ -37,6 +28,12 @@ for (const file of slashCommandFiles) {
 }
 
 client.on('ready', () => {
+  const customEmoji = client.emojis.cache.filter(
+    (emoji) => emoji.animated === true,
+  );
+  for (const emoji of customEmoji) {
+    client.animatedEmoji.set(emoji[1].name, emoji[0]);
+  }
   birdLog('Bird Bot is online');
 });
 
