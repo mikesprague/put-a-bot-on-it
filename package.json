@@ -19,8 +19,8 @@
   "author": "Michael Sprague <mikesprague@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/builders": "^0.11.0",
-    "@discordjs/rest": "^0.2.0-canary.0",
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
     "@nastyox/rando.js": "^2.0.5",
     "axios": "^0.25.0",
     "dayjs": "^1.10.7",
