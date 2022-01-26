@@ -17,10 +17,12 @@ module.exports = {
     ),
   async execute(interaction) {
     const arg = interaction.options.getString('query');
-    const searchTerm =
-      arg && arg.trim().length ? `steve harvey ${arg}` : 'steve harvey';
+    const useArg = Boolean(arg && arg.trim().length);
+    const searchTerm = useArg ? `steve harvey ${arg}` : 'steve harvey';
     const steveGifs = await getGifs({ searchTerm });
-    const randomNum = getRandomNum(steveGifs.length);
+    const randomNum = useArg
+      ? Math.max(steveGifs.length, 10)
+      : getRandomNum(steveGifs.length);
     const embedImage = steveGifs[Number(randomNum)].images.original.url;
     const embedColor = getRandomColor();
     const steveEmbed = prepareEmbed({
