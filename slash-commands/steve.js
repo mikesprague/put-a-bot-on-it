@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const {
+  getCustomEmojiCode,
   getRandomColor,
   getRandomNum,
   getGifs,
@@ -30,6 +31,7 @@ module.exports = {
       embedFooter: useArg ? `query: ${arg}` : '',
       embedColor,
     });
-    sendEmbed(interaction, steveEmbed);
+    const steveEmoji = getCustomEmojiCode('steve');
+    sendEmbed(interaction, steveEmbed, steveEmoji);
   },
 };
