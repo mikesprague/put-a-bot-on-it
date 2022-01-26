@@ -21,7 +21,7 @@ module.exports = {
     const searchTerm = useArg ? `steve harvey ${arg}` : 'steve harvey';
     const steveGifs = await getGifs({ searchTerm });
     const randomNum = useArg
-      ? Math.max(steveGifs.length, 10)
+      ? getRandomNum(Math.min(steveGifs.length, 15))
       : getRandomNum(steveGifs.length);
     const embedImage = steveGifs[Number(randomNum)].images.original.url;
     const embedColor = getRandomColor();

@@ -23,10 +23,13 @@ module.exports = {
     // const wuTangStickers = await getGifs({ searchTerm, stickerSearch: true });
     // const allWuGifs = [...wuTangGifs, ...wuTangStickers];
     const randomNum = useSearchQuery
-      ? Math.max(wuTangGifs.length, 10)
+      ? getRandomNum(Math.min(wuTangGifs.length, 15))
       : getRandomNum(wuTangGifs.length);
     const embedImage = wuTangGifs[Number(randomNum)].images.original.url;
-    const wuTangEmbed = prepareEmbed({ embedImage });
+    const wuTangEmbed = prepareEmbed({
+      embedImage,
+      embedFooter: useSearchQuery ? `query: ${searchTerm}` : '',
+    });
     const wuTangEmoji = getCustomEmojiCode('wutang');
     sendEmbed(interaction, wuTangEmbed, wuTangEmoji);
   },
