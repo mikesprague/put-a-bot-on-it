@@ -27,7 +27,7 @@ module.exports = {
     const embedColor = getRandomColor();
     const steveEmbed = prepareEmbed({
       embedImage,
-      embedFooter: `query: ${searchTerm}`,
+      embedFooter: useArg ? `query: ${arg}` : '',
       embedColor,
     });
     sendEmbed(interaction, steveEmbed);

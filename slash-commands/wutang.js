@@ -3,6 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const {
   getCustomEmojiCode,
   getRandomNum,
+  getRandomColor,
   getGifs,
   prepareEmbed,
   sendEmbed,
@@ -16,19 +17,21 @@ module.exports = {
       option.setName('query').setDescription('Enter optional search query'),
     ),
   async execute(interaction) {
-    const searchQuery = interaction.options.getString('query');
-    const useSearchQuery = Boolean(searchQuery && searchQuery.trim().length);
-    const searchTerm = useSearchQuery ? `wu-tang ${searchQuery}` : 'wu-tang';
+    const arg = interaction.options.getString('query');
+    const useArg = Boolean(arg && arg.trim().length);
+    const searchTerm = useArg ? `wu-tang ${arg}` : 'wu-tang';
     const wuTangGifs = await getGifs({ searchTerm });
     // const wuTangStickers = await getGifs({ searchTerm, stickerSearch: true });
     // const allWuGifs = [...wuTangGifs, ...wuTangStickers];
-    const randomNum = useSearchQuery
+    const randomNum = useArg
       ? getRandomNum(Math.min(wuTangGifs.length, 15))
       : getRandomNum(wuTangGifs.length);
+    const embedColor = getRandomColor();
     const embedImage = wuTangGifs[Number(randomNum)].images.original.url;
     const wuTangEmbed = prepareEmbed({
       embedImage,
-      embedFooter: useSearchQuery ? `query: ${searchTerm}` : '',
+      embedFooter: useArg ? `query: ${arg}` : '',
+      embedColor,
     });
     const wuTangEmoji = getCustomEmojiCode('wutang');
     sendEmbed(interaction, wuTangEmbed, wuTangEmoji);
