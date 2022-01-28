@@ -18,11 +18,11 @@ module.exports = {
     const searchTerm = 'ron swanson';
     const apiData = await makeApiCall(apiUrl);
     const ronGifs = await getGifs({ searchTerm });
-    const ronStickers = await getGifs({ searchTerm, stickerSearch: true });
-    const allGifs = [...ronGifs, ...ronStickers];
-    const randomNum = getRandomNum(allGifs.length);
+    // const ronStickers = await getGifs({ searchTerm, stickerSearch: true });
+    // const allGifs = [...ronGifs, ...ronStickers];
+    const randomNum = getRandomNum(ronGifs.length);
     const randomColor = getRandomColor();
-    const randomRon = allGifs[Number(randomNum)].images.downsized.url;
+    const randomRon = ronGifs[Number(randomNum)].images.downsized.url;
     const embed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: apiData[0],
