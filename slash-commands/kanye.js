@@ -23,9 +23,7 @@ module.exports = {
     const apiUrl = kanyeApi();
     const randomColor = getRandomColor();
     const kanyeData = await makeApiCall(apiUrl);
-    const randomNum = useArg
-      ? getRandomNum(Math.min(allKanyeGifs.length, 15))
-      : getRandomNum(allKanyeGifs.length);
+    const randomNum = getRandomNum(allKanyeGifs.length);
     const randomKanye = allKanyeGifs[Number(randomNum)].images.original.url;
     const kanyeEmbed = prepareEmbed({
       embedColor: randomColor,
