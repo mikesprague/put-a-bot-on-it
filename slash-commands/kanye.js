@@ -31,7 +31,7 @@ module.exports = {
     const randomNum = useArg
       ? getRandomNum(Math.min(allKanyeGifs.length, 15))
       : getRandomNum(allKanyeGifs.length);
-    const randomKanye = allKanyeGifs[randomNum];
+    const randomKanye = allKanyeGifs[Number(randomNum)].images.original.url;
     const kanyeEmbed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: kanyeData.quote,
