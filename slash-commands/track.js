@@ -39,7 +39,8 @@ module.exports = {
       const trackingEmbed = prepareEmbed({
         embedDescription: trackingData,
       });
-      sendEmbed(interaction, trackingEmbed);
+      // sendEmbed(interaction, trackingEmbed);
+      await interaction.reply({ embeds: [trackingEmbed], ephemeral: true });
     } else {
       sendContent(interaction, '**Status:** Unavailable, try again later');
     }
