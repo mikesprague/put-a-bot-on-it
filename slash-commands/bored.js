@@ -11,7 +11,7 @@ module.exports = {
     const apiUrl = boredApi();
     const apiData = await makeApiCall(apiUrl);
     const boredContent = apiData.activity;
-    console.log(boredContent);
+    // console.log(boredContent);
     return sendContent(interaction, boredContent);
   },
 };
