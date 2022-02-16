@@ -9,7 +9,7 @@ const { DISCORD_BOT_TOKEN } = process.env;
 
 // const { prefix } = require('./config.json');
 const { birdLog } = require('./lib/helpers');
-const { initReactons } = require('./lib/reactions');
+const { initReactions } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
 const client = new Client({
@@ -65,7 +65,7 @@ client.on('messageCreate', async (msg) => {
   }
 
   try {
-    await initReactons(msg);
+    await initReactions(msg);
   } catch (error) {
     console.error('💀 There was an error with a reaction: \n', error);
   }
