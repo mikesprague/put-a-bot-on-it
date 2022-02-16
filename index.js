@@ -57,6 +57,20 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
+client.on('messageCreate', async (msg) => {
+  try {
+    await initEasterEggs(msg);
+  } catch (error) {
+    console.error('💀 There was an error with an easter egg: \n', error);
+  }
+
+  try {
+    await initReactons(msg);
+  } catch (error) {
+    console.error('💀 There was an error with a reaction: \n', error);
+  }
+});
+
 setInterval(async () => {
   await initGreetingGif({
     discordClient: client,
@@ -97,47 +111,5 @@ setInterval(async () => {
     greetingMinute: 20,
   });
 }, 60000);
-
-client.on('messageCreate', async (msg) => {
-  try {
-    await initEasterEggs(msg);
-  } catch (error) {
-    console.error('💀 There was an error with an easter egg: \n', error);
-  }
-
-  try {
-    await initReactons(msg);
-  } catch (error) {
-    console.error('💀 There was an error with a reaction: \n', error);
-  }
-
-  // if (!msg.content.startsWith(prefix) || msg.author.bot) {
-  //   return;
-  // }
-
-  // const args = msg.content.slice(prefix.length).trim().split(/ +/);
-  // const commandName = args.shift().toLowerCase();
-
-  // const command =
-  //   client.commands.get(commandName) ||
-  //   client.commands.find(
-  //     (cmd) => cmd.aliases && cmd.aliases.includes(commandName),
-  //   );
-
-  // if (!command) {
-  //   return;
-  // }
-
-  // if (command.args && !args.length) {
-  //   msg.reply(`⚠ You didn't provide the required arguments!`);
-  // }
-
-  // try {
-  //   await command.execute(msg, args);
-  // } catch (error) {
-  //   console.error(error);
-  //   msg.reply('💀 There was an error trying to execute that command!');
-  // }
-});
 
 client.login(DISCORD_BOT_TOKEN);
