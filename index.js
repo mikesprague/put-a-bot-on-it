@@ -8,12 +8,17 @@ require('dotenv').config();
 const { DISCORD_BOT_TOKEN } = process.env;
 
 // const { prefix } = require('./config.json');
-const { birdLog } = require('./lib/helpers');
+const { birdLog, getCustomEmojiCode } = require('./lib/helpers');
 const { initReactions } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+  ],
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
 client.slashCommands = new Collection();
 client.animatedEmoji = new Collection();
@@ -54,6 +59,24 @@ client.on('interactionCreate', async (interaction) => {
       content: '💀 There was an error while executing this slash command!',
       ephemeral: true,
     });
+  }
+});
+
+client.on('messageReactionAdd', async (reaction, user) => {
+  // When a reaction is received, check if the structure is partial
+  if (reaction.partial) {
+    // If the message this reaction belongs to was removed, the fetching might result in an API error which should be handled
+    try {
+      await reaction.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the message:', error);
+      // Return as `reaction.message.author` may be undefined/null
+      return;
+    }
+  }
+  if (reaction.emoji.name === 'putin') {
+    reaction.remove();
+    reaction.message.react('🇺🇦');
   }
 });
 
