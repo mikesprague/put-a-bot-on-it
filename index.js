@@ -7,8 +7,7 @@ require('dotenv').config();
 
 const { DISCORD_BOT_TOKEN } = process.env;
 
-// const { prefix } = require('./config.json');
-const { birdLog, getCustomEmojiCode } = require('./lib/helpers');
+const { birdLog } = require('./lib/helpers');
 const { initReactions } = require('./lib/reactions');
 const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
 
@@ -62,15 +61,14 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
+// eslint-disable-next-line no-unused-vars
 client.on('messageReactionAdd', async (reaction, user) => {
-  // When a reaction is received, check if the structure is partial
   if (reaction.partial) {
-    // If the message this reaction belongs to was removed, the fetching might result in an API error which should be handled
     try {
       await reaction.fetch();
+      // console.log(user)
     } catch (error) {
       console.error('Something went wrong when fetching the message:', error);
-      // Return as `reaction.message.author` may be undefined/null
       return;
     }
   }
