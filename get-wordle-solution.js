@@ -1,7 +1,8 @@
-const puppeteer = require('puppeteer');
+const playwright = require('playwright');
+
 
 (async () => {
-  const browser = await puppeteer.launch({
+  const browser = await playwright.chromium.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
