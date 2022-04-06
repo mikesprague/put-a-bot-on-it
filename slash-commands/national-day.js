@@ -7,6 +7,7 @@ const {
   prepareEmbed,
   sendEmbed,
 } = require('../lib/helpers');
+const { nationalDayApi } = require('../lib/urls');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,7 +16,7 @@ module.exports = {
       'Random national day from National Day Calendar with possibly related GIF from Giphy API',
     ),
   async execute(interaction) {
-    const apiUrl = 'https://api.m5ls5e.com/api/national-day/';
+    const apiUrl = nationalDayApi();
     const randomColor = getRandomColor();
     const nationalDayData = await makeApiCall(apiUrl);
     const randomNum = getRandomNum(nationalDayData.length);
