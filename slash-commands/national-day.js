@@ -13,7 +13,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('national-day')
     .setDescription(
-      "Random national day for today's date from National Day Calendar (with possibly related GIF from Giphy API)",
+      'Random national day from National Day Calendar (with possibly related GIF from Giphy API)',
     ),
   async execute(interaction) {
     const apiUrl = nationalDayApi();
