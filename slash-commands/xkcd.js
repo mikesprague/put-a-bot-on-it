@@ -26,7 +26,7 @@ module.exports = {
     const apiData = await makeApiCall(apiUrl);
 
     const xkcdEmbed = prepareEmbed({
-      embedTtitle: apiData.title,
+      embedTitle: apiData.title,
       embedUrl: `https://xkcd.com/${apiData.num}`,
       embedFooter: apiData.alt,
       embedImage: apiData.img,

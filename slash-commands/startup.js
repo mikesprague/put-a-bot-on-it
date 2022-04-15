@@ -19,7 +19,7 @@ module.exports = {
     const randomColor = getRandomColor();
     const startupIdea = `${apiData.this} for ${apiData.that}`;
     const startupEmbed = prepareEmbed({
-      embedTtitle: startupIdea,
+      embedTitle: startupIdea,
       embedImage: topicGif,
       embedColor: randomColor,
     });

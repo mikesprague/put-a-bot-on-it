@@ -30,7 +30,7 @@ module.exports = {
     const nasaData = isToday ? apiData : apiData[Number(randomNum)];
     const nasaEmbed = prepareEmbed({
       embedColor: nasaColor,
-      embedTtitle: nasaData.title,
+      embedTitle: nasaData.title,
       embedDescription: nasaData.explanation,
       embedUrl: nasaData.hdurl || nasaData.url,
       embedImage: nasaData.url,
