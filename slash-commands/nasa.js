@@ -27,7 +27,7 @@ module.exports = {
     const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
     const randomNum = getRandomNum(apiData.length);
     const nasaColor = '#113991';
-    const nasaData = isToday ? apiData : apiData[Number(randomNum)];
+    const nasaData = isToday ? apiData : apiData[randomNum];
     const nasaEmbed = prepareEmbed({
       embedColor: nasaColor,
       embedTitle: nasaData.title,

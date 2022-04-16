@@ -25,7 +25,7 @@ module.exports = {
       });
     const wordleGifs = await getGifs({ searchTerm });
     const randomNum = getRandomNum(wordleGifs.length);
-    const embedImage = wordleGifs[Number(randomNum)].images.original.url;
+    const embedImage = wordleGifs[randomNum].images.original.url;
     await interaction.reply({ content: embedImage, ephemeral: false });
   },
 };

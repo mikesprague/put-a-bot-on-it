@@ -22,7 +22,7 @@ module.exports = {
     const catGif = await getRandomGifByTerm('cat', false);
     const randomNum = getRandomNum(apiData.length);
     const randomColor = getRandomColor();
-    const catFact = apiData[Number(randomNum)];
+    const catFact = apiData[randomNum];
     const catFactEmbed = prepareEmbed({
       embedDescription: catFact.fact,
       embedImage: catGif,

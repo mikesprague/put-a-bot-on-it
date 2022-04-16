@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(seinfeldGifs.length, 10))
       : getRandomNum(seinfeldGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = seinfeldGifs[Number(randomNum)].images.original.url;
+    const embedImage = seinfeldGifs[randomNum].images.original.url;
     const seinfeldEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

@@ -22,7 +22,7 @@ module.exports = {
     // const allGifs = [...ronGifs, ...ronStickers];
     const randomNum = getRandomNum(ronGifs.length);
     const randomColor = getRandomColor();
-    const randomRon = ronGifs[Number(randomNum)].images.downsized.url;
+    const randomRon = ronGifs[randomNum].images.downsized.url;
     const embed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: apiData[0],

@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(uncleRogerGifs.length, 10))
       : getRandomNum(uncleRogerGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = uncleRogerGifs[Number(randomNum)].images.original.url;
+    const embedImage = uncleRogerGifs[randomNum].images.original.url;
     const uncleRogerEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(putinGifs.length, 10))
       : getRandomNum(putinGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = putinGifs[Number(randomNum)].images.original.url;
+    const embedImage = putinGifs[randomNum].images.original.url;
     const putinEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

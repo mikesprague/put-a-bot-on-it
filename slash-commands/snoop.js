@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(snoopGifs.length, 15))
       : getRandomNum(snoopGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = snoopGifs[Number(randomNum)].images.original.url;
+    const embedImage = snoopGifs[randomNum].images.original.url;
     const snoopEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

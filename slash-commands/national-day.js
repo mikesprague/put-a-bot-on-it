@@ -20,8 +20,7 @@ module.exports = {
     const randomColor = getRandomColor();
     const nationalDayData = await makeApiCall(apiUrl);
     const randomNum = getRandomNum(nationalDayData.length);
-    const { title, description, link, isBirthday } =
-      nationalDayData[Number(randomNum)];
+    const { title, description, link, isBirthday } = nationalDayData[randomNum];
 
     let searchTermArray = title.split(' ');
     const startTermsToRemove = ['national'];
@@ -40,14 +39,11 @@ module.exports = {
       .join(' ')
       .toLowerCase()
       .replace('national', '');
-    console.log('isBirthday: ', Boolean(isBirthday));
     const nationalDayGifs = await getGifs({ searchTerm });
     const randomGifNum = getRandomNum(nationalDayGifs.length);
-    const randomGif = nationalDayGifs[Number(randomGifNum)].images.original.url;
+    const randomGif = nationalDayGifs[randomGifNum].images.original.url;
     const nationalDayEmbed = prepareEmbed({
-      embedTitle: `${
-        Boolean(isBirthday) ? 'Celebrity Birthday: ' + title : title
-      }`,
+      embedTitle: `${isBirthday ? 'Celebrity Birthday: ' + title : title}`,
       embedColor: randomColor,
       embedDescription: `${description} ...[read more](${link})`,
       embedImage: randomGif,

@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(starWarsGifs.length, 10))
       : getRandomNum(starWarsGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = starWarsGifs[Number(randomNum)].images.original.url;
+    const embedImage = starWarsGifs[randomNum].images.original.url;
     const starWarsEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

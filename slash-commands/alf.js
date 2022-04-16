@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(alfGifs.length, 10))
       : getRandomNum(alfGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = alfGifs[Number(randomNum)].images.original.url;
+    const embedImage = alfGifs[randomNum].images.original.url;
     const alfEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

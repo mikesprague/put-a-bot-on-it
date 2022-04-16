@@ -25,7 +25,7 @@ module.exports = {
       ? getRandomNum(Math.min(boratGifs.length, 10))
       : getRandomNum(boratGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = boratGifs[Number(randomNum)].images.original.url;
+    const embedImage = boratGifs[randomNum].images.original.url;
     const boratEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

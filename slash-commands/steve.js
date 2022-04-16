@@ -24,7 +24,7 @@ module.exports = {
     const randomNum = useArg
       ? getRandomNum(Math.min(steveGifs.length, 15))
       : getRandomNum(steveGifs.length);
-    const embedImage = steveGifs[Number(randomNum)].images.original.url;
+    const embedImage = steveGifs[randomNum].images.original.url;
     const embedColor = getRandomColor();
     const steveEmbed = prepareEmbed({
       embedImage,

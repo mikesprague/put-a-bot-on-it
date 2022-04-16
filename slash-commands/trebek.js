@@ -29,7 +29,7 @@ module.exports = {
       ? getRandomNum(Math.min(trebekGifs.length, 5))
       : getRandomNum(trebekGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = trebekGifs[Number(randomNum)].images.original.url;
+    const embedImage = trebekGifs[randomNum].images.original.url;
     const trebekEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

@@ -27,7 +27,7 @@ module.exports = {
       ? getRandomNum(Math.min(wuTangGifs.length, 15))
       : getRandomNum(wuTangGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = wuTangGifs[Number(randomNum)].images.original.url;
+    const embedImage = wuTangGifs[randomNum].images.original.url;
     const wuTangEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',
