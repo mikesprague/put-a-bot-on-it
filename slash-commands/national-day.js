@@ -48,7 +48,6 @@ module.exports = {
       embedDescription: `${description} ...[read more](${link})`,
       embedImage: randomGif,
       embedUrl: link,
-      // embedFooter: `${description} ...[read more](link))`,
     });
     return sendEmbed(interaction, nationalDayEmbed);
   },
