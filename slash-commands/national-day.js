@@ -45,7 +45,7 @@ module.exports = {
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
       embedColor: randomColor,
-      embedDescription: `${description} ...[read more](${link})`,
+      embedDescription: `${description} [Read More](${link})`,
       embedImage: randomGif,
       embedUrl: link,
     });
