@@ -1,7 +1,9 @@
 {
-  "folders": [{
-    "path": "."
-  }],
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
   "settings": {
     "cflint.enabled": false,
     "stylelint.validate": [
@@ -13,6 +15,7 @@
       "scss",
       "source.css.styled",
       "styled-css"
-    ]
+    ],
+    "cSpell.words": ["eqeqeq", "localstorage", "Parens", "randomcolor", "XKCD"]
   }
 }
