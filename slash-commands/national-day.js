@@ -13,7 +13,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('national-day')
     .setDescription(
-      'Random national day from National Day Calendar (with possibly related GIF from Giphy API)',
+      'Random national day from National Day Calendar (w/ possibly related GIF from Giphy API)',
     ),
   async execute(interaction) {
     const apiUrl = nationalDayApi();
@@ -23,7 +23,7 @@ module.exports = {
     const { title, description, link } = nationalDayData[randomNum];
 
     let searchTermArray = title.split(' ');
-    const startTermsToRemove = ['national'];
+    const startTermsToRemove = ['national', 'international', 'world'];
     if (startTermsToRemove.includes(searchTermArray[0].trim().toLowerCase())) {
       searchTermArray.shift();
     }
@@ -35,10 +35,7 @@ module.exports = {
     ) {
       searchTermArray.pop();
     }
-    const searchTerm = searchTermArray
-      .join(' ')
-      .toLowerCase()
-      .replace('national', '');
+    const searchTerm = searchTermArray.join(' ').toLowerCase();
     const nationalDayGifs = await getGifs({ searchTerm });
     const randomGifNum = getRandomNum(nationalDayGifs.length);
     const randomGif = nationalDayGifs[randomGifNum].images.original.url;
