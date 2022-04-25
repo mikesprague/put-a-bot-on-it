@@ -16,8 +16,10 @@ module.exports = {
         .setName('date')
         .setDescription('Today or random')
         .setRequired(true)
-        .addChoice('today', 'today')
-        .addChoice('random', 'random'),
+        .addChoices(
+          { name: 'today', value: 'today' },
+          { name: 'random', value: 'random' },
+        ),
     ),
   async execute(interaction) {
     const { NASA_API_KEY } = process.env;

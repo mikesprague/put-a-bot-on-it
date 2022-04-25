@@ -10,14 +10,16 @@ const { xkcdApi } = require('../lib/urls');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('xkcd')
-    .setDescription('Get curent or random XKCD comic')
+    .setDescription('Get current or random XKCD comic')
     .addStringOption((option) =>
       option
         .setName('comic')
         .setDescription('Latest or random')
         .setRequired(true)
-        .addChoice('latest', 'latest')
-        .addChoice('random', 'random'),
+        .addChoices(
+          { name: 'latest', value: 'latest' },
+          { name: 'random', value: 'random' },
+        ),
     ),
   async execute(interaction) {
     const isCurrent = interaction.options.getString('comic') === 'latest';
