@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const {
+import { SlashCommandBuilder } from '@discordjs/builders';
+import {
   getRandomColor,
   getRandomGifByTerm,
   getRandomNum,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
-const { catFactsApi } = require('../lib/urls');
+} from '../lib/helpers.js';
+import { catFactsApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('catfact')
     .setDescription('Random fact from the Cat Facts API'),

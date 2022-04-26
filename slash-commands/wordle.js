@@ -1,10 +1,10 @@
-const axios = require('axios').default;
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import axios from 'axios';
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-const { getRandomNum, getGifs } = require('../lib/helpers');
-const { wordleSolutionApi } = require('../lib/urls');
+import { getRandomNum, getGifs } from '../lib/helpers.js';
+import { wordleSolutionApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('wordle')
     .setDescription(

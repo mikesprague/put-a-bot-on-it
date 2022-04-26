@@ -1,15 +1,16 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
-const { Client, Intents, Collection } = require('discord.js');
-const fs = require('fs');
+import { Client, Intents, Collection } from 'discord.js';
+import fs from 'fs';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const { DISCORD_BOT_TOKEN } = process.env;
 
-const { birdLog } = require('./lib/helpers');
-const { initReactions } = require('./lib/reactions');
-const { initEasterEggs, initGreetingGif } = require('./lib/easter-eggs');
+import { birdLog } from './lib/helpers.js';
+import { initReactions } from './lib/reactions.js';
+import { initEasterEggs, initGreetingGif } from './lib/easter-eggs.js';
 
 const client = new Client({
   intents: [
@@ -26,9 +27,9 @@ const slashCommandFiles = fs
   .readdirSync('./slash-commands')
   .filter((file) => file.endsWith('.js'));
 
-for (const file of slashCommandFiles) {
-  const slashCommand = require(`./slash-commands/${file}`);
-  client.slashCommands.set(slashCommand.data.name, slashCommand);
+for await (const file of slashCommandFiles) {
+  const slashCommand = await import(`./slash-commands/${file}`);
+  client.slashCommands.set(slashCommand.default.data.name, slashCommand);
 }
 
 client.on('ready', () => {
@@ -51,7 +52,7 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   try {
-    await slashCommand.execute(interaction);
+    await slashCommand.default.execute(interaction);
   } catch (error) {
     console.error(error);
     await interaction.reply({

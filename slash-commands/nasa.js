@@ -1,16 +1,16 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const {
+import { SlashCommandBuilder } from '@discordjs/builders';
+import {
   getRandomNum,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
-const { nasaApi } = require('../lib/urls');
+} from '../lib/helpers.js';
+import { nasaApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('nasa')
-    .setDescription('Get curent or random NASA media of the day')
+    .setDescription('Get current or random NASA media of the day')
     .addStringOption((option) =>
       option
         .setName('date')

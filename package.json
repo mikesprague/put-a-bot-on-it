@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "private": "true",
+  "type": "module",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon ./index.js",
     "slash-deploy": "cross-env NODE_ENV=production node ./deploy-slash-commands.js",

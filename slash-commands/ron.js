@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const {
+import { SlashCommandBuilder } from '@discordjs/builders';
+import {
   getGifs,
   getRandomColor,
   getRandomNum,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
-const { ronSwansonApi } = require('../lib/urls');
+} from '../lib/helpers.js';
+import { ronSwansonApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('ron')
     .setDescription('Random Ron Swanson quote from an API with GIF from Giphy'),

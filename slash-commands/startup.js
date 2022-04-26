@@ -1,14 +1,14 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const {
+import { SlashCommandBuilder } from '@discordjs/builders';
+import {
   getRandomColor,
   getRandomGifByTerm,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
-const { thisForThatApi } = require('../lib/urls');
+} from '../lib/helpers.js';
+import { thisForThatApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('startup')
     .setDescription('Random idea for a Startup from an API with a random GIF'),

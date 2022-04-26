@@ -1,14 +1,14 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-const {
+import {
   getRandomColor,
   getRandomNum,
   getGifs,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
+} from '../lib/helpers.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('trebek')
     .setDescription('Random SNL Celebrity Jeopardy gif')

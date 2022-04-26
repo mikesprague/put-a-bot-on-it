@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-const {
+import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
   getGifs,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
+} from '../lib/helpers.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('borat')
     .setDescription('Random Borat GIF from Giphy')

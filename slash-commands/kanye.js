@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const {
+import { SlashCommandBuilder } from '@discordjs/builders';
+import {
   getGifs,
   getRandomNum,
   getRandomColor,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
-const { kanyeApi } = require('../lib/urls');
+} from '../lib/helpers.js';
+import { kanyeApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('kanye')
     .setDescription(

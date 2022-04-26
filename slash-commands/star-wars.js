@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-const {
+import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
   getGifs,
   prepareEmbed,
   sendEmbed,
-} = require('../lib/helpers');
+} from '../lib/helpers.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('star-wars')
     .setDescription('Random Star Wars GIF from Giphy')
@@ -32,7 +32,9 @@ module.exports = {
       embedColor,
     });
     const emojiArray = ['darth_vader', 'yoda'];
-    const starWarsEmoji = getCustomEmojiCode(emojiArray[getRandomNum(emojiArray.length)]);
+    const starWarsEmoji = getCustomEmojiCode(
+      emojiArray[getRandomNum(emojiArray.length)],
+    );
     return sendEmbed(interaction, starWarsEmbed, starWarsEmoji);
   },
 };

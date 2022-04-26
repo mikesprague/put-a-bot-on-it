@@ -1,9 +1,9 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-const { makeApiCall, sendContent } = require('../lib/helpers');
-const { evilInsultApi } = require('../lib/urls');
+import { makeApiCall, sendContent } from '../lib/helpers.js';
+import { evilInsultApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('insult')
     .setDescription('Gets a random insult from a mean API'),

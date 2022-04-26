@@ -1,9 +1,9 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-const { makeApiCall, sendContent } = require('../lib/helpers');
-const { boredApi } = require('../lib/urls');
+import { makeApiCall, sendContent } from '../lib/helpers.js';
+import { boredApi } from '../lib/urls.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('bored')
     .setDescription('Get random activity ideas from an API'),
