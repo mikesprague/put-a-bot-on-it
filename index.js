@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-dynamic-require */
 import { Client, Intents, Collection } from 'discord.js';
 import fs from 'fs';
 import dotenv from 'dotenv';
@@ -20,19 +18,20 @@ const client = new Client({
   ],
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
-client.slashCommands = new Collection();
-client.animatedEmoji = new Collection();
 
 const slashCommandFiles = fs
   .readdirSync('./slash-commands')
   .filter((file) => file.endsWith('.js'));
 
-for await (const file of slashCommandFiles) {
-  const slashCommand = await import(`./slash-commands/${file}`);
-  client.slashCommands.set(slashCommand.default.data.name, slashCommand);
-}
+client.on('ready', async () => {
+  client.slashCommands = new Collection();
+  client.animatedEmoji = new Collection();
 
-client.on('ready', () => {
+  for await (const file of slashCommandFiles) {
+    const slashCommand = await import(`./slash-commands/${file}`);
+    client.slashCommands.set(slashCommand.default.data.name, slashCommand);
+  }
+
   const customEmoji = client.emojis.cache.filter(
     (emoji) => emoji.animated === true,
   );
