@@ -23,7 +23,7 @@
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
     "@nastyox/rando.js": "^2.0.5",
-    "axios": "^0.27.0",
+    "axios": "^0.27.1",
     "dayjs": "^1.11.1",
     "discord-api-types": "^0.32.0",
     "discord.js": "^13.6.0",
@@ -31,7 +31,7 @@
     "level": "^8.0.0",
     "node-localstorage": "^2.2.1",
     "randomcolor": "^0.6.2",
-    "syllable": "^4.1.0"
+    "syllable": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
