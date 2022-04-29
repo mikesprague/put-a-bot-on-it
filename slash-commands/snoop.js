@@ -5,6 +5,7 @@ import {
   getRandomNum,
   getRandomColor,
   getGifs,
+  getTenorGifs,
   prepareEmbed,
   sendEmbed,
 } from '../lib/helpers.js';
@@ -20,12 +21,14 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `snoop ${arg}` : 'snoop';
-    const snoopGifs = await getGifs({ searchTerm });
+    // const snoopGifs = await getGifs({ searchTerm });
+    const snoopGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(snoopGifs.length, 15))
       : getRandomNum(snoopGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = snoopGifs[randomNum].images.original.url;
+    // const embedImage = snoopGifs[randomNum].images.original.url;
+    const embedImage = snoopGifs[randomNum].media[0].gif.url;
     const snoopEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

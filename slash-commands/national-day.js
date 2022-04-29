@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
-  getGifs,
+  // getGifs,
+  getTenorGifs,
   getRandomNum,
   getRandomColor,
   makeApiCall,
@@ -36,9 +37,11 @@ export default {
       searchTermArray.pop();
     }
     const searchTerm = searchTermArray.join(' ').toLowerCase();
-    const nationalDayGifs = await getGifs({ searchTerm });
+    // const nationalDayGifs = await getGifs({ searchTerm });
+    const nationalDayGifs = await getTenorGifs({ searchTerm });
     const randomGifNum = getRandomNum(nationalDayGifs.length);
-    const randomGif = nationalDayGifs[randomGifNum].images.original.url;
+    // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
+    const randomGif = nationalDayGifs[randomGifNum].media[0].gif.url;
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
       embedColor: randomColor,

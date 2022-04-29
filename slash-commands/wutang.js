@@ -5,6 +5,7 @@ import {
   getRandomNum,
   getRandomColor,
   getGifs,
+  getTenorGifs,
   prepareEmbed,
   sendEmbed,
 } from '../lib/helpers.js';
@@ -20,14 +21,14 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `wu-tang ${arg}` : 'wu-tang';
-    const wuTangGifs = await getGifs({ searchTerm });
-    // const wuTangStickers = await getGifs({ searchTerm, stickerSearch: true });
-    // const allWuGifs = [...wuTangGifs, ...wuTangStickers];
+    // const wuTangGifs = await getGifs({ searchTerm });
+    const wuTangGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(wuTangGifs.length, 15))
       : getRandomNum(wuTangGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = wuTangGifs[randomNum].images.original.url;
+    // const embedImage = wuTangGifs[randomNum].images.original.url;
+    const embedImage = wuTangGifs[randomNum].media[0].gif.url;
     const wuTangEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

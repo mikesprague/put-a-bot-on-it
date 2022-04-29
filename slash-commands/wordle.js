@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SlashCommandBuilder } from '@discordjs/builders';
 
-import { getRandomNum, getGifs } from '../lib/helpers.js';
+import { getRandomNum, getGifs, getTenorGifs } from '../lib/helpers.js';
 import { wordleSolutionApi } from '../lib/urls.js';
 
 export default {
@@ -23,9 +23,11 @@ export default {
 
         return searchTerm;
       });
-    const wordleGifs = await getGifs({ searchTerm });
+    // const wordleGifs = await getGifs({ searchTerm });
+    const wordleGifs = await getTenorGifs({ searchTerm });
     const randomNum = getRandomNum(wordleGifs.length);
-    const embedImage = wordleGifs[randomNum].images.original.url;
+    // const embedImage = wordleGifs[randomNum].images.original.url;
+    const embedImage = wordleGifs[randomNum].media[0].gif.url;
     await interaction.reply({ content: embedImage, ephemeral: false });
   },
 };

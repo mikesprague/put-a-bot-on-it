@@ -4,6 +4,7 @@ import {
   getRandomColor,
   getRandomNum,
   getGifs,
+  getTenorGifs,
   prepareEmbed,
   sendEmbed,
 } from '../lib/helpers.js';
@@ -22,14 +23,17 @@ export default {
     const searchTerm2 = useArg
       ? `snl celebrity jeopardy ${arg}`
       : 'snl celebrity jeopardy';
-    const trebekGifs1 = await getGifs({ searchTerm: searchTerm1 });
-    const trebekGifs2 = await getGifs({ searchTerm: searchTerm2 });
+    // const trebekGifs1 = await getGifs({ searchTerm: searchTerm1 });
+    // const trebekGifs2 = await getGifs({ searchTerm: searchTerm2 });
+    const trebekGifs1 = await getTenorGifs({ searchTerm: searchTerm1 });
+    const trebekGifs2 = await getTenorGifs({ searchTerm: searchTerm2 });
     const trebekGifs = [...trebekGifs1, ...trebekGifs2];
     const randomNum = useArg
       ? getRandomNum(Math.min(trebekGifs.length, 5))
       : getRandomNum(trebekGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = trebekGifs[randomNum].images.original.url;
+    // const embedImage = trebekGifs[randomNum].images.original.url;
+    const embedImage = trebekGifs[randomNum].media[0].gif.url;
     const trebekEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

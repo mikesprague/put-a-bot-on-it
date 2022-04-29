@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
   getGifs,
+  getTenorGifs,
   getRandomColor,
   getRandomNum,
   makeApiCall,
@@ -17,12 +18,14 @@ export default {
     const apiUrl = ronSwansonApi();
     const searchTerm = 'ron swanson';
     const apiData = await makeApiCall(apiUrl);
-    const ronGifs = await getGifs({ searchTerm });
+    // const ronGifs = await getGifs({ searchTerm });
+    const ronGifs = await getTenorGifs({ searchTerm });
     // const ronStickers = await getGifs({ searchTerm, stickerSearch: true });
     // const allGifs = [...ronGifs, ...ronStickers];
     const randomNum = getRandomNum(ronGifs.length);
     const randomColor = getRandomColor();
-    const randomRon = ronGifs[randomNum].images.downsized.url;
+    // const randomRon = ronGifs[randomNum].images.downsized.url;
+    const randomRon = ronGifs[randomNum].media[0].gif.url;
     const embed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: apiData[0],

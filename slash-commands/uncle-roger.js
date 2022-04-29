@@ -4,6 +4,7 @@ import {
   getRandomNum,
   getRandomColor,
   getGifs,
+  getTenorGifs,
   prepareEmbed,
   sendEmbed,
 } from '../lib/helpers.js';
@@ -19,12 +20,14 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `uncle roger ${arg}` : 'uncle roger';
-    const uncleRogerGifs = await getGifs({ searchTerm });
+    // const uncleRogerGifs = await getGifs({ searchTerm });
+    const uncleRogerGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(uncleRogerGifs.length, 10))
       : getRandomNum(uncleRogerGifs.length);
     const embedColor = getRandomColor();
-    const embedImage = uncleRogerGifs[randomNum].images.original.url;
+    // const embedImage = uncleRogerGifs[randomNum].images.original.url;
+    const embedImage = uncleRogerGifs[randomNum].media[0].gif.url;
     const uncleRogerEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',
