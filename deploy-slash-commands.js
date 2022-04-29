@@ -1,25 +1,29 @@
-const fs = require('fs');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+import fs from 'fs';
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v9';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
-const { DISCORD_BOT_TOKEN, DISCORD_CLIENT_ID, DISCORD_GUILD_ID } = process.env;
-const commands = [];
-const commandFiles = fs
-  .readdirSync('./slash-commands')
-  .filter((file) => file.endsWith('.js'));
+(async () => {
+  const { DISCORD_BOT_TOKEN, DISCORD_CLIENT_ID, DISCORD_GUILD_ID } =
+    process.env;
+  const commands = [];
+  const commandFiles = fs
+    .readdirSync('./slash-commands')
+    .filter((file) => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-  const command = require(`./slash-commands/${file}`);
-  commands.push(command.data.toJSON());
-}
+  for await (const file of commandFiles) {
+    const command = await import(`./slash-commands/${file}`);
+    commands.push(command.default.data.toJSON());
+  }
 
-const rest = new REST({ version: '9' }).setToken(DISCORD_BOT_TOKEN);
+  const rest = new REST({ version: '9' }).setToken(DISCORD_BOT_TOKEN);
 
-rest
-  .put(Routes.applicationGuildCommands(DISCORD_CLIENT_ID, DISCORD_GUILD_ID), {
-    body: commands,
-  })
-  .then(() => console.log('Successfully registered application commands.'))
-  .catch(console.error);
+  rest
+    .put(Routes.applicationGuildCommands(DISCORD_CLIENT_ID, DISCORD_GUILD_ID), {
+      body: commands,
+    })
+    .then(() => console.log('Successfully registered application commands.'))
+    .catch(console.error);
+})();
