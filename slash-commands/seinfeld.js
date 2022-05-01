@@ -12,7 +12,7 @@ import {
 export default {
   data: new SlashCommandBuilder()
     .setName('seinfeld')
-    .setDescription('Random Seinfeld GIF from Giphy')
+    .setDescription('Random Seinfeld GIF from Tenor')
     .addStringOption((option) =>
       option.setName('query').setDescription('Enter optional search query'),
     ),

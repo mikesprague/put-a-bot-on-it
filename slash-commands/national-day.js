@@ -14,7 +14,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('national-day')
     .setDescription(
-      'Random national day from National Day Calendar (w/ possibly related GIF from Giphy API)',
+      'Random national day from National Day Calendar (w/ possibly related GIF from Tenor API)',
     ),
   async execute(interaction) {
     const apiUrl = nationalDayApi();
@@ -38,7 +38,10 @@ export default {
     }
     const searchTerm = searchTermArray.join(' ').toLowerCase();
     // const nationalDayGifs = await getGifs({ searchTerm });
-    const nationalDayGifs = await getTenorGifs({ searchTerm });
+    let nationalDayGifs = await getTenorGifs({ searchTerm });
+    if (!nationalDayGifs.length) {
+      nationalDayGifs = await getTenorGifs({ searchTerm: 'swedish chef' });
+    }
     const randomGifNum = getRandomNum(nationalDayGifs.length);
     // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
     const randomGif = nationalDayGifs[randomGifNum].media[0].gif.url;

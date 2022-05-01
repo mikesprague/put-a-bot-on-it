@@ -13,7 +13,7 @@ import {
 export default {
   data: new SlashCommandBuilder()
     .setName('alf')
-    .setDescription('Random Alf GIF from Giphy')
+    .setDescription('Random Alf GIF from Tenor')
     .addStringOption((option) =>
       option.setName('query').setDescription('Enter optional search query'),
     ),

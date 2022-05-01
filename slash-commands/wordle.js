@@ -8,7 +8,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('wordle')
     .setDescription(
-      `Random GIF from Giphy (searches current Wordle solution) - warning, could spoil current game`,
+      `Random GIF from Tenor based on current Wordle solution - warning, could spoil current game`,
     ),
   async execute(interaction) {
     const apiUrl = wordleSolutionApi();

@@ -14,7 +14,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('kanye')
     .setDescription(
-      'Random Kanye West quote from https://kanye.rest with GIF from Giphy',
+      'Random Kanye West quote from https://kanye.rest with GIF from Tenor',
     ),
   async execute(interaction) {
     const searchTerm = 'kanye';

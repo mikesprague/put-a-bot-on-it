@@ -13,7 +13,7 @@ import { ronSwansonApi } from '../lib/urls.js';
 export default {
   data: new SlashCommandBuilder()
     .setName('ron')
-    .setDescription('Random Ron Swanson quote from an API with GIF from Giphy'),
+    .setDescription('Random Ron Swanson quote from an API with GIF from Tenor'),
   async execute(interaction) {
     const apiUrl = ronSwansonApi();
     const searchTerm = 'ron swanson';
