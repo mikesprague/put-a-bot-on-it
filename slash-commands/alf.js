@@ -24,7 +24,7 @@ export default {
     // const alfGifs = await getGifs({ searchTerm });
     const alfGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(alfGifs.length, 10))
+      ? getRandomNum(Math.min(alfGifs.length, 20))
       : getRandomNum(alfGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = alfGifs[randomNum].images.original.url;

@@ -24,7 +24,7 @@ export default {
     // const steveGifs = await getGifs({ searchTerm });
     const steveGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(steveGifs.length, 15))
+      ? getRandomNum(Math.min(steveGifs.length, 20))
       : getRandomNum(steveGifs.length);
     // const embedImage = steveGifs[randomNum].images.original.url;
     const embedImage = steveGifs[randomNum].media[0].gif.url;

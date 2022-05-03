@@ -23,7 +23,7 @@ export default {
     // const seinfeldGifs = await getGifs({ searchTerm });
     const seinfeldGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(seinfeldGifs.length, 10))
+      ? getRandomNum(Math.min(seinfeldGifs.length, 20))
       : getRandomNum(seinfeldGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = seinfeldGifs[randomNum].images.original.url;

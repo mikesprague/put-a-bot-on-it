@@ -24,7 +24,7 @@ export default {
     // const putinGifs = await getGifs({ searchTerm });
     const putinGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(putinGifs.length, 10))
+      ? getRandomNum(Math.min(putinGifs.length, 20))
       : getRandomNum(putinGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = putinGifs[randomNum].images.original.url;

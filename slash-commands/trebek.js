@@ -29,7 +29,7 @@ export default {
     const trebekGifs2 = await getTenorGifs({ searchTerm: searchTerm2 });
     const trebekGifs = [...trebekGifs1, ...trebekGifs2];
     const randomNum = useArg
-      ? getRandomNum(Math.min(trebekGifs.length, 5))
+      ? getRandomNum(Math.min(trebekGifs.length, 20))
       : getRandomNum(trebekGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = trebekGifs[randomNum].images.original.url;

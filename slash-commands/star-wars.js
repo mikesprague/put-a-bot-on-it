@@ -24,7 +24,7 @@ export default {
     // const starWarsGifs = await getGifs({ searchTerm });
     const starWarsGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(starWarsGifs.length, 10))
+      ? getRandomNum(Math.min(starWarsGifs.length, 20))
       : getRandomNum(starWarsGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = starWarsGifs[randomNum].images.original.url;

@@ -24,7 +24,7 @@ export default {
     // const boratGifs = await getGifs({ searchTerm });
     const boratGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(boratGifs.length, 10))
+      ? getRandomNum(Math.min(boratGifs.length, 20))
       : getRandomNum(boratGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = boratGifs[randomNum].images.original.url;

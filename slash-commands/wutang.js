@@ -24,7 +24,7 @@ export default {
     // const wuTangGifs = await getGifs({ searchTerm });
     const wuTangGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(wuTangGifs.length, 15))
+      ? getRandomNum(Math.min(wuTangGifs.length, 20))
       : getRandomNum(wuTangGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = wuTangGifs[randomNum].images.original.url;

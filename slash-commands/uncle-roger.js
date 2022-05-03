@@ -23,7 +23,7 @@ export default {
     // const uncleRogerGifs = await getGifs({ searchTerm });
     const uncleRogerGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(uncleRogerGifs.length, 10))
+      ? getRandomNum(Math.min(uncleRogerGifs.length, 20))
       : getRandomNum(uncleRogerGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = uncleRogerGifs[randomNum].images.original.url;

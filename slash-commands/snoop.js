@@ -24,7 +24,7 @@ export default {
     // const snoopGifs = await getGifs({ searchTerm });
     const snoopGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
-      ? getRandomNum(Math.min(snoopGifs.length, 15))
+      ? getRandomNum(Math.min(snoopGifs.length, 20))
       : getRandomNum(snoopGifs.length);
     const embedColor = getRandomColor();
     // const embedImage = snoopGifs[randomNum].images.original.url;
