@@ -42,7 +42,10 @@ export default {
       // sendEmbed(interaction, trackingEmbed);
       await interaction.reply({ embeds: [trackingEmbed], ephemeral: true });
     } else {
-      sendContent(interaction, '**Status:** Unavailable, try again later');
+      sendContent(
+        interaction,
+        `**Status:** Unknown, try here https://parcelsapp.com/en/tracking/${trackingId}`,
+      );
     }
   },
 };
