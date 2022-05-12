@@ -12,9 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": ">= 17.x",
-    "npm": ">= 8.x",
-    "yarn": ">= 1.22.x"
+    "node": ">= 16.9.x",
+    "npm": ">= 8.x"
   },
   "keywords": [],
   "author": "Michael Sprague <mikesprague@gmail.com>",
