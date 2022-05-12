@@ -35,54 +35,20 @@
   "devDependencies": {
     "@babel/core": "7.17.10",
     "@babel/eslint-parser": "7.17.0",
-    "@babel/eslint-plugin": "7.17.7",
-    "@babel/node": "7.17.10",
-    "@babel/plugin-transform-runtime": "7.17.10",
-    "@babel/preset-env": "7.17.10",
-    "@babel/runtime": "7.17.9",
-    "@typescript-eslint/eslint-plugin": "5.23.0",
-    "@typescript-eslint/parser": "5.23.0",
-    "babel-loader": "8.2.5",
     "cross-env": "7.0.3",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-babel": "5.3.1",
-    "eslint-plugin-compat": "4.0.2",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-prettier": "4.0.0",
     "nodemon": "2.0.16",
     "prettier": "2.6.2",
     "prettier-eslint": "14.0.3",
-    "typescript": "4.6.4",
     "webpack": "5.72.1"
-  },
-  "babel": {
-    "plugins": [
-      [
-        "@babel/plugin-transform-runtime",
-        {
-          "corejs": false,
-          "helpers": true,
-          "regenerator": true,
-          "useESModules": true
-        }
-      ]
-    ],
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "14"
-          }
-        }
-      ]
-    ]
   },
   "eslintConfig": {
     "env": {
       "browser": false,
-      "commonjs": true,
+      "commonjs": false,
       "es6": true,
       "node": true
     },
@@ -91,13 +57,15 @@
       "prettier"
     ],
     "plugins": [
-      "babel",
-      "compat",
       "import",
       "prettier"
     ],
+    "ignorePatterns": [
+      "**/.history/*",
+      "**/node_modules/*"
+    ],
     "parserOptions": {
-      "parser": "babel-eslint",
+      "parser": "@babel/eslint-parser",
       "ecmaVersion": 11,
       "sourceType": "module",
       "ecmaFeatures": {
@@ -105,37 +73,7 @@
         "modules": true
       }
     },
-    "rules": {
-      "curly": "error",
-      "object-curly-newline": "error",
-      "semi": "error",
-      "prefer-arrow-callback": "warn",
-      "arrow-spacing": "error",
-      "eqeqeq": "error",
-      "quotes": [
-        "error",
-        "single",
-        {
-          "avoidEscape": true,
-          "allowTemplateLiterals": true
-        }
-      ],
-      "import/no-cycle": [
-        "warn",
-        {
-          "maxDepth": 1
-        }
-      ],
-      "func-names": "off",
-      "no-await-in-loop": "off",
-      "no-console": "off",
-      "no-param-reassign": "warn",
-      "no-unused-vars": "warn",
-      "import/prefer-default-export": "off",
-      "no-restricted-syntax": "off",
-      "no-underscore-dangle": "warn",
-      "array-callback-return": "warn"
-    }
+    "rules": {}
   },
   "prettier": {
     "singleQuote": true,
