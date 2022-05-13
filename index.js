@@ -1,7 +1,6 @@
 import { Client, Intents, Collection } from 'discord.js';
 import fs from 'fs';
 import dotenv from 'dotenv';
-import { LocalStorage } from 'node-localstorage';
 
 dotenv.config();
 
@@ -24,8 +23,6 @@ const slashCommandFiles = fs
   .readdirSync('./slash-commands')
   .filter((file) => file.endsWith('.js'));
 
-const localStorage = new LocalStorage('/local-storage');
-
 client.on('ready', async () => {
   client.slashCommands = new Collection();
   client.animatedEmoji = new Collection();
@@ -42,7 +39,6 @@ client.on('ready', async () => {
     client.animatedEmoji.set(emoji[1].name, emoji[0]);
   }
   birdLog('Bird Bot is online');
-  console.log(localStorage.removeItem('testingKey'));
 });
 
 client.on('interactionCreate', async (interaction) => {
