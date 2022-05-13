@@ -44,7 +44,7 @@ export default {
     } else {
       sendContent(
         interaction,
-        `**Status:** Unknown, try here https://parcelsapp.com/en/tracking/${trackingId}`,
+        `**Status:** Unknown, try here <https://parcelsapp.com/en/tracking/${trackingId}>`,
       );
     }
   },
