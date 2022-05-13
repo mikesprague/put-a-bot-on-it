@@ -1,6 +1,7 @@
 import { Client, Intents, Collection } from 'discord.js';
 import fs from 'fs';
 import dotenv from 'dotenv';
+import { LocalStorage } from 'node-localstorage';
 
 dotenv.config();
 
@@ -23,7 +24,10 @@ const slashCommandFiles = fs
   .readdirSync('./slash-commands')
   .filter((file) => file.endsWith('.js'));
 
+const localStorage = new LocalStorage('/local-storage');
+
 client.on('ready', async () => {
+  console.log(localStorage.getItem('testingKey'));
   client.slashCommands = new Collection();
   client.animatedEmoji = new Collection();
 
@@ -132,5 +136,7 @@ setInterval(async () => {
     greetingMinute: 20,
   });
 }, 60000);
+
+localStorage.setItem('testingKey', 'is this thing on?');
 
 client.login(DISCORD_BOT_TOKEN);
