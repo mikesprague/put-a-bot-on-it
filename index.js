@@ -27,7 +27,6 @@ const slashCommandFiles = fs
 const localStorage = new LocalStorage('/local-storage');
 
 client.on('ready', async () => {
-  console.log(localStorage.getItem('testingKey'));
   client.slashCommands = new Collection();
   client.animatedEmoji = new Collection();
 
@@ -43,6 +42,7 @@ client.on('ready', async () => {
     client.animatedEmoji.set(emoji[1].name, emoji[0]);
   }
   birdLog('Bird Bot is online');
+  console.log(localStorage.removeItem('testingKey'));
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -136,7 +136,5 @@ setInterval(async () => {
     greetingMinute: 20,
   });
 }, 60000);
-
-localStorage.setItem('testingKey', 'is this thing on?');
 
 client.login(DISCORD_BOT_TOKEN);
