@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
-  getGifs,
+  getCustomEmojiCode,
+  // getGifs,
   getTenorGifs,
   getRandomColor,
   getRandomNum,
@@ -31,6 +32,7 @@ export default {
       embedDescription: apiData[0],
       embedImage: randomRon,
     });
-    return sendEmbed(interaction, embed);
+    const ronEmoji = getCustomEmojiCode('ronswanson');
+    return sendEmbed(interaction, embed, ronEmoji);
   },
 };

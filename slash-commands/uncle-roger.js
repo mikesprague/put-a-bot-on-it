@@ -1,9 +1,10 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 import {
+  getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  getGifs,
+  // getGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -33,6 +34,7 @@ export default {
       embedFooter: useArg ? `query: ${arg}` : '',
       embedColor,
     });
-    sendEmbed(interaction, uncleRogerEmbed);
+    const uncleRogerEmoji = getCustomEmojiCode('uncle_roger');
+    sendEmbed(interaction, uncleRogerEmbed, uncleRogerEmoji);
   },
 };

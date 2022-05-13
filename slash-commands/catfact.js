@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
+  getCustomEmojiCode,
   getRandomColor,
   getRandomGifByTerm,
   getRandomNum,
@@ -28,6 +29,10 @@ export default {
       embedImage: catGif,
       embedColor: randomColor,
     });
-    return sendEmbed(interaction, catFactEmbed);
+    const emojiArray = ['cat_jam', 'party_cat'];
+    const catEmoji = getCustomEmojiCode(
+      emojiArray[getRandomNum(emojiArray.length)],
+    );
+    return sendEmbed(interaction, catFactEmbed, catEmoji);
   },
 };
