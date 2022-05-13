@@ -11,6 +11,9 @@ services = []
   [build.args]
     NODE_ENV="production"
 
+[env]
+  NODE_ENV="production"
+
 [experimental]
   allowed_public_ports = []
   cmd = []
