@@ -6,7 +6,8 @@ processes = []
 services = []
 
 [build]
-  builder = "heroku/buildpacks:20"
+  builder = "heroku/buildpacks:20" # "paketobuildpacks/builder:full"
+  buildpacks = ["heroku/nodejs"] # "gcr.io/paketo-buildpacks/nodejs"
 
   [build.args]
     NODE_ENV="production"
