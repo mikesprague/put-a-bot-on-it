@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  getGifs,
+  // getGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -20,7 +20,7 @@ export default {
   async execute(interaction) {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
-    const searchTerm = useArg ? `snoop ${arg}` : 'snoop';
+    const searchTerm = useArg ? `snoop dogg ${arg}` : 'snoop dogg';
     // const snoopGifs = await getGifs({ searchTerm });
     const snoopGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
