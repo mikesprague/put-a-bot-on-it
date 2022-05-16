@@ -16,7 +16,10 @@
     "npm": ">= 8.x"
   },
   "keywords": [],
-  "author": "Michael Sprague <mikesprague@gmail.com>",
+  "author": {
+    "name": "Michael Sprague",
+    "email": "mikesprague@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "0.13.0",
