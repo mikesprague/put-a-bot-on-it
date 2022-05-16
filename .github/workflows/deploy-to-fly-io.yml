@@ -1,12 +1,26 @@
 name: Deploy to Fly.io
-on: [push]
+
+on: 
+  push:
+    paths-ignore:
+      - "*.md"
+      - ".vscode/**"
+      - ".devcontainer/**"
+      - ".github/dependabot.yml"
+
+  workflow_dispatch:
+
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --build-target production --remote-only
+      - name: 👷 Checkout repo
+        uses: actions/checkout@v2
+      
+      - name:  🛫 Deploy to Fly.io
+        uses: superfly/flyctl-actions/setup-flyctl@master
+        run: flyctl deploy --build-target production --remote-only
