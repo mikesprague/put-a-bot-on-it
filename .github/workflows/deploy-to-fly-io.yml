@@ -21,6 +21,8 @@ jobs:
       - name: 👷 Checkout repo
         uses: actions/checkout@v2
       
-      - name:  🛫 Deploy to Fly.io
+      - name: 🏗️ Setup Fly.io CLI and deploy environment
         uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: 🛫 Deploy to Fly.io
         run: flyctl deploy --build-target production --remote-only
