@@ -16,10 +16,10 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /usr/src/app
 
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+COPY package*.json ./
 
-RUN npm install --omit=dev --silent && mv node_modules ../
+RUN npm install --omit=dev --silent
 
 COPY . .
 
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
