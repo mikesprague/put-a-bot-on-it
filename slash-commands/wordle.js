@@ -60,6 +60,9 @@ export default {
         window.localStorage.getItem('nyt-wordle-state'),
       );
       solution = JSON.parse(gameState).solution;
+      
+      await browser.close();
+
       localStorage.setItem(
         'wordle',
         JSON.stringify({
@@ -67,7 +70,7 @@ export default {
           date: dayjs().format('YYYYMMDD'),
         }),
       );
-      birdLog(`[/wordle] fetched new solution (${solution})`);
+      birdLog(`[wordle] fetched new solution (${solution})`);
     }
 
     // const wordleGifs = await getGifs({ searchTerm });
