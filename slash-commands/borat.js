@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  getGifs,
+  getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -21,7 +21,7 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `borat ${arg}` : 'borat';
-    // const boratGifs = await getGifs({ searchTerm });
+    // const boratGifs = await getGiphyGifs({ searchTerm });
     const boratGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(boratGifs.length, 20))

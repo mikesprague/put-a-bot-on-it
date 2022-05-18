@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -21,7 +21,7 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `seinfeld ${arg}` : 'seinfeld';
-    // const seinfeldGifs = await getGifs({ searchTerm });
+    // const seinfeldGifs = await getGiphyGifs({ searchTerm });
     const seinfeldGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(seinfeldGifs.length, 20))

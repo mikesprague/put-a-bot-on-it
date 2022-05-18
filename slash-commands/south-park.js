@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomColor,
   getRandomNum,
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,

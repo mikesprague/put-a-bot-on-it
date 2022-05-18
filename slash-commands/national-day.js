@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   getRandomNum,
   getRandomColor,
@@ -37,7 +37,7 @@ export default {
       searchTermArray.pop();
     }
     const searchTerm = searchTermArray.join(' ').toLowerCase();
-    // const nationalDayGifs = await getGifs({ searchTerm });
+    // const nationalDayGifs = await getGiphyGifs({ searchTerm });
     let nationalDayGifs = await getTenorGifs({ searchTerm });
     if (!nationalDayGifs.length) {
       nationalDayGifs = await getTenorGifs({ searchTerm: 'swedish chef' });

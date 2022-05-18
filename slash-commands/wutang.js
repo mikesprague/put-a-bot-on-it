@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -21,7 +21,7 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `wu-tang ${arg}` : 'wu-tang';
-    // const wuTangGifs = await getGifs({ searchTerm });
+    // const wuTangGifs = await getGiphyGifs({ searchTerm });
     const wuTangGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(wuTangGifs.length, 20))

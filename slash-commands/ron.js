@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
   getCustomEmojiCode,
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   getRandomColor,
   getRandomNum,
@@ -19,9 +19,9 @@ export default {
     const apiUrl = ronSwansonApi();
     const searchTerm = 'ron swanson';
     const apiData = await makeApiCall(apiUrl);
-    // const ronGifs = await getGifs({ searchTerm });
+    // const ronGifs = await getGiphyGifs({ searchTerm });
     const ronGifs = await getTenorGifs({ searchTerm });
-    // const ronStickers = await getGifs({ searchTerm, stickerSearch: true });
+    // const ronStickers = await getGiphyGifs({ searchTerm, stickerSearch: true });
     // const allGifs = [...ronGifs, ...ronStickers];
     const randomNum = getRandomNum(ronGifs.length);
     const randomColor = getRandomColor();

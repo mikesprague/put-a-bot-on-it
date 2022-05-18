@@ -3,7 +3,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import {
   getRandomNum,
   getRandomColor,
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -18,7 +18,7 @@ export default {
     // const useArg = Boolean(arg && arg.trim().length);
     // const searchTerm = useArg ? `steven he ${arg}` : 'steven he';
     const searchTerm = 'steven he';
-    // const stevenHeGifs = await getGifs({ searchTerm });
+    // const stevenHeGifs = await getGiphyGifs({ searchTerm });
     const stevenHeGifs = await getTenorGifs({ searchTerm });
     // const randomNum = useArg
     //   ? getRandomNum(Math.min(stevenHeGifs.length, 10))

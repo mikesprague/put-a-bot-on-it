@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  getGifs,
+  getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -21,7 +21,7 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `putin ${arg}` : 'putin';
-    // const putinGifs = await getGifs({ searchTerm });
+    // const putinGifs = await getGiphyGifs({ searchTerm });
     const putinGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(putinGifs.length, 20))

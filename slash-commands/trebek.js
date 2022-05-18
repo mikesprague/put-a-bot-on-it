@@ -3,7 +3,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import {
   getRandomColor,
   getRandomNum,
-  getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -23,8 +23,8 @@ export default {
     const searchTerm2 = useArg
       ? `snl celebrity jeopardy ${arg}`
       : 'snl celebrity jeopardy';
-    // const trebekGifs1 = await getGifs({ searchTerm: searchTerm1 });
-    // const trebekGifs2 = await getGifs({ searchTerm: searchTerm2 });
+    // const trebekGifs1 = await getGiphyGifs({ searchTerm: searchTerm1 });
+    // const trebekGifs2 = await getGiphyGifs({ searchTerm: searchTerm2 });
     const trebekGifs1 = await getTenorGifs({ searchTerm: searchTerm1 });
     const trebekGifs2 = await getTenorGifs({ searchTerm: searchTerm2 });
     const trebekGifs = [...trebekGifs1, ...trebekGifs2];

@@ -23,8 +23,8 @@ export default {
     ),
   async execute(interaction) {
     const isCurrent = interaction.options.getString('comic') === 'latest';
-    const randumComicNum = getRandomNum(2430);
-    const apiUrl = isCurrent ? xkcdApi() : xkcdApi(randumComicNum);
+    const randomComicNum = getRandomNum(2430);
+    const apiUrl = isCurrent ? xkcdApi() : xkcdApi(randomComicNum);
     const apiData = await makeApiCall(apiUrl);
 
     const xkcdEmbed = prepareEmbed({

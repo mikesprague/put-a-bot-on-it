@@ -8,7 +8,7 @@ import { LocalStorage } from 'node-localstorage';
 import {
   birdLog,
   getRandomNum,
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
 } from '../lib/helpers.js';
 
@@ -60,7 +60,7 @@ export default {
         window.localStorage.getItem('nyt-wordle-state'),
       );
       solution = JSON.parse(gameState).solution;
-      
+
       await browser.close();
 
       localStorage.setItem(
@@ -73,7 +73,7 @@ export default {
       birdLog(`[wordle] fetched new solution (${solution})`);
     }
 
-    // const wordleGifs = await getGifs({ searchTerm });
+    // const wordleGifs = await getGiphyGifs({ searchTerm });
     const wordleGifs = await getTenorGifs({ searchTerm: solution });
     const randomNum = getRandomNum(wordleGifs.length);
     // const embedImage = wordleGifs[randomNum].images.original.url;

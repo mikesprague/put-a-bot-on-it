@@ -4,7 +4,7 @@ import {
   getCustomEmojiCode,
   getRandomNum,
   getRandomColor,
-  // getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
@@ -21,7 +21,7 @@ export default {
     const arg = interaction.options.getString('query');
     const useArg = Boolean(arg && arg.trim().length);
     const searchTerm = useArg ? `uncle roger ${arg}` : 'uncle roger';
-    // const uncleRogerGifs = await getGifs({ searchTerm });
+    // const uncleRogerGifs = await getGiphyGifs({ searchTerm });
     const uncleRogerGifs = await getTenorGifs({ searchTerm });
     const randomNum = useArg
       ? getRandomNum(Math.min(uncleRogerGifs.length, 20))

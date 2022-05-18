@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import {
-  getGifs,
+  // getGiphyGifs,
   getTenorGifs,
   getRandomNum,
   getRandomColor,
@@ -18,9 +18,9 @@ export default {
     ),
   async execute(interaction) {
     const searchTerm = 'kanye';
-    // const kanyeGifs = await getGifs({ searchTerm });
+    // const kanyeGifs = await getGiphyGifs({ searchTerm });
     const kanyeGifs = await getTenorGifs({ searchTerm });
-    // const kanyeStickers = await getGifs({ searchTerm, stickerSearch: true });
+    // const kanyeStickers = await getGiphyGifs({ searchTerm, stickerSearch: true });
     // const allKanyeGifs = [...kanyeGifs, ...kanyeStickers];
     const apiUrl = kanyeApi();
     const randomColor = getRandomColor();
