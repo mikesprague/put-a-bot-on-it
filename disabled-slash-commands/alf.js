@@ -8,7 +8,7 @@ import {
   getTenorGifs,
   prepareEmbed,
   sendEmbed,
-} from '../lib/helpers.js';
+} from '../../lib/helpers.js';
 
 export default {
   data: new SlashCommandBuilder()
