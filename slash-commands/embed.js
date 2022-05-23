@@ -6,6 +6,7 @@ import {
   getRandomColor,
   getTenorGifs,
   prepareEmbed,
+  registerTenorGifShare,
   sendEmbed,
   sortArrayOfObjects,
 } from '../lib/helpers.js';
@@ -41,7 +42,7 @@ export default {
     const subjectEmoji = emojiStrings
       ? getCustomEmojiCode(emojiStrings[getRandomNum(emojiStrings.length)])
       : null;
-    
+
     const embedColor = getRandomColor();
 
     const arg = interaction.options.getString('query');
@@ -63,5 +64,6 @@ export default {
     });
 
     await sendEmbed(interaction, subjectEmbed, subjectEmoji);
+    await registerTenorGifShare(subjectGifs[randomNum], searchTerm);
   },
 };
