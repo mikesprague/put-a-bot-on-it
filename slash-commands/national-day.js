@@ -52,6 +52,6 @@ export default {
       embedImage: randomGif,
       embedUrl: link,
     });
-    return sendEmbed(interaction, nationalDayEmbed);
+    return sendEmbed(interaction, nationalDayEmbed, '📅');
   },
 };
