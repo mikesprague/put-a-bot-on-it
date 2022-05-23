@@ -79,5 +79,7 @@ export default {
     // const embedImage = wordleGifs[randomNum].images.original.url;
     const embedImage = wordleGifs[randomNum].media[0].gif.url;
     await interaction.reply({ content: embedImage, ephemeral: false });
+    const message = await interaction.fetchReply();
+    await message.react('🔠');
   },
 };
