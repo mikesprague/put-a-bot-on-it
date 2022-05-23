@@ -20,8 +20,8 @@ export default {
     const searchTerm = 'kanye';
     // const kanyeGifs = await getGiphyGifs({ searchTerm });
     const kanyeGifs = await getTenorGifs({ searchTerm });
-    // const kanyeStickers = await getGiphyGifs({ searchTerm, stickerSearch: true });
-    // const allKanyeGifs = [...kanyeGifs, ...kanyeStickers];
+    const emojiList = ['824289925129961513', '824291309224984656'];
+    const kanyeEmoji = emojiList[getRandomNum(emojiList.length)];
     const apiUrl = kanyeApi();
     const randomColor = getRandomColor();
     const kanyeData = await makeApiCall(apiUrl);
@@ -33,6 +33,6 @@ export default {
       embedDescription: kanyeData.quote,
       embedImage: randomKanye,
     });
-    return sendEmbed(interaction, kanyeEmbed);
+    return sendEmbed(interaction, kanyeEmbed, kanyeEmoji);
   },
 };
