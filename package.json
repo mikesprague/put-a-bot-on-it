@@ -35,7 +35,7 @@
     "dotenv": "16.0.1",
     "level": "8.0.0",
     "node-localstorage": "2.2.1",
-    "puppeteer": "15.3.0",
+    "puppeteer": "15.3.1",
     "randomcolor": "0.6.2",
     "syllable": "5.0.0"
   },
