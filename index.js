@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { DISCORD_BOT_TOKEN } = process.env;
+const { DISCORD_BOT_TOKEN, DISCORD_GUILD_ADMIN_ID } = process.env;
 
 import { birdLog } from './lib/helpers.js';
 import { initReactions } from './lib/reactions.js';
@@ -42,6 +42,9 @@ client.on('ready', async () => {
 });
 
 client.on('interactionCreate', async (interaction) => {
+  if (interaction.user.id === DISCORD_GUILD_ADMIN_ID) {
+    // admin specific
+  }
   if (!interaction.isCommand()) {
     return;
   }
@@ -79,6 +82,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 
 client.on('messageCreate', async (msg) => {
+  if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
+    // admin specific
+  }
   try {
     await initEasterEggs(msg);
   } catch (error) {
