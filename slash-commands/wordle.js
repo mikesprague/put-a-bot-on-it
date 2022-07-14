@@ -77,7 +77,7 @@ export default {
     const wordleGifs = await getTenorGifs({ searchTerm: solution });
     const randomNum = getRandomNum(wordleGifs.length);
     // const embedImage = wordleGifs[randomNum].images.original.url;
-    const embedImage = wordleGifs[randomNum].media[0].gif.url;
+    const embedImage = wordleGifs[randomNum].media_formats.gif.url;
     await interaction.reply({ content: embedImage, ephemeral: false });
     const message = await interaction.fetchReply();
     await message.react('🔠');

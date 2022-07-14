@@ -27,7 +27,7 @@ export default {
     const kanyeData = await makeApiCall(apiUrl);
     const randomNum = getRandomNum(kanyeGifs.length);
     // const randomKanye = kanyeGifs[randomNum].images.original.url;
-    const randomKanye = kanyeGifs[randomNum].media[0].gif.url;
+    const randomKanye = kanyeGifs[randomNum].media_formats.gif.url;
     const kanyeEmbed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: kanyeData.quote,

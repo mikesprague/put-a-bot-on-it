@@ -44,7 +44,7 @@ export default {
     }
     const randomGifNum = getRandomNum(nationalDayGifs.length);
     // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
-    const randomGif = nationalDayGifs[randomGifNum].media[0].gif.url;
+    const randomGif = nationalDayGifs[randomGifNum].media_formats.gif.url;
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
       embedColor: randomColor,

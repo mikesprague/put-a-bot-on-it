@@ -55,8 +55,8 @@ export default {
       ? getRandomNum(Math.min(subjectGifs.length, 20))
       : getRandomNum(subjectGifs.length);
 
-    const embedImage = subjectGifs[randomNum].media[0].gif.url;
-
+    const embedImage = subjectGifs[randomNum].media_formats.gif.url;
+    
     const subjectEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',
