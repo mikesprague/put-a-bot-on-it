@@ -6,6 +6,9 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends software-properties-common git curl wget zip unzip git jq nano vim zsh
 
+# install fly.io cli
+RUN curl -L https://fly.io/install.sh | sh
+
 # install github cli
 RUN export DEBIAN_FRONTEND=noninteractive \
   && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -15,11 +18,10 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 # remove existing yarn executable (or latest version won't install)
 # and install some global npm dependencies
-RUN rm -rf /usr/bin/yarn \
-  && npm install -g npm n gitmoji-cli npm-check-updates yarn
+RUN npm install --location=global npm n gitmoji-cli npm-check-updates
 
 # use n (node version manager) to make sure we're on latest v16 of nodejs
-RUN n 18 && npm i -g npm
+RUN n 18 && npm i --location=global npm
 
 # install and customize oh-my-zsh
 RUN rm -rf /root/.oh-my-zsh \
@@ -39,6 +41,7 @@ RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --dept
   && echo '\n\nexport LS_COLORS="su=00:sg=00:ca=00:ow=01;36;40"\n' >> ~/.zshrc \
   && echo '\nzstyle ":completion:*" list-colors "${(@s.:.)LS_COLORS}"\n' >> ~/.zshrc \
   && echo '\neval "$(gh completion --shell zsh)"\n' >> ~/.zshrc \
+  && echo 'export FLYCTL_INSTALL="/root/.fly"\nexport PATH="$FLYCTL_INSTALL/bin:$PATH"' >> ~/.zshrc \
   && git config  --global --add alias.st status \
   && git config  --global --add alias.br branch \
   && git config  --global --add alias.co checkout \
