@@ -6,7 +6,7 @@ dotenv.config();
 
 const { DISCORD_BOT_TOKEN, DISCORD_GUILD_ADMIN_ID } = process.env;
 
-import { birdLog } from './lib/helpers.js';
+import { birdLog, getRandomNum } from './lib/helpers.js';
 import { initReactions } from './lib/reactions.js';
 import { initEasterEggs, initGreetingGif } from './lib/easter-eggs.js';
 
@@ -15,6 +15,8 @@ const client = new Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_PRESENCES,
+    Intents.FLAGS.GUILD_MEMBERS,
   ],
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
@@ -97,6 +99,71 @@ client.on('messageCreate', async (msg) => {
     console.error('💀 There was an error with a reaction: \n', error);
   }
 });
+
+const greetingStrings = [
+  'Welcome back',
+  'What\'s cracking',
+  'Wassup',
+  'Ahoy',
+  'Hey there',
+  'Howdy',
+  'Hiya',
+  'Aloha',
+  'Konnichiwa',
+  'Whaddup',
+  'Yo',
+  'Greetings',
+  'Good day',
+  'How long has it been',
+  'Missed me',
+  'Hola',
+  'What\'s good',
+  'Haven\'t seen you in a minute',
+];
+
+const goodbyeStrings = [
+  'Bye',
+  'Goodbye',
+  'Toodaloo',
+  'Farewell',
+  'Until next time',
+  'See you later',
+  'See you soon',
+  'Laters',
+  'Cheerio',
+  'Peace out',
+  'It was nice seeing you',
+  'Take it easy',
+  'Take care',
+  'Bye for now',
+  'Have a good one',
+  'Stay out of trouble',
+  'Stay classy',
+  'I look forward to our next meeting',
+  'Hasta la vista',
+  'Adios',
+  'Sayonara',
+  'Ciao',
+  'Smell you later',
+];
+
+client.on('presenceUpdate', (oldStatus, newStatus) => {
+  const everyoneChannel = '756162896634970113';
+  const testChannel = '819747110701236244';
+  const toddles = '290210234301939713';
+  const me = DISCORD_GUILD_ADMIN_ID;
+  const targetChannel = process.env.NODE_ENV === 'production' ? everyoneChannel : testChannel;
+  const watchUser = process.env.NODE_ENV === 'production' ? toddles : me;
+  if (oldStatus.status !== newStatus.status) {
+    const channel = client.channels.cache.get(targetChannel);
+    if (newStatus.userId === watchUser && newStatus.status === 'online' && oldStatus.status !== 'online') {
+      channel.send(`${greetingStrings[getRandomNum(greetingStrings.length)]} Toddles!`);
+    }
+    if (newStatus.userId === watchUser && newStatus.status !== 'online' && oldStatus.status === 'online') {
+      channel.send(`${goodbyeStrings[getRandomNum(goodbyeStrings.length)]} Toddles!`);
+    }
+  }
+})
 
 setInterval(async () => {
   await initGreetingGif({
