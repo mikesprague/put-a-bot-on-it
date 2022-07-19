@@ -20,15 +20,17 @@ Silly bot for a private discord server I run
    - `DISCORD_BOT_TOKEN`
    - `DISCORD_CLIENT_ID`
    - `DISCORD_GUILD_ID`
+   - `DISCORD_GUILD_ADMIN_ID`
    - `GIPHY_API_KEY`
    - `TENOR_API_KEY`
+   - `TENOR_API_V2_KEY`
    - `NASA_API_KEY`
 1. Run locally `npm run dev`
 
 ### Uses (incomplete list)
 
 - [discord.js Library](https://github.com/discordjs/discord.js)
-- [Tenor API](https://tenor.com/gifapi)
+- [Tenor API](https://developers.google.com/tenor/guides/quickstart)
 - [Giphy API](https://developers.giphy.com/)
 - [NASA API (Astronomy Picture of the Day)](https://api.nasa.gov/)
 - [icanhazdadjoke.com API](https://icanhazdadjoke.com)
