@@ -1,4 +1,4 @@
-import { Client, Intents, Collection } from 'discord.js';
+import { Client, GatewayIntentBits, InteractionType, Partials, Collection } from 'discord.js';
 import fs from 'fs';
 import dotenv from 'dotenv';
 
@@ -12,13 +12,13 @@ import { initEasterEggs, initGreetingGif } from './lib/easter-eggs.js';
 
 const client = new Client({
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_PRESENCES,
-    Intents.FLAGS.GUILD_MEMBERS,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildPresences,
+    GatewayIntentBits.GuildMembers,
   ],
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
 
 const slashCommandFiles = fs
@@ -47,7 +47,7 @@ client.on('interactionCreate', async (interaction) => {
   if (interaction.user.id === DISCORD_GUILD_ADMIN_ID) {
     // admin specific
   }
-  if (!interaction.isCommand()) {
+  if (interaction.type !== InteractionType.ApplicationCommand) {
     return;
   }
   const slashCommand = client.slashCommands.get(interaction.commandName);

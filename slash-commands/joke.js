@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder } from 'discord.js';
 
 import { makeApiCall, sendContent } from '../lib/helpers.js';
 import { jokeApi } from '../lib/urls.js';
