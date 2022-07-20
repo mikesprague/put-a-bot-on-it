@@ -17,8 +17,15 @@ const client = new Client({
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.MessageContent,
   ],
-  partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+  partials: [
+    Partials.Message,
+    Partials.User,
+    Partials.GuildMember,
+    Partials.Channel,
+    Partials.Reaction,
+  ],
 });
 
 const slashCommandFiles = fs
