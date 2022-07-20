@@ -109,7 +109,7 @@ client.on('messageCreate', async (msg) => {
 
 const greetingStrings = [
   'Welcome back',
-  'What\'s cracking',
+  "What's cracking",
   'Wassup',
   'Ahoy',
   'Hey there',
@@ -124,8 +124,8 @@ const greetingStrings = [
   'How long has it been',
   'Missed me',
   'Hola',
-  'What\'s good',
-  'Haven\'t seen you in a minute',
+  "What's good",
+  "Haven't seen you in a minute",
 ];
 
 const goodbyeStrings = [
@@ -159,18 +159,31 @@ client.on('presenceUpdate', (oldStatus, newStatus) => {
   const testChannel = '819747110701236244';
   const toddles = '290210234301939713';
   const me = DISCORD_GUILD_ADMIN_ID;
-  const targetChannel = process.env.NODE_ENV === 'production' ? everyoneChannel : testChannel;
+  const targetChannel =
+    process.env.NODE_ENV === 'production' ? everyoneChannel : testChannel;
   const watchUser = process.env.NODE_ENV === 'production' ? toddles : me;
-  if (oldStatus.status !== newStatus.status) {
+  if (
+    oldStatus &&
+    newStatus &&
+    oldStatus.status &&
+    newStatus.status &&
+    oldStatus.status !== newStatus.status
+  ) {
     const channel = client.channels.cache.get(targetChannel);
-    if (newStatus.userId === watchUser && newStatus.status === 'online' && oldStatus.status !== 'online') {
-      channel.send(`${greetingStrings[getRandomNum(greetingStrings.length)]} Toddles!`);
-    }
-    if (newStatus.userId === watchUser && newStatus.status !== 'online' && oldStatus.status === 'online') {
-      channel.send(`${goodbyeStrings[getRandomNum(goodbyeStrings.length)]} Toddles!`);
+    if (newStatus.userId === watchUser) {
+      if (newStatus.status === 'online' && oldStatus.status !== 'online') {
+        channel.send(
+          `${greetingStrings[getRandomNum(greetingStrings.length)]} Toddles!`,
+        );
+      }
+      if (newStatus.status !== 'online' && oldStatus.status === 'online') {
+        channel.send(
+          `${goodbyeStrings[getRandomNum(goodbyeStrings.length)]} Toddles 👋`,
+        );
+      }
     }
   }
-})
+});
 
 setInterval(async () => {
   await initGreetingGif({
