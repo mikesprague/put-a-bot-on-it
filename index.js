@@ -154,7 +154,7 @@ const goodbyeStrings = [
   'Smell you later',
 ];
 
-client.on('presenceUpdate', (oldStatus, newStatus) => {
+client.on('presenceUpdate', async (oldStatus, newStatus) => {
   const everyoneChannel = '756162896634970113';
   const testChannel = '819747110701236244';
   const toddles = '290210234301939713';
@@ -170,17 +170,25 @@ client.on('presenceUpdate', (oldStatus, newStatus) => {
     oldStatus.status !== newStatus.status
   ) {
     const channel = client.channels.cache.get(targetChannel);
+    let greetingToSend = null;
     if (newStatus.userId === watchUser) {
       if (newStatus.status === 'online' && oldStatus.status !== 'online') {
-        channel.send(
-          `${greetingStrings[getRandomNum(greetingStrings.length)]} Toddles!`,
-        );
+        greetingToSend = `${
+          greetingStrings[getRandomNum(greetingStrings.length)]
+        } Toddles!`;
       }
       if (newStatus.status !== 'online' && oldStatus.status === 'online') {
-        channel.send(
-          `${goodbyeStrings[getRandomNum(goodbyeStrings.length)]} Toddles 👋`,
-        );
+        greetingToSend = `${
+          goodbyeStrings[getRandomNum(goodbyeStrings.length)]
+        } Toddles 👋`;
       }
+    }
+    if (greetingToSend) {
+      channel.send(greetingToSend).then(async (msg) => {
+        setTimeout(async () => {
+          await msg.delete();
+        }, 600000);
+      });
     }
   }
 });
