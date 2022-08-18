@@ -8,7 +8,7 @@ export default {
     .setName('hall-and-oates')
     .setDescription('Random music video from YouTube API'),
   async execute(interaction) {
-    const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&part=id&maxResults=100&order=relevance&q=hall%20and%20oates&safeSearch=none&type=video&videoEmbeddable=true&key=${YOUTUBE_API_KEY}`;
+    const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&part=id&maxResults=100&order=relevance&q=hall%20and%20oates&safeSearch=none&type=video&videoEmbeddable=true&publishedBefore=2013-01-01T00%3A00%3A00Z&key=${YOUTUBE_API_KEY}`;
     const apiData = await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
     });
