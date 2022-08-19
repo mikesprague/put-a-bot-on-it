@@ -33,7 +33,7 @@
     "discord.js": "14.2.0",
     "dotenv": "16.0.1",
     "node-localstorage": "2.2.1",
-    "puppeteer": "16.1.1",
+    "puppeteer": "16.2.0",
     "randomcolor": "0.6.2"
   },
   "devDependencies": {
