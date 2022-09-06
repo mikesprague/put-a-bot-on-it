@@ -37,7 +37,7 @@
     "randomcolor": "0.6.2"
   },
   "devDependencies": {
-    "@babel/core": "7.18.13",
+    "@babel/core": "7.19.0",
     "@babel/eslint-parser": "7.18.9",
     "eslint": "8.23.0",
     "eslint-config-prettier": "8.5.0",
