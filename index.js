@@ -186,7 +186,11 @@ client.on('presenceUpdate', async (oldStatus, newStatus) => {
     if (greetingToSend) {
       channel.send(greetingToSend).then(async (msg) => {
         setTimeout(async () => {
-          await msg.delete();
+          try {
+	    await msg.delete();
+	  } catch (error) {
+            console.log('Message unavailable to remove\n', msg);
+	  }
         }, 600000);
       });
     }
