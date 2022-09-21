@@ -30,7 +30,7 @@
     "cross-env": "7.0.3",
     "dayjs": "1.11.5",
     "discord-api-types": "0.37.10",
-    "discord.js": "14.3.0",
+    "discord.js": "14.4.0",
     "dotenv": "16.0.2",
     "node-localstorage": "2.2.1",
     "puppeteer": "18.0.3",
