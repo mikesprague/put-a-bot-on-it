@@ -40,11 +40,17 @@ export default {
       const trackingEmbed = prepareEmbed({
         embedDescription: trackingData,
       });
-      return await sendEmbed({ content: [trackingEmbed], ephemeral: true });
+      return await sendEmbed({
+        interaction,
+        content: [trackingEmbed],
+        ephemeral: true,
+      });
     } else {
       return await sendContent({
+        interaction,
         content: `**Status:** Unknown, try here <https://parcelsapp.com/en/tracking/${trackingId}>`,
         ephemeral: true,
+        deferred: true,
       });
     }
   },
