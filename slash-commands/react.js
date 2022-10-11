@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { sendContent } from '../lib/helpers';
+
+import { sendContent } from '../lib/helpers.js';
 
 export default {
   data: new SlashCommandBuilder()
