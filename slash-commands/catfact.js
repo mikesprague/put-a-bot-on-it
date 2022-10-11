@@ -15,6 +15,7 @@ export default {
     .setName('catfact')
     .setDescription('Random fact from the Cat Facts API'),
   async execute(interaction) {
+    await interaction.deferReply();
     const apiUrl = catFactsApi();
     const apiData = await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
@@ -33,6 +34,10 @@ export default {
     const catEmoji = getCustomEmojiCode(
       emojiArray[getRandomNum(emojiArray.length)],
     );
-    return sendEmbed(interaction, catFactEmbed, catEmoji);
+    return sendEmbed({
+      interaction,
+      content: catFactEmbed,
+      reaction: catEmoji,
+    });
   },
 };

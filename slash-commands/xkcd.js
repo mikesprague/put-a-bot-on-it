@@ -22,6 +22,7 @@ export default {
         ),
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const isCurrent = interaction.options.getString('comic') === 'latest';
     const randomComicNum = getRandomNum(2430);
     const apiUrl = isCurrent ? xkcdApi() : xkcdApi(randomComicNum);
@@ -33,6 +34,6 @@ export default {
       embedFooter: apiData.alt,
       embedImage: apiData.img,
     });
-    sendEmbed(interaction, xkcdEmbed);
+    sendEmbed({ interaction, content: xkcdEmbed });
   },
 };

@@ -35,6 +35,7 @@ export default {
       option.setName('query').setDescription('Enter optional search query'),
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const subject = interaction.options.getString('subject');
     const [subjectOptions] = filterArrayOfObjects(commands, 'value', subject);
     const emojiStrings = subjectOptions.emoji;
@@ -63,7 +64,11 @@ export default {
       embedColor,
     });
 
-    await sendEmbed(interaction, subjectEmbed, subjectEmoji);
+    await sendEmbed({
+      interaction,
+      content: subjectEmbed,
+      reaction: subjectEmoji,
+    });
     await registerTenorGifShare(subjectGifs[randomNum], searchTerm);
   },
 };

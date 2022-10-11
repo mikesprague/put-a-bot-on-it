@@ -20,6 +20,7 @@ export default {
         .setRequired(true),
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const trackingId = interaction.options.getString('id').trim().toLowerCase();
     const apiUrl = packagePlaceApi(trackingId);
     const apiData = await makeApiCall(apiUrl);
@@ -40,7 +41,7 @@ export default {
         embedDescription: trackingData,
       });
       // sendEmbed(interaction, trackingEmbed);
-      await interaction.reply({ embeds: [trackingEmbed], ephemeral: true });
+      await interaction.editReply({ embeds: [trackingEmbed], ephemeral: true });
     } else {
       sendContent(
         interaction,

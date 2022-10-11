@@ -17,6 +17,7 @@ export default {
       'Random national day from National Day Calendar (w/ possibly related GIF from Tenor API)',
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const apiUrl = nationalDayApi();
     const randomColor = getRandomColor();
     const nationalDayData = await makeApiCall(apiUrl);
@@ -52,6 +53,10 @@ export default {
       embedImage: randomGif,
       embedUrl: link,
     });
-    return sendEmbed(interaction, nationalDayEmbed, '📅');
+    return sendEmbed({
+      interaction,
+      content: nationalDayEmbed,
+      reaction: '📅',
+    });
   },
 };

@@ -16,6 +16,7 @@ export default {
     .setName('ron')
     .setDescription('Random Ron Swanson quote from an API with GIF from Tenor'),
   async execute(interaction) {
+    await interaction.deferReply();
     const apiUrl = ronSwansonApi();
     const searchTerm = 'ron swanson';
     const apiData = await makeApiCall(apiUrl);
@@ -33,6 +34,6 @@ export default {
       embedImage: randomRon,
     });
     const ronEmoji = getCustomEmojiCode('ronswanson');
-    return sendEmbed(interaction, embed, ronEmoji);
+    return sendEmbed({ interaction, content: embed, reaction: ronEmoji });
   },
 };

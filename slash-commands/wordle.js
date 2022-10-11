@@ -27,6 +27,7 @@ export default {
       `Random GIF from Tenor based on current Wordle solution - warning, could spoil current game`,
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const wordleState = JSON.parse(localStorage.getItem('wordle'));
     let solution = null;
 
@@ -78,7 +79,7 @@ export default {
     const randomNum = getRandomNum(wordleGifs.length);
     // const embedImage = wordleGifs[randomNum].images.original.url;
     const embedImage = wordleGifs[randomNum].media_formats.gif.url;
-    await interaction.reply({ content: embedImage, ephemeral: false });
+    await interaction.editReply({ content: embedImage, ephemeral: false });
     const message = await interaction.fetchReply();
     await message.react('🔠');
   },

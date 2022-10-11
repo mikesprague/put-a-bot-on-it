@@ -22,6 +22,7 @@ export default {
         ),
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const { NASA_API_KEY } = process.env;
     const apiURLBase = nasaApi(NASA_API_KEY);
     const isToday = interaction.options.getString('date') === 'today';
@@ -37,6 +38,6 @@ export default {
       embedUrl: nasaData.hdurl || nasaData.url,
       embedImage: nasaData.url,
     });
-    sendEmbed(interaction, nasaEmbed);
+    sendEmbed({ interaction, content: nasaEmbed });
   },
 };

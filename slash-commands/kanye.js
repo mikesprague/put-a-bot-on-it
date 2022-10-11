@@ -17,6 +17,7 @@ export default {
       'Random Kanye West quote from https://kanye.rest with GIF from Tenor',
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const searchTerm = 'kanye';
     // const kanyeGifs = await getGiphyGifs({ searchTerm });
     const kanyeGifs = await getTenorGifs({ searchTerm });
@@ -33,6 +34,10 @@ export default {
       embedDescription: kanyeData.quote,
       embedImage: randomKanye,
     });
-    return sendEmbed(interaction, kanyeEmbed, kanyeEmoji);
+    return sendEmbed({
+      interaction,
+      content: kanyeEmbed,
+      reaction: kanyeEmoji,
+    });
   },
 };

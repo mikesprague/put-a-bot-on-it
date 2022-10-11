@@ -13,6 +13,7 @@ export default {
     .setName('startup')
     .setDescription('Random idea for a Startup from an API with a random GIF'),
   async execute(interaction) {
+    await interaction.deferReply();
     const apiUrl = thisForThatApi();
     const apiData = await makeApiCall(apiUrl);
     const topicGif = await getRandomGifByTerm(apiData.that, false);
@@ -23,6 +24,6 @@ export default {
       embedImage: topicGif,
       embedColor: randomColor,
     });
-    return sendEmbed(interaction, startupEmbed);
+    return sendEmbed({ interaction, content: startupEmbed });
   },
 };
