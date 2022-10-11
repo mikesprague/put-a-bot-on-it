@@ -11,6 +11,6 @@ export default {
     const apiUrl = adviceApi();
     const apiData = await makeApiCall(apiUrl);
     const adviceContent = apiData.slip.advice;
-    return sendContent(interaction, adviceContent);
+    return await sendContent({ interaction, content: adviceContent });
   },
 };

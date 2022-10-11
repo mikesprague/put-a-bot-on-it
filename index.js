@@ -1,4 +1,10 @@
-import { Client, GatewayIntentBits, InteractionType, Partials, Collection } from 'discord.js';
+import {
+  Client,
+  GatewayIntentBits,
+  InteractionType,
+  Partials,
+  Collection,
+} from 'discord.js';
 import fs from 'fs';
 import dotenv from 'dotenv';
 
@@ -6,7 +12,7 @@ dotenv.config();
 
 const { DISCORD_BOT_TOKEN, DISCORD_GUILD_ADMIN_ID } = process.env;
 
-import { birdLog, getRandomNum } from './lib/helpers.js';
+import { birdLog, getRandomNum, sendContent } from './lib/helpers.js';
 import { initReactions } from './lib/reactions.js';
 import { initEasterEggs, initGreetingGif } from './lib/easter-eggs.js';
 
@@ -66,7 +72,8 @@ client.on('interactionCreate', async (interaction) => {
     await slashCommand.default.execute(interaction);
   } catch (error) {
     console.error(error);
-    await interaction.reply({
+    await sendContent({
+      interaction,
       content: '💀 There was an error while executing this slash command!',
       ephemeral: true,
     });
@@ -187,10 +194,10 @@ client.on('presenceUpdate', async (oldStatus, newStatus) => {
       channel.send(greetingToSend).then(async (msg) => {
         setTimeout(async () => {
           try {
-	    await msg.delete();
-	  } catch (error) {
+            await msg.delete();
+          } catch (error) {
             console.log('Message unavailable to remove\n', msg);
-	  }
+          }
         }, 600000);
       });
     }

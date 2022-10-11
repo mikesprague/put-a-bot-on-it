@@ -12,6 +12,6 @@ export default {
     const apiData = await makeApiCall(apiUrl);
     const boredContent = apiData.activity;
     // console.log(boredContent);
-    return sendContent(interaction, boredContent);
+    return await sendContent({ interaction, content: boredContent });
   },
 };

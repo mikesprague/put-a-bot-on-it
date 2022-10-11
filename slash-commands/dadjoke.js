@@ -14,6 +14,6 @@ export default {
       'User-Agent': 'BirdBot (Discord.js bot on private server)',
     });
     const dadJokeContent = apiData.joke;
-    return sendContent(interaction, dadJokeContent);
+    return await sendContent({ interaction, content: dadJokeContent });
   },
 };

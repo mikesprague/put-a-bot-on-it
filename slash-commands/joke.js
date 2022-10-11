@@ -13,6 +13,6 @@ export default {
     const { type, joke, setup, delivery } = apiData;
     const dadJokeContent =
       type === 'single' ? joke : `${setup}\n\n||${delivery}||`;
-    return sendContent(interaction, dadJokeContent);
+    return await sendContent({ interaction, content: dadJokeContent });
   },
 };

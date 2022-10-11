@@ -11,6 +11,6 @@ export default {
     const apiUrl = evilInsultApi();
     const apiData = await makeApiCall(apiUrl);
     const insultContent = apiData.insult;
-    sendContent(interaction, insultContent);
+    return await sendContent({ interaction, content: insultContent });
   },
 };

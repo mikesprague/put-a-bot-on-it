@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
+import { sendContent } from '../lib/helpers';
 
 export default {
   data: new SlashCommandBuilder()
@@ -42,8 +43,9 @@ export default {
     const messages = await interaction.channel.messages.fetch({ limit: 1 });
     const message = await messages.last();
     await interaction.channel.messages.react(message, emojiCode);
-    return await interaction.reply({
-      content: `Reaction successfully added`,
+    return await sendContent({
+      interaction,
+      content: 'Reaction successfully added',
       ephemeral: true,
     });
   },
