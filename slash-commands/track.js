@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from 'discord.js';
 import {
   makeApiCall,
   prepareEmbed,
-  // sendEmbed,
+  sendEmbed,
   sendContent,
 } from '../lib/helpers.js';
 import { packagePlaceApi } from '../lib/urls.js';
@@ -40,13 +40,12 @@ export default {
       const trackingEmbed = prepareEmbed({
         embedDescription: trackingData,
       });
-      // sendEmbed(interaction, trackingEmbed);
-      await interaction.editReply({ embeds: [trackingEmbed], ephemeral: true });
+      return await sendEmbed({ content: [trackingEmbed], ephemeral: true });
     } else {
-      sendContent(
-        interaction,
-        `**Status:** Unknown, try here <https://parcelsapp.com/en/tracking/${trackingId}>`,
-      );
+      return await sendContent({
+        content: `**Status:** Unknown, try here <https://parcelsapp.com/en/tracking/${trackingId}>`,
+        ephemeral: true,
+      });
     }
   },
 };
