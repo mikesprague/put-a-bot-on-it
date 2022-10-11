@@ -1,10 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import {
-  makeApiCall,
-  prepareEmbed,
-  sendEmbed,
-  sendContent,
-} from '../lib/helpers.js';
+import { makeApiCall, sendContent } from '../lib/helpers.js';
 import { packagePlaceApi } from '../lib/urls.js';
 
 export default {
@@ -37,13 +32,12 @@ export default {
 **Status:** ${latestUpdate.status}
 **Last Location:** ${locationString}
 **Timestamp:** ${latestUpdate.timestamp}`;
-      const trackingEmbed = prepareEmbed({
-        embedDescription: trackingData,
-      });
-      return await sendEmbed({
+      // console.log(trackingData);
+      return await sendContent({
         interaction,
-        content: [trackingEmbed],
+        content: trackingData,
         ephemeral: true,
+        deferred: true,
       });
     } else {
       return await sendContent({

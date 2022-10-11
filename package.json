@@ -2,15 +2,15 @@
   "name": "put-a-bot-on-it",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "exports": "./src/index.js",
   "private": "true",
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 ./index.js ",
+    "dev": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 ./src/index.js ",
     "doco:up": "docker-compose -f ./docker-compose.dev.yml up",
     "doco:down": "docker-compose -f ./docker-compose.dev.yml down --rmi 'all'",
-    "slash-deploy": "cross-env NODE_ENV=production node ./deploy-slash-commands.js",
-    "start": "cross-env NODE_ENV=production node ./index.js",
+    "slash-deploy": "cross-env NODE_ENV=production node ./src/deploy-slash-commands.js",
+    "start": "cross-env NODE_ENV=production node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {

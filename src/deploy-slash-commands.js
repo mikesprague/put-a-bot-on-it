@@ -10,7 +10,7 @@ dotenv.config();
     process.env;
   const commands = [];
   const commandFiles = fs
-    .readdirSync('./commands')
+    .readdirSync('./src/commands')
     .filter((file) => file.endsWith('.js'));
 
   for await (const file of commandFiles) {
