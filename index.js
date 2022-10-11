@@ -15,6 +15,7 @@ const { DISCORD_BOT_TOKEN, DISCORD_GUILD_ADMIN_ID } = process.env;
 import { birdLog, getRandomNum, sendContent } from './lib/helpers.js';
 import { initReactions } from './lib/reactions.js';
 import { initEasterEggs, initGreetingGif } from './lib/easter-eggs.js';
+import { goodbyeStrings, greetingStrings } from './lib/lists.js';
 
 const client = new Client({
   intents: [
@@ -114,53 +115,6 @@ client.on('messageCreate', async (msg) => {
   }
 });
 
-const greetingStrings = [
-  'Welcome back',
-  "What's cracking",
-  'Wassup',
-  'Ahoy',
-  'Hey there',
-  'Howdy',
-  'Hiya',
-  'Aloha',
-  'Konnichiwa',
-  'Whaddup',
-  'Yo',
-  'Greetings',
-  'Good day',
-  'How long has it been',
-  'Missed me',
-  'Hola',
-  "What's good",
-  "Haven't seen you in a minute",
-];
-
-const goodbyeStrings = [
-  'Bye',
-  'Goodbye',
-  'Toodaloo',
-  'Farewell',
-  'Until next time',
-  'See you later',
-  'See you soon',
-  'Laters',
-  'Cheerio',
-  'Peace out',
-  'It was nice seeing you',
-  'Take it easy',
-  'Take care',
-  'Bye for now',
-  'Have a good one',
-  'Stay out of trouble',
-  'Stay classy',
-  'I look forward to our next meeting',
-  'Hasta la vista',
-  'Adios',
-  'Sayonara',
-  'Ciao',
-  'Smell you later',
-];
-
 client.on('presenceUpdate', async (oldStatus, newStatus) => {
   const everyoneChannel = '756162896634970113';
   const testChannel = '819747110701236244';
@@ -172,7 +126,7 @@ client.on('presenceUpdate', async (oldStatus, newStatus) => {
     newStatus &&
     oldStatus.status &&
     newStatus.status &&
-    oldStatus.status !== newStatus.status
+    newStatus.status !== oldStatus.status
   ) {
     const channel = client.channels.cache.get(targetChannel);
 
@@ -200,7 +154,7 @@ client.on('presenceUpdate', async (oldStatus, newStatus) => {
           } catch (error) {
             console.log('Message unavailable to remove\n', msg);
           }
-        }, 300000);
+        }, 150000);
       });
     }
   }
