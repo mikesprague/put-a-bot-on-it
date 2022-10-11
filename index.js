@@ -164,11 +164,9 @@ const goodbyeStrings = [
 client.on('presenceUpdate', async (oldStatus, newStatus) => {
   const everyoneChannel = '756162896634970113';
   const testChannel = '819747110701236244';
-  const toddles = '290210234301939713';
-  const me = DISCORD_GUILD_ADMIN_ID;
   const targetChannel =
     process.env.NODE_ENV === 'production' ? everyoneChannel : testChannel;
-  const watchUser = process.env.NODE_ENV === 'production' ? toddles : me;
+
   if (
     oldStatus &&
     newStatus &&
@@ -177,19 +175,23 @@ client.on('presenceUpdate', async (oldStatus, newStatus) => {
     oldStatus.status !== newStatus.status
   ) {
     const channel = client.channels.cache.get(targetChannel);
+
+    const currentUser = client.users.cache.find(
+      (user) => user.id === newStatus.userId,
+    );
+
     let greetingToSend = null;
-    if (newStatus.userId === watchUser) {
-      if (newStatus.status === 'online' && oldStatus.status !== 'online') {
-        greetingToSend = `${
-          greetingStrings[getRandomNum(greetingStrings.length)]
-        } Toddles!`;
-      }
-      if (newStatus.status !== 'online' && oldStatus.status === 'online') {
-        greetingToSend = `${
-          goodbyeStrings[getRandomNum(goodbyeStrings.length)]
-        } Toddles 👋`;
-      }
+    if (newStatus.status === 'online' && oldStatus.status !== 'online') {
+      greetingToSend = `${
+        greetingStrings[getRandomNum(greetingStrings.length)]
+      } ${currentUser.username}!`;
     }
+    if (newStatus.status !== 'online' && oldStatus.status === 'online') {
+      greetingToSend = `${
+        goodbyeStrings[getRandomNum(goodbyeStrings.length)]
+      } ${currentUser.username} 👋`;
+    }
+
     if (greetingToSend) {
       channel.send(greetingToSend).then(async (msg) => {
         setTimeout(async () => {
@@ -198,7 +200,7 @@ client.on('presenceUpdate', async (oldStatus, newStatus) => {
           } catch (error) {
             console.log('Message unavailable to remove\n', msg);
           }
-        }, 600000);
+        }, 300000);
       });
     }
   }
