@@ -10,11 +10,11 @@ dotenv.config();
     process.env;
   const commands = [];
   const commandFiles = fs
-    .readdirSync('./slash-commands')
+    .readdirSync('./commands')
     .filter((file) => file.endsWith('.js'));
 
   for await (const file of commandFiles) {
-    const command = await import(`./slash-commands/${file}`);
+    const command = await import(`./commands/${file}`);
     commands.push(command.default.data.toJSON());
   }
 

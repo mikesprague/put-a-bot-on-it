@@ -36,15 +36,15 @@ const client = new Client({
 });
 
 const slashCommandFiles = fs
-  .readdirSync('./slash-commands')
+  .readdirSync('./commands')
   .filter((file) => file.endsWith('.js'));
 
-client.on('ready', async () => {
+client.once('ready', async () => {
   client.slashCommands = new Collection();
   client.animatedEmoji = new Collection();
 
   for await (const file of slashCommandFiles) {
-    const slashCommand = await import(`./slash-commands/${file}`);
+    const slashCommand = await import(`./commands/${file}`);
     client.slashCommands.set(slashCommand.default.data.name, slashCommand);
   }
 
