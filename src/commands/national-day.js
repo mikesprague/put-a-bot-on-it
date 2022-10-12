@@ -16,11 +16,12 @@ import {
   getRandomColor,
   prepareEmbed,
   sendEmbed,
+  birdLog,
 } from '../lib/helpers.js';
 import { initNationalDayData } from '../lib/national-day.js';
 
 const localStorage = new LocalStorage('/local-storage');
-const storageKey = dayjs().format('YYYYMMDD');
+const storageKey = dayjs().tz(defaultTimezone).format('YYYYMMDD');
 
 export default {
   data: new SlashCommandBuilder()
@@ -71,6 +72,7 @@ export default {
       embedImage: randomGif,
       embedUrl: link,
     });
+    birdLog(title);
     return sendEmbed({
       interaction,
       content: nationalDayEmbed,

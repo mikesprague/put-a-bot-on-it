@@ -15,7 +15,7 @@ import { birdLog } from './helpers.js';
 
 export const initNationalDayData = async () => {
   const localStorage = new LocalStorage('/local-storage');
-  const storageKey = dayjs().format('YYYYMMDD');
+  const storageKey = dayjs().tz(defaultTimezone).format('YYYYMMDD');
   // localStorage.clear(storageKey);
   const nationalDaysList = localStorage.getItem(storageKey);
 
