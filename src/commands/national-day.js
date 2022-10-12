@@ -1,14 +1,26 @@
 import { SlashCommandBuilder } from 'discord.js';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import { LocalStorage } from 'node-localstorage';
+
+const defaultTimezone = 'America/New_York';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault(defaultTimezone);
+
 import {
-  // getGiphyGifs,
   getTenorGifs,
   getRandomNum,
   getRandomColor,
-  makeApiCall,
   prepareEmbed,
   sendEmbed,
 } from '../lib/helpers.js';
-import { nationalDayApi } from '../lib/urls.js';
+import { initNationalDayData } from '../lib/national-day.js';
+
+const localStorage = new LocalStorage('/local-storage');
+const storageKey = dayjs().format('YYYYMMDD');
 
 export default {
   data: new SlashCommandBuilder()
@@ -18,9 +30,15 @@ export default {
     ),
   async execute(interaction) {
     await interaction.deferReply();
-    const apiUrl = nationalDayApi();
     const randomColor = getRandomColor();
-    const nationalDayData = await makeApiCall(apiUrl);
+
+    let nationalDayData = localStorage.getItem(storageKey);
+    if (!nationalDayData) {
+      await initNationalDayData();
+    }
+    nationalDayData = localStorage.getItem(storageKey);
+    nationalDayData = JSON.parse(nationalDayData);
+
     const randomNum = getRandomNum(nationalDayData.length);
     const { title, description, link } = nationalDayData[randomNum];
 
