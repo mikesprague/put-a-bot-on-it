@@ -1,14 +1,4 @@
 import { SlashCommandBuilder } from 'discord.js';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import { LocalStorage } from 'node-localstorage';
-
-const defaultTimezone = 'America/New_York';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.tz.setDefault(defaultTimezone);
 
 import {
   getTenorGifs,
@@ -20,9 +10,6 @@ import {
 } from '../lib/helpers.js';
 import { initNationalDayData } from '../lib/national-day.js';
 
-const localStorage = new LocalStorage('/local-storage');
-const storageKey = dayjs().tz(defaultTimezone).format('YYYYMMDD');
-
 export default {
   data: new SlashCommandBuilder()
     .setName('national-day')
@@ -33,12 +20,7 @@ export default {
     await interaction.deferReply();
     const randomColor = getRandomColor();
 
-    let nationalDayData = localStorage.getItem(storageKey);
-    if (!nationalDayData) {
-      await initNationalDayData();
-    }
-    nationalDayData = localStorage.getItem(storageKey);
-    nationalDayData = JSON.parse(nationalDayData);
+    const nationalDayData = await initNationalDayData();
 
     const randomNum = getRandomNum(nationalDayData.length);
     const { title, description, link } = nationalDayData[randomNum];

@@ -65,4 +65,5 @@ export const initNationalDayData = async () => {
     // add to storage
     localStorage.setItem(storageKey, JSON.stringify(nationalDaysData));
   }
+  return nationalDaysData;
 };
