@@ -42,7 +42,7 @@ export const event = {
             } catch (error) {
               console.log('Message unavailable to remove\n', msg);
             }
-          }, 180000);
+          }, 120000);
         });
       }
     }
