@@ -9,16 +9,14 @@ const { DISCORD_GUILD_ADMIN_ID } = process.env;
 
 export const event = {
   name: 'interactionCreate',
-  async execute(interaction) {
+  async execute(interaction, client) {
     if (interaction.user.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
     }
     if (interaction.type !== InteractionType.ApplicationCommand) {
       return;
     }
-    const slashCommand = interaction.client.slashCommands.get(
-      interaction.commandName,
-    );
+    const slashCommand = client.slashCommands.get(interaction.commandName);
     if (!slashCommand) {
       return;
     }
