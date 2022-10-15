@@ -2,7 +2,8 @@ import fs from 'fs';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v10';
 import dotenv from 'dotenv';
-import { birdLog } from './lib/helpers';
+
+import { birdLog } from './lib/helpers.js';
 
 dotenv.config();
 
