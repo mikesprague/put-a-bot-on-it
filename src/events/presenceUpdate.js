@@ -1,4 +1,4 @@
-import { getRandomNum } from '../lib/helpers.js';
+import { birdLog, getRandomNum } from '../lib/helpers.js';
 import { goodbyeStrings, greetingStrings } from '../lib/lists.js';
 
 export const event = {
@@ -22,6 +22,8 @@ export const event = {
         (user) => user.id === newStatus.userId,
       );
 
+      birdLog(`[presence] ${currentUser.username} ${newStatus.status}`);
+
       let greetingToSend = null;
       if (newStatus.status === 'online' && oldStatus.status !== 'online') {
         greetingToSend = `${
@@ -40,7 +42,7 @@ export const event = {
             try {
               await msg.delete();
             } catch (error) {
-              console.log('Message unavailable to remove\n', msg);
+              birdLog('[presence] Error: message unavailable to remove\n', msg);
             }
           }, 120000);
         });
