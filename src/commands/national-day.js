@@ -54,7 +54,7 @@ export default {
       embedImage: randomGif,
       embedUrl: link,
     });
-    birdLog(title);
+    birdLog(`[/national-day] ${title}`);
     return sendEmbed({
       interaction,
       content: nationalDayEmbed,

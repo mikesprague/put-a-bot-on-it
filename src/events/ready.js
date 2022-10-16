@@ -33,6 +33,6 @@ export const event = {
 
     await initNationalDayData();
 
-    birdLog('Bird Bot is online');
+    birdLog(`[ready] Bird Bot is online`);
   },
 };

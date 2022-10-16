@@ -38,7 +38,7 @@ export default {
       ) {
         solution = wordleState.solution;
         birdLog(
-          `[wordle] using cached solution (${wordleState.solution}) from ${wordleState.date}`,
+          `[/wordle] using cached solution (${wordleState.solution}) from ${wordleState.date}`,
         );
       }
     }
@@ -71,7 +71,7 @@ export default {
           date: dayjs().format('YYYYMMDD'),
         }),
       );
-      birdLog(`[wordle] fetched new solution (${solution})`);
+      birdLog(`[/wordle] fetched new solution (${solution})`);
     }
 
     // const wordleGifs = await getGiphyGifs({ searchTerm });

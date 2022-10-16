@@ -22,16 +22,18 @@ export const initNationalDayData = async () => {
   let nationalDaysData = [];
 
   if (nationalDaysList !== null && typeof nationalDaysList === 'string') {
-    birdLog(`Using cached National Day data for ${storageKey}`);
+    birdLog(
+      `[initNationalDayData] Using cached National Day data for ${storageKey}`,
+    );
     nationalDaysData = JSON.parse(nationalDaysList);
   } else {
-    birdLog(`Fetching new National Day data for ${storageKey}`);
+    birdLog(
+      `[initNationalDayData] Fetching new National Day data for ${storageKey}`,
+    );
     localStorage.clear(storageKey);
     const pageData = await axios('https://nationaldaycalendar.com/')
       .then(async (response) => response.data)
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => birdLog(`[national-day] Error: \n`, error));
     const $ = cheerio.load(pageData);
     const groupSelector = 'div.sep_month_events';
     const groupData = $(groupSelector);
@@ -48,7 +50,7 @@ export const initNationalDayData = async () => {
       // });
       const descriptionData = await axios(link)
         .then(async (response) => response.data)
-        .catch((error) => console.error(error));
+        .catch((error) => birdLog(`[national-day] Error: \n`, error));
       const selector = '#ff-main-container > main > article > section';
       const $desc = cheerio.load(descriptionData);
       const description = $desc(selector).find('h2 ~ p').first().text().trim();

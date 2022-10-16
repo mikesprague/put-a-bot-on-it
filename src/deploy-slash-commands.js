@@ -26,6 +26,8 @@ dotenv.config();
     .put(Routes.applicationGuildCommands(DISCORD_CLIENT_ID, DISCORD_GUILD_ID), {
       body: commands,
     })
-    .then(() => birdLog('Successfully registered application commands.'))
+    .then(() =>
+      birdLog('[slash-deploy] Successfully registered application commands.'),
+    )
     .catch(console.error);
 })();

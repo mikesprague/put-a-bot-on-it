@@ -68,7 +68,7 @@ export const getCustomEmojiCode = (emojiName) => customEmoji[emojiName.trim()];
 export const getGiphyGifs = async ({ searchTerm, stickerSearch = false }) => {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
   const { GIPHY_API_KEY } = process.env;
-  birdLog(encodedSearchTerm);
+  birdLog(`[getGiphyGifs] ${encodedSearchTerm}`);
   const apiUrl = urls.giphyApi({
     apiKey: GIPHY_API_KEY,
     searchTerm: encodedSearchTerm,
@@ -81,7 +81,7 @@ export const getGiphyGifs = async ({ searchTerm, stickerSearch = false }) => {
 export const getTenorGifs = async ({ searchTerm }) => {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
   const { TENOR_API_V2_KEY } = process.env;
-  birdLog(encodedSearchTerm);
+  birdLog(`[getTenorGifs] ${encodedSearchTerm}`);
   const apiUrl = urls.tenorApiSearch({
     apiKey: TENOR_API_V2_KEY,
     searchTerm: encodedSearchTerm,
@@ -182,7 +182,7 @@ export const sendContent = async ({
       }
     }
   } catch (error) {
-    console.error('💀 There was an error executing sendContent: \n', error);
+    birdLog('[sendContent] 💀 Error: \n', error);
   }
 };
 
@@ -210,7 +210,7 @@ export const sendEmbed = async ({
       }
     }
   } catch (error) {
-    console.error('💀 There was an error executing sendEmbed: \n', error);
+    birdLog('[sendEmbed] 💀 Error: \n', error);
   }
 };
 

@@ -22,7 +22,7 @@ export const event = {
         (user) => user.id === newStatus.userId,
       );
 
-      birdLog(`[presence] ${currentUser.username} ${newStatus.status}`);
+      birdLog(`[presenceUpdate] ${currentUser.username} ${newStatus.status}`);
 
       let greetingToSend = null;
       if (newStatus.status === 'online' && oldStatus.status !== 'online') {
@@ -42,7 +42,10 @@ export const event = {
             try {
               await msg.delete();
             } catch (error) {
-              birdLog('[presence] Error: message unavailable to remove\n', msg);
+              birdLog(
+                '[presenceUpdate] Error: message unavailable to remove\n',
+                msg,
+              );
             }
           }, 120000);
         });

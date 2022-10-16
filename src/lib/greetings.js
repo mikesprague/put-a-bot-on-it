@@ -48,7 +48,7 @@ export const initGreetingGif = async ({
       if (sendToChannel) {
         discordClient.channels.cache.get(sendToChannel).send({ content: gif });
       }
-      birdLog(gif);
+      birdLog(`[initGreetingGif] ${gif}`);
       localStorage.setItem(storageKey, true);
     }
     if (
@@ -57,7 +57,7 @@ export const initGreetingGif = async ({
       currentMinute > greetingMinute
     ) {
       localStorage.removeItem(storageKey);
-      birdLog(`cleaned up ${storageKey}`);
+      birdLog(`[initGreetingGif] cleaned up ${storageKey}`);
     }
   }
 };

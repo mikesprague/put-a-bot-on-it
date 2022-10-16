@@ -1,3 +1,5 @@
+import { birdLog } from '../lib/helpers.js';
+
 export const event = {
   name: 'messageReactionAdd',
   async execute(reaction) {
@@ -5,7 +7,10 @@ export const event = {
       try {
         await reaction.fetch();
       } catch (error) {
-        console.error('Something went wrong when fetching the message:', error);
+        birdLog(
+          '[messageReactionAdd] Error: Something went wrong when fetching the message:\n',
+          error,
+        );
         return;
       }
     }

@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 
+import { birdLog } from '../lib/helpers.js';
 import { initEasterEggs } from '../lib/easter-eggs.js';
 import { initReactions } from '../lib/reactions.js';
 
@@ -16,13 +17,19 @@ export const event = {
     try {
       await initEasterEggs(msg);
     } catch (error) {
-      console.error('💀 There was an error with an easter egg: \n', error);
+      birdLog(
+        '[messageCreate] Error: 💀 There was an error with an easter egg: \n',
+        error,
+      );
     }
 
     try {
       await initReactions(msg);
     } catch (error) {
-      console.error('💀 There was an error with a reaction: \n', error);
+      birdLog(
+        '[messageCreate] Error: 💀 There was an error with a reaction: \n',
+        error,
+      );
     }
   },
 };
