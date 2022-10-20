@@ -1,3 +1,4 @@
+import * as cron from 'node-cron';
 import axios from 'axios';
 import cheerio from 'cheerio';
 import dayjs from 'dayjs';
@@ -68,4 +69,15 @@ export const initNationalDayData = async () => {
     localStorage.setItem(storageKey, JSON.stringify(nationalDaysData));
   }
   return nationalDaysData;
+};
+
+export const initNationalDayRefresh = async () => {
+  cron.schedule(
+    '5 1 * * *',
+    async () => {
+      await initNationalDayData();
+    },
+    { timezone: defaultTimezone },
+  );
+  birdLog('[cron] job scheduled with expression: 5 1 * * *');
 };
