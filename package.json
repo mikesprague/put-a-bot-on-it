@@ -11,7 +11,7 @@
     "do-co:down": "docker-compose -f ./docker-compose.dev.yml down --rmi 'all'",
     "slash-deploy": "cross-env NODE_ENV=production node ./src/deploy-slash-commands.js",
     "start": "cross-env NODE_ENV=production node ./src/index.js",
-    "poststart": "npm run slash-deploy",
+    "postinstall": "npm run slash-deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -34,6 +34,7 @@
     "discord-api-types": "^0.37.14",
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.3",
+    "node-cron": "^3.0.2",
     "node-localstorage": "^2.2.1",
     "puppeteer": "^19.0.0",
     "randomcolor": "^0.6.2"
