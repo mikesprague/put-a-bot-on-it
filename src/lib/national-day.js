@@ -80,12 +80,13 @@ export const initNationalDayData = async () => {
 
 export const initNationalDayRefresh = async () => {
   cron.schedule(
-    '5 4 * * *',
+    '0 5 * * *',
     async () => {
       clearNationDayData(storageKey);
       await initNationalDayData();
+      birdLog('[cron] initNationalDayRefresh');
     },
     { timezone: defaultTimezone },
   );
-  birdLog('[cron] job scheduled with expression: 5 1 * * *');
+  birdLog('[cron] job scheduled with expression: 0 5 * * *');
 };

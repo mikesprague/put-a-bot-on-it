@@ -28,7 +28,7 @@ export const initGreetingGif = async ({
       if (sendToChannel) {
         discordClient.channels.cache.get(sendToChannel).send({ content: gif });
       }
-      birdLog(`[initGreetingGif] ${gif}`);
+      birdLog(`[cron] initGreetingGif (${gif})`);
     },
     { timezone: defaultTimezone },
   );
