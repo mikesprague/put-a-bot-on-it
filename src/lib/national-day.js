@@ -14,9 +14,16 @@ dayjs.tz.setDefault(defaultTimezone);
 
 import { birdLog } from './helpers.js';
 
+const localStorage = new LocalStorage('/local-storage');
+const storageKey = dayjs().tz(defaultTimezone).format('YYYYMMDD');
+
+export const clearNationDayData = (key = storageKey) => {
+  localStorage.clear(key);
+};
+
 export const initNationalDayData = async () => {
-  const localStorage = new LocalStorage('/local-storage');
-  const storageKey = dayjs().tz(defaultTimezone).format('YYYYMMDD');
+  // const localStorage = new LocalStorage('/local-storage');
+  // const storageKey = dayjs().tz(defaultTimezone).format('YYYYMMDD');
   // localStorage.clear(storageKey);
   const nationalDaysList = localStorage.getItem(storageKey);
 
@@ -31,7 +38,6 @@ export const initNationalDayData = async () => {
     birdLog(
       `[initNationalDayData] Fetching new National Day data for ${storageKey}`,
     );
-    localStorage.clear(storageKey);
     const pageData = await axios('https://nationaldaycalendar.com/')
       .then(async (response) => response.data)
       .catch((error) => birdLog(`[national-day] Error: \n`, error));
@@ -66,6 +72,7 @@ export const initNationalDayData = async () => {
       }
     }
     // add to storage
+    clearNationDayData(storageKey);
     localStorage.setItem(storageKey, JSON.stringify(nationalDaysData));
   }
   return nationalDaysData;
@@ -73,8 +80,9 @@ export const initNationalDayData = async () => {
 
 export const initNationalDayRefresh = async () => {
   cron.schedule(
-    '5 1 * * *',
+    '5 4 * * *',
     async () => {
+      clearNationDayData(storageKey);
       await initNationalDayData();
     },
     { timezone: defaultTimezone },

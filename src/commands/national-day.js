@@ -8,9 +8,13 @@ import {
   sendEmbed,
   birdLog,
 } from '../lib/helpers.js';
-import { initNationalDayData } from '../lib/national-day.js';
+import {
+  initNationalDayData,
+  clearNationDayData,
+} from '../lib/national-day.js';
 
 const getChoices = async () => {
+  clearNationDayData();
   const nationalDayData = await initNationalDayData();
   let choices = [];
   let idx = 0;
