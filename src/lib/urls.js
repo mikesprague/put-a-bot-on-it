@@ -1,5 +1,7 @@
 export const adviceApi = () => 'https://api.adviceslip.com/advice';
 
+export const affirmationApi = () => 'https://www.affirmations.dev/';
+
 export const boredApi = () =>
   'https://www.boredapi.com/api/activity?participants=1';
 
