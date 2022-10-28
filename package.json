@@ -34,6 +34,7 @@
     "discord-api-types": "^0.37.15",
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.3",
+    "he": "^1.2.0",
     "node-localstorage": "^2.2.1",
     "puppeteer": "^19.2.0",
     "randomcolor": "^0.6.2"
