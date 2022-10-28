@@ -41,6 +41,9 @@ export const nationalDayApi = () =>
 export const nationalTodayApi = () =>
   'https://api.m5ls5e.com/api/national-today';
 
+export const onThisDayApi = ({ month, day }) =>
+  `https://today.zenquotes.io/api/${month}/${day}`;
+
 export const packagePlaceApi = (trackingId) =>
   `https://package.place/api/track/${trackingId}?stream=true`;
 
