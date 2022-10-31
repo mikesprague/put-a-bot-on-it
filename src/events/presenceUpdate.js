@@ -41,13 +41,15 @@ export const event = {
           setTimeout(async () => {
             try {
               await msg.delete();
+              birdLog(`[presenceUpdate] removed message: ${msg.content}`);
             } catch (error) {
               birdLog(
-                '[presenceUpdate] Error: message unavailable to remove\n',
+                `[presenceUpdate] ERROR, unable to remove message: ${msg.content}`,
                 msg,
               );
             }
           }, 120000);
+          birdLog(`[presenceUpdate] message sent: ${msg.content}`);
         });
       }
     }
