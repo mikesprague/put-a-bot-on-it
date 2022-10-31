@@ -6,7 +6,9 @@ on:
       - "*.md"
       - ".vscode/**"
       - ".devcontainer/**"
-      - ".github/dependabot.yml"
+      - ".github/dependabot.yml"    
+    branches-ignore:
+      - "dependabot/*"
 
   workflow_dispatch:
 
