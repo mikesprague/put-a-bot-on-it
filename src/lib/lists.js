@@ -143,6 +143,7 @@ export const customEmoji = {
   morty: '756184776951463946',
   portal: '756184777316368535',
   swedish_chef: '935595693144440872',
+  napoleon: '1039955866650169384',
   ...animatedEmoji,
 };
 

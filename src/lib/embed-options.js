@@ -25,6 +25,11 @@ export const commands = [
     emoji: ['swedish_chef'],
   },
   {
+    name: 'Napoleon Dynamite',
+    value: 'napoleon dynamite',
+    emoji: ['napoleon'],
+  },
+  {
     name: 'Putin',
     value: 'putin',
     emoji: ['putin'],
