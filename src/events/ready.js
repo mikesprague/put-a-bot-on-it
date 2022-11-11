@@ -3,7 +3,6 @@ import fs from 'node:fs';
 
 import { initAllGifGreetings } from '../lib/greetings.js';
 import { birdLog } from '../lib/helpers.js';
-import { initNationalDayData } from '../lib/national-day.js';
 
 export const event = {
   name: 'ready',
@@ -30,8 +29,6 @@ export const event = {
     }
 
     initAllGifGreetings(client);
-
-    await initNationalDayData();
 
     birdLog(`[ready] Bird Bot is online`);
   },
