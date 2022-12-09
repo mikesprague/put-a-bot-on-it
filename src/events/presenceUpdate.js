@@ -25,16 +25,16 @@ export const event = {
       birdLog(`[presenceUpdate] ${currentUser.username} ${newStatus.status}`);
 
       let greetingToSend = null;
-      if (newStatus.status === 'online' && oldStatus.status !== 'online') {
-        greetingToSend = `${
-          greetingStrings[getRandomNum(greetingStrings.length)]
-        } ${currentUser.username}!`;
-      }
-      if (newStatus.status !== 'online' && oldStatus.status === 'online') {
-        greetingToSend = `${
-          goodbyeStrings[getRandomNum(goodbyeStrings.length)]
-        } ${currentUser.username} 👋`;
-      }
+      // if (newStatus.status === 'online' && oldStatus.status !== 'online') {
+      //   greetingToSend = `${
+      //     greetingStrings[getRandomNum(greetingStrings.length)]
+      //   } ${currentUser.username}!`;
+      // }
+      // if (newStatus.status !== 'online' && oldStatus.status === 'online') {
+      //   greetingToSend = `${
+      //     goodbyeStrings[getRandomNum(goodbyeStrings.length)]
+      //   } ${currentUser.username} 👋`;
+      // }
 
       if (greetingToSend) {
         channel.send(greetingToSend).then(async (msg) => {
