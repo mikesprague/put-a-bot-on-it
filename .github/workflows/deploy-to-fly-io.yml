@@ -23,18 +23,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 👷 Checkout repo
-        uses: actions/checkout@v2
-
-      - name: 🏗️ Setup Fly.io CLI and deploy environment
-        uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: 🚀 Deploy to Fly.io
-        run: flyctl deploy --build-target production --remote-only
+  call-deploy-workflow:
+    uses: mikesprague/reusable-workflows/.github/workflows/flyio-deploy.yml@main
+    secrets:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}
