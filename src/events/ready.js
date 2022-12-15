@@ -28,7 +28,7 @@ export const event = {
       client.animatedEmoji.set(emoji[1].name, emoji[0]);
     }
 
-    initAllGifGreetings(client);
+    // initAllGifGreetings(client);
 
     birdLog(`[ready] Bird Bot is online`);
   },
