@@ -36,7 +36,7 @@
     "dotenv": "^16.0.3",
     "he": "^1.2.0",
     "node-localstorage": "^2.2.1",
-    "puppeteer": "^19.6.2",
+    "puppeteer": "^19.6.3",
     "randomcolor": "^0.6.2"
   },
   "devDependencies": {
