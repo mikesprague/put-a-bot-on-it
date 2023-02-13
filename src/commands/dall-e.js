@@ -23,48 +23,67 @@ export default {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const description = interaction.options.getString('query');
+    const prompt = interaction.options.getString('query');
 
     try {
       const configuration = new Configuration({
         apiKey: OPEN_AI_API_KEY,
       });
       const openai = new OpenAIApi(configuration);
-      
-      birdLog(`[dall-e] ${description}`);
 
-      const response = await openai.createImage({
-        prompt: description,
-        n: 1,
-        size: '1024x1024',
-      });
-      // console.log(response.data);
+      birdLog(`[dall-e] ${prompt}`);
 
       const randomColor = getRandomColor();
 
-      const artworkEmbed = prepareEmbed({
-        embedFooter: description,
-        embedImage: response.data.data[0].url,
-        embedColor: randomColor,
+      const moderation = await openai.createModeration({
+        input: prompt,
       });
 
-      birdLog(`[dall-e] ${response.data.data[0].url}`);
+      if (moderation.data.results[0].flagged) {
+        birdLog(`[dall-e] failed moderation`);
+        const failedEmbed = prepareEmbed({
+          embedFooter: prompt,
+          embedDescription: 'Input Failed Moderation Check',
+        });
+        return sendEmbed({
+          interaction,
+          content: failedEmbed,
+        });
+      } else {
+        birdLog(`[dall-e] passed moderation`);
+        const response = await openai.createImage({
+          prompt,
+          n: 1,
+          size: '1024x1024',
+          user: interaction.user.id,
+        });
+        // console.log(response.data);
 
-      return sendEmbed({
-        interaction,
-        content: artworkEmbed,
-      });
+        const artworkEmbed = prepareEmbed({
+          embedFooter: prompt,
+          embedImage: response.data.data[0].url,
+          embedColor: randomColor,
+        });
+
+        birdLog(`[dall-e] ${response.data.data[0].url}`);
+
+        return sendEmbed({
+          interaction,
+          content: artworkEmbed,
+        });
+      }
     } catch (error) {
       let returnMessage = '';
       if (error.response) {
-        console.log(error.response.status);
-        console.log(error.response.data);
-        returnMessage = `${error.response.status}\n${error.response.data}`;
+        // console.log(error.response.status);
+        // console.log(error.response.data);
+        returnMessage = error.response.data;
       } else {
         console.log(error.message);
         returnMessage = error.message;
       }
-      return sendContent({ interaction, content: returnMessage });
+      await interaction.followUp(returnMessage);
+      // sendContent({ interaction, content: returnMessage });
     }
   },
 };
