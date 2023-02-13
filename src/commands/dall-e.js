@@ -30,6 +30,9 @@ export default {
         apiKey: OPEN_AI_API_KEY,
       });
       const openai = new OpenAIApi(configuration);
+      
+      birdLog(`[dall-e] ${description}`);
+
       const response = await openai.createImage({
         prompt: description,
         n: 1,
@@ -45,7 +48,7 @@ export default {
         embedColor: randomColor,
       });
 
-      birdLog(`[dall-e] ${description} - ${response.data.data[0].url}`);
+      birdLog(`[dall-e] ${response.data.data[0].url}`);
 
       return sendEmbed({
         interaction,
