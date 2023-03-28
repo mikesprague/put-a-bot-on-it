@@ -10,7 +10,7 @@ export default {
   async execute(interaction) {
     await interaction.deferReply();
     const searchString = `"wu-tang clan"|"joey bada$$"|"pharcyde"|"run the jewels"|"black thought"|"a tribe called quest"|"de la soul"|"souls of mischief"|"del tha funky homosapien"|"a$ap rocky"|"kendrick lamar"|"jay-z"`;
-    const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&part=id&maxResults=100&order=relevance&q=${encodeURIComponent(
+    const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&part=id&maxResults=25&order=relevance&q=${encodeURIComponent(
       searchString,
     )}&regionCode=US&relevanceLanguage=en-US&safeSearch=none&type=video&videoCategoryId=10&videoEmbeddable=true&key=${YOUTUBE_API_KEY}`;
     const apiData = await makeApiCall(apiUrl, 'GET', {
