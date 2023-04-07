@@ -10,20 +10,20 @@ const { YOUTUBE_API_KEY } = process.env;
 
 const artists = [
   'Random',
-  'Wu-Tang Clan',
+  'A$AP Rocky',
+  'Black Thought',
+  'De La Soul',
+  'Del the Funky Homosapien',
+  'Jay-Z',
   'Joey Bada$$',
   'Pharcyde',
-  'Run the Jewels',
-  'Black Thought',
-  'A Tribe Called Quest',
-  'De La Soul',
   'Souls of Mischief',
-  'Del the Funky Homosapien',
-  'A$AP Rocky',
-  'Jay-Z',
+  'A Tribe Called Quest',
+  'Run the Jewels',
+  'Wu-Tang Clan',
 ];
 
-const choices = artists.sort().map((artist) => ({
+const choices = artists.map((artist) => ({
   name: artist,
   value: encodeURIComponent(artist.toLowerCase()),
 }));
