@@ -6,7 +6,7 @@ export const initNationalDayData = async () => {
     birdLog(
       `[initNationalDayData] Fetching National Day data from API`,
     );
-    const apiResults = await axios('https://mikesprague.github.io/api/national-day.json')
+    const apiResults = await axios('https://mikesprague.github.io/api/national-day/')
       .then(async (response) => response.data)
       .catch((error) => birdLog(`[national-day] Error: \n`, error));
 
