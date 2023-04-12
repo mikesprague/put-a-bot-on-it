@@ -17,6 +17,7 @@ const artists = [
   'Kendrick Lamar',
   'Jay-Z',
   'Joey Bada$$',
+  'Outkast',
   'Pharcyde',
   'Snoop Dogg',
   'Souls of Mischief',
