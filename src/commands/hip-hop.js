@@ -18,6 +18,7 @@ const artists = [
   'Jay-Z',
   'Joey Bada$$',
   'Pharcyde',
+  'Snoop Dogg',
   'Souls of Mischief',
   'A Tribe Called Quest',
   'Run the Jewels',
