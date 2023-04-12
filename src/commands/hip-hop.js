@@ -39,14 +39,22 @@ export default {
         .setDescription('Artist')
         .setRequired(true)
         .addChoices(...choices),
+    )
+    .addStringOption((option) =>
+      option.setName('song').setDescription('Enter optional song name'),
     ),
   async execute(interaction) {
     await interaction.deferReply();
+    const arg = interaction.options.getString('query');
+    const useArg = Boolean(arg && arg.trim().length);
     let searchString = interaction.options.getString('artist');
     if (searchString === 'random') {
       searchString = encodeURIComponent(
         artists[getRandomNum(artists.length)].toLowerCase(),
       );
+    }
+    if (useArg) {
+      searchString = `${searchString} ${arg}`;
     }
     const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&part=id&maxResults=25&order=relevance&q=${searchString}&regionCode=US&relevanceLanguage=en-US&safeSearch=none&type=video&videoCategoryId=10&videoEmbeddable=true&key=${YOUTUBE_API_KEY}`;
     const apiData = await makeApiCall(apiUrl, 'GET', {
