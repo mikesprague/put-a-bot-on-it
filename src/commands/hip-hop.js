@@ -65,8 +65,8 @@ export default {
     // console.log(apiData);
     birdLog(`[hip-hop] ${decodeURIComponent(searchString)}`);
     const randomNum =
-      useArg && apiData.items.length > 3
-        ? 3
+      useArg && apiData.items.length > 5
+        ? 5
         : getRandomNum(apiData.items.length);
     const { videoId } = apiData.items[randomNum].id;
     const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
