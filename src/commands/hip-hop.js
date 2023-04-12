@@ -14,6 +14,7 @@ const artists = [
   'Black Thought',
   'De La Soul',
   'Del the Funky Homosapien',
+  'Kendrick Lamar',
   'Jay-Z',
   'Joey Bada$$',
   'Pharcyde',
