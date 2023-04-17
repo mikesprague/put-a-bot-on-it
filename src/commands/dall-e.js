@@ -4,7 +4,6 @@ import {
   birdLog,
   getRandomColor,
   prepareEmbed,
-  sendContent,
   sendEmbed,
 } from '../lib/helpers.js';
 
