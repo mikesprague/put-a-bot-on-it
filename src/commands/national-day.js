@@ -56,7 +56,7 @@ export default {
     // // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
     // const randomGif = nationalDayGifs[randomGifNum].media_formats.gif.url;
 
-    const aiPrompt = `action shot representing ${title.toLowerCase()}, photo, detailed image, no text, no words, no text on image`;
+    const aiPrompt = `action shot representing ${title.toLowerCase()}, photo, detailed image, no text`;
     const aiResponse = await openai.createImage({
       prompt: aiPrompt,
       n: 1,
