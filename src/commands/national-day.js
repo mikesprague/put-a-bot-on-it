@@ -56,14 +56,30 @@ export default {
     // // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
     // const randomGif = nationalDayGifs[randomGifNum].media_formats.gif.url;
 
-    const aiPrompt = `action shot representing ${title.toLowerCase()}, photo, detailed image, no text`;
-    const aiResponse = await openai.createImage({
-      prompt: aiPrompt,
+    const textPrompt = `Extract the topic in three words or less (do not return the words "day", "week", "month", "national", or "international") from the following text: "${description}"`;
+    const textResponse = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'assistant',
+          content: textPrompt,
+        },
+      ],
+      temperature: 0.3,
+      user: interaction.user.id,
+    });
+
+    console.log(textPrompt);
+    console.log(textResponse.data.choices);
+
+    const imagePrompt = `action shot of ${title.toLowerCase()}, photo, detailed image`;
+    const imageResponse = await openai.createImage({
+      prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
       user: interaction.user.id,
     });
-    const aiImage = aiResponse.data.data[0].url;
+    const aiImage = imageResponse.data.data[0].url;
 
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
