@@ -2,7 +2,9 @@ import { Configuration, OpenAIApi } from 'openai';
 import { SlashCommandBuilder } from 'discord.js';
 import {
   birdLog,
-  sendContent,
+  prepareEmbed,
+  sendEmbed,
+  getRandomColor,
 } from '../lib/helpers.js';
 
 const { OPEN_AI_API_KEY } = process.env;
@@ -45,6 +47,24 @@ export default {
     
     birdLog(`[/haiku] ${haiku}`);
 
-    return await sendContent({interaction, content: haiku, deferred: true });
+    const imagePrompt = `${haiku.replace('\n', ' ')}, photo, detailed image`;
+    const imageResponse = await openai.createImage({
+      prompt: imagePrompt,
+      n: 1,
+      size: '1024x1024',
+      user: interaction.user.id,
+    });
+    console.log(imagePrompt.data);
+    const aiImage = imageResponse.data.data[0].url;
+
+    const randomColor = getRandomColor();
+
+    const haikuEmbed = prepareEmbed({
+      embedColor: randomColor,
+      embedDescription: haiku,
+      embedImage: aiImage,
+    })
+
+    return await sendEmbed({interaction, content: haikuEmbed, deferred: true });
   },
 };
