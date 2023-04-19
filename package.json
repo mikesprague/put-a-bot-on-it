@@ -38,7 +38,8 @@
     "node-localstorage": "^2.2.1",
     "openai": "^3.2.1",
     "puppeteer": "^19.9.1",
-    "randomcolor": "^0.6.2"
+    "randomcolor": "^0.6.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
