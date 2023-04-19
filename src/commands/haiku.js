@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { SlashCommandBuilder } from 'discord.js';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { v4 as uuidv4 } from 'uuid';
 import {
   birdLog,
   prepareEmbed,
@@ -45,7 +46,7 @@ export default {
 
     const haiku = haikuResponse.data.choices[0].message.content;
     
-    birdLog(`[/haiku] ${haiku}`);
+    birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
 
     const imagePrompt = `${haiku.replace('\n', ' ')}, photo, detailed image`;
     const imageResponse = await openai.createImage({
@@ -54,17 +55,20 @@ export default {
       size: '1024x1024',
       user: interaction.user.id,
     });
-    console.log(imageResponse.data);
+    // console.log(imageResponse.data);
     const aiImage = imageResponse.data.data[0].url;
+    const aiImageName = `${uuidv4()}.png`;
+
+    const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
 
     const randomColor = getRandomColor();
 
     const haikuEmbed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: haiku,
-      embedImage: aiImage,
+      embedImage: `attachment://${aiImageName}`,
     })
 
-    return await sendEmbed({interaction, content: haikuEmbed, deferred: true });
+    return await sendEmbed({interaction, content: haikuEmbed, file: embedFile, deferred: true });
   },
 };

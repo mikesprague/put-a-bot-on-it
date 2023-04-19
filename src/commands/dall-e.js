@@ -1,4 +1,5 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { v4 as uuidv4 } from 'uuid';
 import { Configuration, OpenAIApi } from 'openai';
 import {
   birdLog,
@@ -44,7 +45,7 @@ export default {
           embedFooter: prompt,
           embedDescription: 'Input Failed Moderation Check',
         });
-        return sendEmbed({
+        return await sendEmbed({
           interaction,
           content: failedEmbed,
         });
@@ -58,17 +59,23 @@ export default {
         });
         // console.log(response.data);
 
+        const aiImage = response.data.data[0].url;
+        const aiImageName = `${uuidv4()}.png`;
+        const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+
         const artworkEmbed = prepareEmbed({
           embedFooter: prompt,
-          embedImage: response.data.data[0].url,
+          embedImage: `attachment://${aiImageName}`,
           embedColor: randomColor,
         });
 
         birdLog(`[dall-e] ${response.data.data[0].url}`);
 
-        return sendEmbed({
+        return await sendEmbed({
           interaction,
           content: artworkEmbed,
+          file: embedFile, 
+          deferred: true
         });
       }
     } catch (error) {

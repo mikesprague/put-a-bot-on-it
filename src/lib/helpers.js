@@ -189,6 +189,7 @@ export const sendContent = async ({
 export const sendEmbed = async ({
   interaction,
   content,
+  file = null,
   reaction = null,
   ttl = null,
   deferred = true,
@@ -196,7 +197,7 @@ export const sendEmbed = async ({
 }) => {
   try {
     if (deferred) {
-      await interaction.editReply({ embeds: [content], ephemeral });
+      await interaction.editReply({ embeds: [content], files: [file], ephemeral });
     } else {
       await interaction.reply({ embeds: [content], ephemeral });
     }

@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { SlashCommandBuilder } from 'discord.js';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   // getTenorGifs,
@@ -84,8 +85,11 @@ export default {
       user: interaction.user.id,
     });
     const aiImage = imageResponse.data.data[0].url;
+    const aiImageName = `${uuidv4()}.png`;
 
-    birdLog(`[/national-day] ${aiImage}`);
+    const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+
+    // birdLog(`[/national-day] ${aiImage}`);
 
     const haikuPrompt = `Generate a haiku about the subject: ${aiSummary}`;
     const haikuResponse = await openai.createChatCompletion({
@@ -104,14 +108,15 @@ export default {
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
       embedColor: randomColor,
-      embedDescription: `**Haiku**\n${haiku}\n\n**Description**\n${description} [Read More](${link})`,
-      embedImage: aiImage,
+      embedDescription: `${description} [Read More](${link})\n\n**Haiku**\n${haiku}`,
+      embedImage: `attachment://${aiImageName}`,
       embedUrl: link,
     });
     birdLog(`[/national-day] ${title}`);
-    return sendEmbed({
+    return await sendEmbed({
       interaction,
       content: nationalDayEmbed,
+      file: embedFile,
       reaction: '📅',
     });
   },
