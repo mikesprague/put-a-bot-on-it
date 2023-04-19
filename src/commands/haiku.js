@@ -54,7 +54,7 @@ export default {
       size: '1024x1024',
       user: interaction.user.id,
     });
-    console.log(imagePrompt.data);
+    console.log(imageResponse.data);
     const aiImage = imageResponse.data.data[0].url;
 
     const randomColor = getRandomColor();
