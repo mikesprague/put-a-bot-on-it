@@ -69,10 +69,13 @@ export default {
       user: interaction.user.id,
     });
 
-    console.log(textPrompt);
-    console.log(textResponse.data.choices);
+    // console.log(textPrompt);
+    // console.log(textResponse.data.choices[0].message.content);
 
-    const imagePrompt = `action shot of ${title.toLowerCase()}, photo, detailed image`;
+    const aiSummary = textResponse.data.choices[0].message.content;
+    birdLog(`[/national-day] ${aiSummary}`);
+
+    const imagePrompt = `action shot of ${aiSummary}, photo, detailed image`;
     const imageResponse = await openai.createImage({
       prompt: imagePrompt,
       n: 1,
@@ -80,6 +83,8 @@ export default {
       user: interaction.user.id,
     });
     const aiImage = imageResponse.data.data[0].url;
+
+    birdLog(`[/national-day] ${aiImage}`);
 
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
