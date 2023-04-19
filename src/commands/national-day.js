@@ -17,10 +17,11 @@ export default {
   data: new SlashCommandBuilder()
     .setName('national-day')
     .setDescription(
-      'Random national day from National Day Calendar (w/ possibly related AI generated image)',
+      'Random day from National Day Calendar (w/ possibly related AI-generated image)',
     ),
   async execute(interaction) {
     await interaction.deferReply();
+    
     const configuration = new Configuration({
       apiKey: OPEN_AI_API_KEY,
     });
@@ -56,7 +57,7 @@ export default {
     // // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
     // const randomGif = nationalDayGifs[randomGifNum].media_formats.gif.url;
 
-    const textPrompt = `Extract the topic in three words or less (do not return the words "day", "week", "month", "national", or "international") from the following text: "${description}"`;
+    const textPrompt = `Extract the topic in three words or less (do not return the words "day", "week", "month", "national", or "international") from the following text: ${description}`;
     const textResponse = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -86,10 +87,24 @@ export default {
 
     birdLog(`[/national-day] ${aiImage}`);
 
+    const haikuPrompt = `Generate a haiku about the subject: ${aiSummary}`;
+    const haikuResponse = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'assistant',
+          content: haikuPrompt,
+        },
+      ],
+      temperature: 0.2,
+      user: interaction.user.id,
+    });
+    const haiku = haikuResponse.data.choices[0].message.content;
+
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
       embedColor: randomColor,
-      embedDescription: `${description} [Read More](${link})`,
+      embedDescription: `**Haiku**\n${haiku}\n\n**Description**\n${description} [Read More](${link})`,
       embedImage: aiImage,
       embedUrl: link,
     });
