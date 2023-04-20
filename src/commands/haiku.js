@@ -56,7 +56,7 @@ export default {
 
     let aiImageName = null;
     let embedFile = null;
-    let embedImage = null;
+    let embedImage = '';
 
     const imagePrompt = `${haiku.replace('\n', ' ')}, photo, detailed image`;
 
