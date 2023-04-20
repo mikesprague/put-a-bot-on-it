@@ -31,7 +31,9 @@ export default {
     const openai = new OpenAIApi(configuration);
 
     const limerickPrompt = `Generate a limerick about the subject: ${subject}`;
-
+    
+    birdLog(`[/limerick] ${limerickPrompt}`);
+    
     const limerickResponse = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -48,27 +50,27 @@ export default {
     
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
 
-    const imagePrompt = `${limerick.replace('\n', ' ')}, photo, detailed image`;
-    const imageResponse = await openai.createImage({
-      prompt: imagePrompt,
-      n: 1,
-      size: '1024x1024',
-      user: interaction.user.id,
-    });
-    // console.log(imageResponse.data);
-    const aiImage = imageResponse.data.data[0].url;
-    const aiImageName = `${uuidv4()}.png`;
+    // const imagePrompt = `${limerick.replace('\n', ' ')}, photo, detailed image`;
+    // const imageResponse = await openai.createImage({
+    //   prompt: imagePrompt,
+    //   n: 1,
+    //   size: '1024x1024',
+    //   user: interaction.user.id,
+    // });
+    // // console.log(imageResponse.data);
+    // const aiImage = imageResponse.data.data[0].url;
+    // const aiImageName = `${uuidv4()}.png`;
 
-    const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+    // const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
 
     const randomColor = getRandomColor();
 
     const limerickEmbed = prepareEmbed({
       embedColor: randomColor,
       embedDescription: limerick,
-      embedImage: `attachment://${aiImageName}`,
+      // embedImage: `attachment://${aiImageName}`,
     })
 
-    return await sendEmbed({interaction, content: limerickEmbed, file: embedFile, deferred: true });
+    return await sendEmbed({interaction, content: limerickEmbed, deferred: true });
   },
 };
