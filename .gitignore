@@ -119,3 +119,5 @@ dist
 .history
 .vercel
 *.code-workspace
+scratch.js
+
