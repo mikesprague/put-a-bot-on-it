@@ -25,11 +25,11 @@ export const event = {
       await slashCommand.default.execute(interaction);
     } catch (error) {
       console.error(`[interactionCreate] Error:`, error);
-      await sendContent({
-        interaction,
-        content: '💀 There was an error while executing this slash command!',
-        ephemeral: true,
-      });
+      // await sendContent({
+      //   interaction,
+      //   content: '💀 There was an error while executing this slash command!',
+      //   ephemeral: true,
+      // });
     }
   },
 };

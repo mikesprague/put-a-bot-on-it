@@ -197,9 +197,17 @@ export const sendEmbed = async ({
 }) => {
   try {
     if (deferred) {
-      await interaction.editReply({ embeds: [content], files: [file], ephemeral });
+      await interaction.editReply({
+        embeds: [content],
+        files: file ? [file] : null,
+        ephemeral,
+      });
     } else {
-      await interaction.reply({ embeds: [content], ephemeral });
+      await interaction.reply({
+        embeds: [content],
+        files: file ? [file] : null,
+        ephemeral,
+      });
     }
     if (reaction) {
       const message = await interaction.fetchReply();

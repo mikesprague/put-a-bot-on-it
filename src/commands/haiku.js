@@ -18,8 +18,14 @@ export default {
       option
         .setName('subject')
         .setDescription('Provide a subject/topic for the haiku')
-        .setRequired(true)
+        .setRequired(true),
     ),
+  // .addBooleanOption((option) =>
+  //   option
+  //     .setName('image')
+  //     .setDescription('Include an image with the haiku')
+  //     .setRequired(true)
+  // ),
   async execute(interaction) {
     await interaction.deferReply();
 
@@ -45,30 +51,43 @@ export default {
     });
 
     const haiku = haikuResponse.data.choices[0].message.content;
-    
+
     birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
 
+    let aiImageName = null;
+    let embedFile = null;
+    let embedImage = null;
+
     const imagePrompt = `${haiku.replace('\n', ' ')}, photo, detailed image`;
-    const imageResponse = await openai.createImage({
-      prompt: imagePrompt,
-      n: 1,
-      size: '1024x1024',
-      user: interaction.user.id,
-    });
-    // console.log(imageResponse.data);
-    const aiImage = imageResponse.data.data[0].url;
-    const aiImageName = `${uuidv4()}.png`;
 
-    const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
-
-    const randomColor = getRandomColor();
+    try {
+      const imageResponse = await openai.createImage({
+        prompt: imagePrompt,
+        n: 1,
+        size: '1024x1024',
+        user: interaction.user.id,
+      });
+      const aiImage = imageResponse.data.data[0].url;
+      aiImageName = `${uuidv4()}.png`;
+      embedImage = `attachment://${aiImageName}`;
+      embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+    } catch (error) {
+      console.log(
+        `[/haiku] image generation failed for prompt: ${imagePrompt}`,
+      );
+    }
 
     const haikuEmbed = prepareEmbed({
-      embedColor: randomColor,
+      embedColor: getRandomColor(),
       embedDescription: haiku,
-      embedImage: `attachment://${aiImageName}`,
-    })
+      embedImage,
+    });
 
-    return await sendEmbed({interaction, content: haikuEmbed, file: embedFile, deferred: true });
+    return await sendEmbed({
+      interaction,
+      content: haikuEmbed,
+      file: embedFile,
+      deferred: true,
+    });
   },
 };
