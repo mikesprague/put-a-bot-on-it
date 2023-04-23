@@ -28,6 +28,30 @@ export const gptGetHaiku = async (subjectText, openAiClient, interaction = null)
   return haiku;
 };
 
+export const gptGetLimerick = async (
+  subjectText,
+  openAiClient,
+  interaction = null,
+) => {
+  const limerickPrompt = `Generate a limerick about the subject: ${subjectText}`;
+
+  const limerickResponse = await openAiClient.createChatCompletion({
+    model: 'gpt-3.5-turbo',
+    messages: [
+      {
+        role: 'assistant',
+        content: limerickPrompt,
+      },
+    ],
+    temperature: 0.2,
+    user: interaction.user.id,
+  });
+
+  const limerick = limerickResponse.data.choices[0].message.content;
+
+  return limerick;
+};
+
 export const gptGetEmoji = async (
   textToAnalyze,
   openAiClient,
