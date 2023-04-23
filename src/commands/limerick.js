@@ -7,7 +7,7 @@ import {
   sendEmbed,
   getRandomColor,
 } from '../lib/helpers.js';
-import { gptGetLimerick } from '../lib/openai.js';
+import { gptGetEmoji, gptGetLimerick } from '../lib/openai.js';
 
 const { OPEN_AI_API_KEY } = process.env;
 
@@ -39,6 +39,9 @@ export default {
 
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
 
+    const emojiJson = await gptGetEmoji(limerick, openai, interaction);
+    console.log('[/limerick]', emojiJson);
+
     // const imagePrompt = `${limerick.replace('\n', ' ')}, photo, detailed image`;
     // const imageResponse = await openai.createImage({
     //   prompt: imagePrompt,
@@ -63,6 +66,7 @@ export default {
     return await sendEmbed({
       interaction,
       content: limerickEmbed,
+      reaction: emojiJson.map((item) => item.emoji),
       deferred: true,
     });
   },
