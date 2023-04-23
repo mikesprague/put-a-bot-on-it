@@ -65,6 +65,7 @@ export default {
     }
 
     const emojiJson = await gptGetEmoji(haiku, openai, interaction);
+    birdLog('[/haiku]', emojiJson);
 
     const haikuEmbed = prepareEmbed({
       embedColor: getRandomColor(),
