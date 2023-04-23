@@ -7,6 +7,7 @@ import {
   sendEmbed,
   getRandomColor,
 } from '../lib/helpers.js';
+import { gptGetHaiku } from '../lib/openai.js';
 
 const { OPEN_AI_API_KEY } = process.env;
 
@@ -36,21 +37,7 @@ export default {
     });
     const openai = new OpenAIApi(configuration);
 
-    const haikuPrompt = `Generate a haiku about the subject: ${subject}`;
-
-    const haikuResponse = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'assistant',
-          content: haikuPrompt,
-        },
-      ],
-      temperature: 0.2,
-      user: interaction.user.id,
-    });
-
-    const haiku = haikuResponse.data.choices[0].message.content;
+    const haiku = await gptGetHaiku(subject, openai, interaction);
 
     birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
 
