@@ -10,7 +10,7 @@ import {
   sendEmbed,
   birdLog,
 } from '../lib/helpers.js';
-import { gptGetHaiku } from '../lib/openai.js';
+import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
 import { initNationalDayData } from '../lib/national-day.js';
 
 const { OPEN_AI_API_KEY } = process.env;
@@ -75,6 +75,8 @@ export default {
     // console.log(textPrompt);
     // console.log(textResponse.data.choices[0].message.content);
 
+    const emojiJson = await gptGetEmoji(textPrompt, openai, interaction);
+
     const aiSummary = textResponse.data.choices[0].message.content;
     birdLog(`[/national-day] ${aiSummary}`);
 
@@ -107,7 +109,7 @@ export default {
       interaction,
       content: nationalDayEmbed,
       file: embedFile,
-      reaction: '📅',
+      reaction: emojiJson.map((item) => item.emoji),
     });
   },
 };
