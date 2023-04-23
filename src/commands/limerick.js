@@ -7,6 +7,7 @@ import {
   sendEmbed,
   getRandomColor,
 } from '../lib/helpers.js';
+import { gptGetLimerick } from '../lib/openai.js';
 
 const { OPEN_AI_API_KEY } = process.env;
 
@@ -18,7 +19,7 @@ export default {
       option
         .setName('subject')
         .setDescription('Provide a subject/topic for the limerick')
-        .setRequired(true)
+        .setRequired(true),
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -31,23 +32,11 @@ export default {
     const openai = new OpenAIApi(configuration);
 
     const limerickPrompt = `Generate a limerick about the subject: ${subject}`;
-    
-    birdLog(`[/limerick] ${limerickPrompt}`);
-    
-    const limerickResponse = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'assistant',
-          content: limerickPrompt,
-        },
-      ],
-      temperature: 0.2,
-      user: interaction.user.id,
-    });
 
-    const limerick = limerickResponse.data.choices[0].message.content;
-    
+    birdLog(`[/limerick] ${limerickPrompt}`);
+
+    const limerick = await gptGetLimerick(limerickPrompt, openai, interaction);
+
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
 
     // const imagePrompt = `${limerick.replace('\n', ' ')}, photo, detailed image`;
@@ -69,8 +58,12 @@ export default {
       embedColor: randomColor,
       embedDescription: limerick,
       // embedImage: `attachment://${aiImageName}`,
-    })
+    });
 
-    return await sendEmbed({interaction, content: limerickEmbed, deferred: true });
+    return await sendEmbed({
+      interaction,
+      content: limerickEmbed,
+      deferred: true,
+    });
   },
 };
