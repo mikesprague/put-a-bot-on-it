@@ -10,6 +10,7 @@ import {
   sendEmbed,
   birdLog,
 } from '../lib/helpers.js';
+import { gptGetHaiku } from '../lib/openai.js';
 import { initNationalDayData } from '../lib/national-day.js';
 
 const { OPEN_AI_API_KEY } = process.env;
@@ -22,7 +23,7 @@ export default {
     ),
   async execute(interaction) {
     await interaction.deferReply();
-    
+
     const configuration = new Configuration({
       apiKey: OPEN_AI_API_KEY,
     });
@@ -92,18 +93,7 @@ export default {
     // birdLog(`[/national-day] ${aiImage}`);
 
     const haikuPrompt = `Generate a haiku about the subject: ${aiSummary}`;
-    const haikuResponse = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'assistant',
-          content: haikuPrompt,
-        },
-      ],
-      temperature: 0.2,
-      user: interaction.user.id,
-    });
-    const haiku = haikuResponse.data.choices[0].message.content;
+    const haiku = await gptGetHaiku(haikuPrompt, openai, interaction);
 
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
