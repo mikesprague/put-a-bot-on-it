@@ -55,7 +55,6 @@ export const gptGetLimerick = async (
 export const gptGetEmoji = async (
   textToAnalyze,
   openAiClient,
-  temperature = 0.3,
   interaction = null,
 ) => {
   let emojiJson = [
@@ -81,7 +80,7 @@ export const gptGetEmoji = async (
           content: emojiPrompt.trim(),
         },
       ],
-      temperature,
+      temperature: 0.3,
       user: interaction.user.id,
     });
 

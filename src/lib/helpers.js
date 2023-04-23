@@ -211,7 +211,13 @@ export const sendEmbed = async ({
     }
     if (reaction) {
       const message = await interaction.fetchReply();
-      await message.react(reaction);
+      if (typeof reaction === 'object') {
+        reaction.forEach(async (emoji) => {
+          await message.react(emoji);
+        });
+      } else {
+        await message.react(reaction);
+      }
       if (ttl) {
         setTimeout(async () => {
           await message.delete();
