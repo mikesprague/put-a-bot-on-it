@@ -7,7 +7,7 @@ import {
   sendEmbed,
   getRandomColor,
 } from '../lib/helpers.js';
-import { gptGetHaiku } from '../lib/openai.js';
+import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
 
 const { OPEN_AI_API_KEY } = process.env;
 
@@ -64,6 +64,8 @@ export default {
       );
     }
 
+    const emojiJson = await gptGetEmoji(haiku, openai, interaction);
+
     const haikuEmbed = prepareEmbed({
       embedColor: getRandomColor(),
       embedDescription: haiku,
@@ -74,6 +76,7 @@ export default {
       interaction,
       content: haikuEmbed,
       file: embedFile,
+      reaction: emojiJson.map((item) => item.emoji),
       deferred: true,
     });
   },
