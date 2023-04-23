@@ -74,10 +74,10 @@ export default {
 
     // console.log(textPrompt);
     // console.log(textResponse.data.choices[0].message.content);
-
-    const emojiJson = await gptGetEmoji(textPrompt, openai, interaction);
-
     const aiSummary = textResponse.data.choices[0].message.content;
+
+    const emojiJson = await gptGetEmoji(aiSummary, openai, interaction);
+
     birdLog(`[/national-day] ${aiSummary}`);
 
     const imagePrompt = `action shot of ${aiSummary}, photo, detailed image`;
