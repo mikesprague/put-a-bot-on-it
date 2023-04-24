@@ -174,7 +174,7 @@ export const sendContent = async ({
     }
     if (reaction) {
       const message = await interaction.fetchReply();
-      await message.react(reaction);
+      message.react(reaction);
       if (ttl) {
         setTimeout(async () => {
           await message.delete();
@@ -213,10 +213,10 @@ export const sendEmbed = async ({
       const message = await interaction.fetchReply();
       if (typeof reaction === 'object') {
         reaction.forEach(async (emoji) => {
-          await message.react(emoji);
+          message.react(emoji);
         });
       } else {
-        await message.react(reaction);
+        message.react(reaction);
       }
       if (ttl) {
         setTimeout(async () => {

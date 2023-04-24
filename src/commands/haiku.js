@@ -41,7 +41,6 @@ export default {
       textToAnalyze: subject,
       openAiClient: openai,
       temperature: 0.2,
-      user: interaction.user.id,
     });
 
     birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
@@ -57,7 +56,6 @@ export default {
         prompt: imagePrompt,
         n: 1,
         size: '1024x1024',
-        user: interaction.user.id,
       });
       const aiImage = imageResponse.data.data[0].url;
       aiImageName = `${uuidv4()}.png`;
@@ -72,9 +70,8 @@ export default {
     const emojiJson = await gptGetEmoji({
       textToAnalyze: haiku,
       openAiClient: openai,
-      user: interaction.user.id,
     });
-    birdLog('[/haiku]', emojiJson);
+    // birdLog('[/haiku]', emojiJson);
 
     const haikuEmbed = prepareEmbed({
       embedColor: getRandomColor(),

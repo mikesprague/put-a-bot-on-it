@@ -36,40 +36,23 @@ export default {
     const randomNum = getRandomNum(nationalDayData.length);
     const { title, description, link } = nationalDayData[randomNum];
 
-    // let searchTermArray = title.split(' ');
-    // const startTermsToRemove = ['national', 'international', 'world'];
-    // if (startTermsToRemove.includes(searchTermArray[0].trim().toLowerCase())) {
-    //   searchTermArray.shift();
-    // }
-    // const endTermsToRemove = ['day', 'eve'];
-    // if (
-    //   endTermsToRemove.includes(
-    //     searchTermArray[searchTermArray.length - 1].trim().toLowerCase(),
-    //   )
-    // ) {
-    //   searchTermArray.pop();
-    // }
-    // const searchTerm = searchTermArray.join(' ').toLowerCase();
-    // const nationalDayGifs = await getGiphyGifs({ searchTerm });
-    // let nationalDayGifs = await getTenorGifs({ searchTerm });
-    // if (!nationalDayGifs.length) {
-    //   nationalDayGifs = await getTenorGifs({ searchTerm: 'swedish chef' });
-    // }
-    // const randomGifNum = getRandomNum(nationalDayGifs.length);
-    // // const randomGif = nationalDayGifs[randomGifNum].images.original.url;
-    // const randomGif = nationalDayGifs[randomGifNum].media_formats.gif.url;
+    birdLog('[/national-day]', title);
 
-    const textPrompt = `Extract the topic in three words or less (do not return the words "day", "week", "month", "national", or "international") from the following text: ${description}`;
     const textResponse = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
         {
-          role: 'assistant',
-          content: textPrompt,
+          role: 'system',
+          content:
+            'You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users. You should reply with a short but descriptive paragraph of 3 sentances or less and try to avoid general words like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics and/or subjects. Do not mention the specific occasion, just describe it.',
+        },
+        {
+          role: 'user',
+          content: description,
         },
       ],
-      temperature: 0.3,
-      user: interaction.user.id,
+      temperature: 0.2,
+      // user: interaction.user.id,
     });
 
     // console.log(textPrompt);
@@ -77,32 +60,16 @@ export default {
     const aiSummary = textResponse.data.choices[0].message.content;
     birdLog(`[/national-day] ${aiSummary}`);
 
-    const descriptionForEmoji = description
-      .replace('National ', '')
-      .replace('International ', '')
-      .replace('World ', '')
-      .replace(' Day', '')
-      .replace(' Week', '')
-      .replace(' Month', '')
-      .replace(
-        `${new Date().toLocaleString('default', {
-          month: 'long',
-        })} ${new Date().getDate()}`,
-        '',
-      );
-    const emojiJson = await gptGetEmoji(
-      descriptionForEmoji,
-      openai,
-      interaction,
-    );
-    // birdLog('[/national-day]', emojiJson);
+    const emojiJson = await gptGetEmoji({
+      textToAnalyze: aiSummary,
+      openAiClient: openai,
+    });
 
     const imagePrompt = `action shot of ${aiSummary}, photo, detailed image`;
     const imageResponse = await openai.createImage({
       prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
-      user: interaction.user.id,
     });
     const aiImage = imageResponse.data.data[0].url;
     const aiImageName = `${uuidv4()}.png`;
@@ -112,7 +79,10 @@ export default {
     // birdLog(`[/national-day] ${aiImage}`);
 
     const haikuPrompt = `Generate a haiku about the subject: ${aiSummary}`;
-    const haiku = await gptGetHaiku(haikuPrompt, openai, interaction);
+    const haiku = await gptGetHaiku({
+      textToAnalyze: haikuPrompt,
+      openAiClient: openai,
+    });
 
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,

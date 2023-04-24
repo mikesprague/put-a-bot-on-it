@@ -32,11 +32,10 @@ export const event = {
         const emojiJson = await gptGetEmoji({
           textToAnalyze: msg.content,
           openAiClient: openai,
-          user: msg.author.id,
         });
         birdLog(`[messageCreate] ${msg.content}`);
-        emojiJson.forEach(async (item) => {
-          await msg.react(item.emoji);
+        emojiJson.forEach((item) => {
+          msg.react(item.emoji);
         });
       }
       await initEasterEggs(msg);

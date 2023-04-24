@@ -64,7 +64,6 @@ export default {
             prompt,
             n: 1,
             size: '1024x1024',
-            user: interaction.user.id,
           });
           // console.log(response.data);
 

@@ -37,7 +37,6 @@ export default {
       textToAnalyze: subject,
       openAiClient: openai,
       temperature: 0.3,
-      user: interaction.user.id,
     });
 
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
@@ -45,9 +44,8 @@ export default {
     const emojiJson = await gptGetEmoji({
       textToAnalyze: limerick,
       openAiClient: openai,
-      user: interaction.user.id,
     });
-    console.log('[/limerick]', emojiJson);
+    // console.log('[/limerick]', emojiJson);
 
     // const imagePrompt = `${limerick.replace('\n', ' ')}, photo, detailed image`;
     // const imageResponse = await openai.createImage({

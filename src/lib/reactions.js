@@ -62,63 +62,64 @@ export const initReactions = async (msg) => {
     }
   }
 
-  // don't put a bird on Birdle scores
-  if (messageIncludesWords(msg, lists.birdSynonyms)) {
-    const birdleScore = /Birdle\s[0-9]{1,4}\s(X|[1-6])\/6/gi;
-    if (!birdleScore.test(msg)) {
-      const randomBird = getRandomBirdEmoji();
-      await msg.react(randomBird);
+  if (msg.content.split(' ').length < 8) {
+    // don't put a bird on Birdle scores
+    if (messageIncludesWords(msg, lists.birdSynonyms)) {
+      const birdleScore = /Birdle\s[0-9]{1,4}\s(X|[1-6])\/6/gi;
+      if (!birdleScore.test(msg)) {
+        const randomBird = getRandomBirdEmoji();
+        await msg.react(randomBird);
+      }
     }
-  }
 
-  if (
-    messageIncludesWord(msg, 'trump') &&
-    !messageIncludesWord(msg, 'trumpet')
-  ) {
-    const trumpEmoji = getCustomEmojiCode('trumphair');
-    await msg.react(trumpEmoji);
-  }
+    if (messageIncludesWord(msg, 'taco')) {
+      await msg.react('🌮');
+    }
 
-  if (messageIncludesWord(msg, 'taco')) {
-    await msg.react('🌮');
-  }
+    if (messageIncludesWord(msg, 'burrito')) {
+      await msg.react('🌯');
+    }
 
-  if (messageIncludesWord(msg, 'burrito')) {
-    await msg.react('🌯');
-  }
+    if (messageIncludesWord(msg, 'tamale')) {
+      await msg.react('🫔');
+    }
 
-  if (messageIncludesWord(msg, 'tamale')) {
-    await msg.react('🫔');
-  }
+    if (messageIncludesWord(msg, 'mexican')) {
+      await msg.react('🌮');
+      await msg.react('🌯');
+      await msg.react('🫔');
+    }
 
-  if (messageIncludesWord(msg, 'mexican')) {
-    await msg.react('🌮');
-    await msg.react('🌯');
-    await msg.react('🫔');
-  }
+    if (messageIncludesWord(msg, 'beers')) {
+      await msg.react('🍻');
+    }
 
-  if (messageIncludesWord(msg, 'beers')) {
-    await msg.react('🍻');
-  }
+    if (messageIncludesWords(msg, ['whiskey', 'bourbon', 'shots', 'jameson'])) {
+      await msg.react('🥃');
+    }
 
-  if (messageIncludesWords(msg, ['whiskey', 'bourbon', 'shots', 'jameson'])) {
-    await msg.react('🥃');
-  }
+    if (messageIncludesWords(msg, ['margarita', 'tequila', 'drink'])) {
+      await msg.react('🍹');
+    }
 
-  if (messageIncludesWords(msg, ['margarita', 'tequila', 'drink'])) {
-    await msg.react('🍹');
-  }
+    if (messageIncludesWord(msg, 'beer')) {
+      await msg.react('🍺');
+    }
 
-  if (messageIncludesWord(msg, 'beer')) {
-    await msg.react('🍺');
-  }
+    if (messageIncludesWords(msg, ['vodka', 'martini'])) {
+      await msg.react('🍸');
+    }
 
-  if (messageIncludesWords(msg, ['vodka', 'martini'])) {
-    await msg.react('🍸');
-  }
+    if (messageIncludesWord(msg, 'wine')) {
+      await msg.react('🍷');
+    }
 
-  if (messageIncludesWord(msg, 'wine')) {
-    await msg.react('🍷');
+    if (
+      messageIncludesWords(msg, lists.poopStrings) &&
+      !messageIncludesWord(msg, '<:owlpoop:817417830110593044>')
+    ) {
+      await msg.react('💩');
+    }
   }
 
   if (messageIncludesWord(msg, 'cheers')) {
@@ -153,6 +154,14 @@ export const initReactions = async (msg) => {
     await msg.react(ronEmoji);
   }
 
+  if (
+    messageIncludesWord(msg, 'trump') &&
+    !messageIncludesWord(msg, 'trumpet')
+  ) {
+    const trumpEmoji = getCustomEmojiCode('trumphair');
+    await msg.react(trumpEmoji);
+  }
+
   const rtjReaction = async (msg) => {
     await msg.react('👉🏼');
     await msg.react('🤛🏿');
@@ -165,12 +174,5 @@ export const initReactions = async (msg) => {
   if (messageIncludesWords(msg, ['towel'])) {
     const towelieEmoji = getCustomEmojiCode('towelie');
     await msg.react(towelieEmoji);
-  }
-
-  if (
-    messageIncludesWords(msg, lists.poopStrings) &&
-    !messageIncludesWord(msg, '<:owlpoop:817417830110593044>')
-  ) {
-    await msg.react('💩');
   }
 };
