@@ -18,7 +18,7 @@ export const event = {
     }
     try {
       const messageSize = msg.content.split(' ').length;
-      if (messageSize > 10) {
+      if (messageSize > 8) {
         const configuration = new Configuration({
           apiKey: OPEN_AI_API_KEY,
         });
