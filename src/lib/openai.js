@@ -94,7 +94,9 @@ export const gptGetEmoji = async ({
       to the text. You should also provide the markdown short code for each emoji 
       and the reasoning behind your selection. The results should be returned as 
       a JSON array of objects with each object containing keys for the emoji, short 
-      code, and reasoning. Return ONLY the resulting JSON array of objects like an API.
+      code, and reasoning. 
+      
+      Return ONLY the resulting JSON array of objects like an API endpoint.
     `;
 
     const emojiResponse = await gptAnalyzeText({
@@ -117,6 +119,10 @@ export const gptGetEmoji = async ({
 
     content = content.includes('```json')
       ? getContent(content, '```json', '```').trim()
+      : content;
+
+    content = content.includes('```')
+      ? getContent(content, '```', '```').trim()
       : content;
     // console.log(content);
 
