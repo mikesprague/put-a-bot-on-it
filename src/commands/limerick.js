@@ -31,11 +31,14 @@ export default {
     });
     const openai = new OpenAIApi(configuration);
 
-    const limerickPrompt = `Generate a limerick about the subject: ${subject}`;
+    birdLog(`[/limerick] ${subject}`);
 
-    birdLog(`[/limerick] ${limerickPrompt}`);
-
-    const limerick = await gptGetLimerick(limerickPrompt, openai, interaction);
+    const limerick = await gptGetLimerick({
+      textToAnalyze: subject,
+      openAiClient: openai,
+      temperature: 0.3,
+      user: interaction.user.id,
+    });
 
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
 

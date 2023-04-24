@@ -37,7 +37,12 @@ export default {
     });
     const openai = new OpenAIApi(configuration);
 
-    const haiku = await gptGetHaiku(subject, openai, interaction);
+    const haiku = await gptGetHaiku({
+      textToAnalyze: subject,
+      openAiClient: openai,
+      temperature: 0.2,
+      user: interaction.user.id,
+    });
 
     birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
 
