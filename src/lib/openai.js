@@ -1,3 +1,5 @@
+import { birdLog } from '../lib/helpers.js';
+
 // import { Configuration, OpenAIApi } from 'openai';
 
 // const { OPEN_AI_API_KEY } = process.env;
@@ -8,7 +10,11 @@
 
 // const openai = new OpenAIApi(configuration);
 
-export const gptGetHaiku = async (subjectText, openAiClient, interaction = null) => {
+export const gptGetHaiku = async (
+  subjectText,
+  openAiClient,
+  interaction = null,
+) => {
   const haikuPrompt = `Generate a haiku about the subject: ${subjectText}`;
 
   const haikuResponse = await openAiClient.createChatCompletion({
@@ -84,12 +90,16 @@ export const gptGetEmoji = async (
       user: interaction.user.id,
     });
 
-    emojiJson = emojiResponse.data.choices[0].message.content
-      .replace('```json', '')
-      .replace('```', '')
-      .trim();
+    birdLog(`[gptGetEmoji] ${emojiResponse.data.choices[0].message.content}`);
+
+    emojiJson = JSON.parse(
+      emojiResponse.data.choices[0].message.content
+        .replace('```json', '')
+        .replace('```', '')
+        .trim(),
+    );
   } catch (error) {
     console.log(error);
   }
-  return JSON.parse(emojiJson);
+  return emojiJson;
 };
