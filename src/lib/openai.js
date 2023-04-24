@@ -109,7 +109,7 @@ export const gptGetEmoji = async ({
     });
 
     let content = emojiResponse[0].message.content.trim();
-    // console.log(content);
+    console.log(content);
 
     const getContent = (content, char1, char2) => {
       let str = content.split(char1);
