@@ -18,7 +18,10 @@ export const event = {
     }
     try {
       const messageSize = msg.content.split(' ').length;
-      if (messageSize > 8) {
+      if (
+        messageSize > 8 ||
+        (messageSize === 1 && msg.content.startsWith('https://'))
+      ) {
         const configuration = new Configuration({
           apiKey: OPEN_AI_API_KEY,
         });
