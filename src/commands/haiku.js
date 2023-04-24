@@ -69,7 +69,11 @@ export default {
       );
     }
 
-    const emojiJson = await gptGetEmoji(haiku, openai, interaction);
+    const emojiJson = await gptGetEmoji({
+      textToAnalyze: haiku,
+      openAiClient: openai,
+      user: interaction.user.id,
+    });
     birdLog('[/haiku]', emojiJson);
 
     const haikuEmbed = prepareEmbed({

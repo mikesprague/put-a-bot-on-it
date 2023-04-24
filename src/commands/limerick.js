@@ -42,7 +42,11 @@ export default {
 
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
 
-    const emojiJson = await gptGetEmoji(limerick, openai, interaction);
+    const emojiJson = await gptGetEmoji({
+      textToAnalyze: limerick,
+      openAiClient: openai,
+      user: interaction.user.id,
+    });
     console.log('[/limerick]', emojiJson);
 
     // const imagePrompt = `${limerick.replace('\n', ' ')}, photo, detailed image`;
