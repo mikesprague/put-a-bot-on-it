@@ -43,15 +43,14 @@ export default {
       messages: [
         {
           role: 'system',
-          content:
-            'You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users. You should reply with a short but descriptive paragraph of 3 sentances or less and try to avoid general words like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics and/or subjects. Do not mention the specific occasion, just describe it.',
+          content: `You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users. You should reply with a short but descriptive paragraph of 3 sentences or less and try to avoid general words like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics and/or subjects. Do not mention the specific occasion, just describe it.`,
         },
         {
           role: 'user',
           content: description,
         },
       ],
-      temperature: 0.2,
+      temperature: 0.3,
       // user: interaction.user.id,
     });
 
