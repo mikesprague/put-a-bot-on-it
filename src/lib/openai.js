@@ -92,12 +92,20 @@ export const gptGetEmoji = async (
 
     birdLog(`[gptGetEmoji] ${emojiResponse.data.choices[0].message.content}`);
 
-    emojiJson = JSON.parse(
-      emojiResponse.data.choices[0].message.content
-        .replace('```json', '')
-        .replace('```', '')
-        .trim(),
-    );
+    const getContent = (content, char1, char2) => {
+      let str = content.split(char1);
+      str = str[1].split(char2);
+      return str[0];
+    };
+
+    const content = getContent(
+      emojiResponse.data.choices[0].message.content.trim(),
+      '```json',
+      '```',
+    ).trim();
+    console.log(content);
+
+    emojiJson = JSON.parse(content);
   } catch (error) {
     console.log(error);
   }
