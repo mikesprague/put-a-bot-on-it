@@ -20,7 +20,9 @@ export const event = {
       const messageSize = msg.content.split(' ').length;
       if (
         messageSize > 8 ||
-        (messageSize === 1 && msg.content.startsWith('https://'))
+        (messageSize === 1 &&
+          msg.content.startsWith('https://') &&
+          !msg.content.includes('gif'))
       ) {
         const configuration = new Configuration({
           apiKey: OPEN_AI_API_KEY,
