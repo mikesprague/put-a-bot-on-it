@@ -1,12 +1,14 @@
+import { Configuration, OpenAIApi } from 'openai';
 import dotenv from 'dotenv';
 
 import { birdLog } from '../lib/helpers.js';
 import { initEasterEggs } from '../lib/easter-eggs.js';
 import { initReactions } from '../lib/reactions.js';
+import { gptGetEmoji } from '../lib/openai.js';
 
 dotenv.config();
 
-const { DISCORD_GUILD_ADMIN_ID } = process.env;
+const { DISCORD_GUILD_ADMIN_ID, OPEN_AI_API_KEY } = process.env;
 
 export const event = {
   name: 'messageCreate',
@@ -15,6 +17,22 @@ export const event = {
       // admin specific
     }
     try {
+      const messageSize = msg.content.split(' ').length;
+      if (messageSize > 10) {
+        const configuration = new Configuration({
+          apiKey: OPEN_AI_API_KEY,
+        });
+        const openai = new OpenAIApi(configuration);
+
+        const emojiJson = await gptGetEmoji({
+          textToAnalyze: msg.content,
+          openAiClient: openai,
+          user: msg.author.id,
+        });
+        emojiJson.forEach(async (item) => {
+          await msg.react(item.emoji);
+        });
+      }
       await initEasterEggs(msg);
     } catch (error) {
       birdLog(
