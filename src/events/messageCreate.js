@@ -32,6 +32,7 @@ export const event = {
           openAiClient: openai,
           user: msg.author.id,
         });
+        birdLog(`[messageCreate] ${msg.content}`);
         emojiJson.forEach(async (item) => {
           await msg.react(item.emoji);
         });
