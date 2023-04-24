@@ -103,7 +103,7 @@ export const gptGetEmoji = async (
       '```json',
       '```',
     ).trim();
-    console.log(content);
+    // console.log(content);
 
     emojiJson = JSON.parse(content);
   } catch (error) {
