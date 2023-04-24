@@ -77,9 +77,25 @@ export default {
     const aiSummary = textResponse.data.choices[0].message.content;
     birdLog(`[/national-day] ${aiSummary}`);
 
-    const emojiJson = await gptGetEmoji(aiSummary, openai, interaction);
-    birdLog('[/national-day]', emojiJson);
-
+    const descriptionForEmoji = description
+      .replace('National ', '')
+      .replace('International ', '')
+      .replace('World ', '')
+      .replace(' Day', '')
+      .replace(' Week', '')
+      .replace(' Month', '')
+      .replace(
+        `${new Date().toLocaleString('default', {
+          month: 'long',
+        })} ${new Date().getDate()}`,
+        '',
+      );
+    const emojiJson = await gptGetEmoji(
+      descriptionForEmoji,
+      openai,
+      interaction,
+    );
+    // birdLog('[/national-day]', emojiJson);
 
     const imagePrompt = `action shot of ${aiSummary}, photo, detailed image`;
     const imageResponse = await openai.createImage({
