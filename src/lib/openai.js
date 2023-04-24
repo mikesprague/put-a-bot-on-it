@@ -1,68 +1,85 @@
 import { birdLog } from '../lib/helpers.js';
 
-// import { Configuration, OpenAIApi } from 'openai';
-
-// const { OPEN_AI_API_KEY } = process.env;
-
-// const configuration = new Configuration({
-//   apiKey: OPEN_AI_API_KEY,
-// });
-
-// const openai = new OpenAIApi(configuration);
-
-export const gptGetHaiku = async (
-  subjectText,
+export const gptAnalyzeText = async ({
+  systemPrompt,
+  textToAnalyze,
   openAiClient,
-  interaction = null,
-) => {
-  const haikuPrompt = `Generate a haiku about the subject: ${subjectText}`;
-
-  const haikuResponse = await openAiClient.createChatCompletion({
-    model: 'gpt-3.5-turbo',
+  model = 'gpt-3.5-turbo',
+  temperature = 0.2,
+  user = 'default-user',
+}) => {
+  const gptResponse = await openAiClient.createChatCompletion({
+    model,
     messages: [
       {
-        role: 'assistant',
-        content: haikuPrompt,
+        role: 'system',
+        content: systemPrompt.trim(),
+      },
+      {
+        role: 'user',
+        content: textToAnalyze.trim(),
       },
     ],
-    temperature: 0.2,
-    user: interaction.user.id,
+    temperature,
+    user,
   });
 
-  const haiku = haikuResponse.data.choices[0].message.content;
+  return gptResponse.data.choices;
+};
+
+export const gptGetHaiku = async ({
+  textToAnalyze,
+  openAiClient,
+  model = 'gpt-3.5-turbo',
+  temperature = 0.2,
+  user = 'default-user',
+}) => {
+  const systemPrompt = `You are an AI haiku generator. You should return a haiku about whatever topics you are given by users.`;
+  const haikuResponse = await gptAnalyzeText({
+    systemPrompt,
+    textToAnalyze,
+    openAiClient,
+    model,
+    temperature,
+    user,
+  });
+
+  const haiku = haikuResponse[0].message.content;
+  // console.log(haiku);
 
   return haiku;
 };
 
-export const gptGetLimerick = async (
-  subjectText,
+export const gptGetLimerick = async ({
+  textToAnalyze,
   openAiClient,
-  interaction = null,
-) => {
-  const limerickPrompt = `Generate a limerick about the subject: ${subjectText}`;
-
-  const limerickResponse = await openAiClient.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    messages: [
-      {
-        role: 'assistant',
-        content: limerickPrompt,
-      },
-    ],
-    temperature: 0.2,
-    user: interaction.user.id,
+  model = 'gpt-3.5-turbo',
+  temperature = 0.2,
+  user = 'default-user',
+}) => {
+  const systemPrompt = `You are an AI limerick generator. You should return a limerick about whatever topics you are given by users.`;
+  const limerickResponse = await gptAnalyzeText({
+    systemPrompt,
+    textToAnalyze,
+    openAiClient,
+    model,
+    temperature,
+    user,
   });
 
-  const limerick = limerickResponse.data.choices[0].message.content;
+  const limerick = limerickResponse[0].message.content;
+  // console.log(limerick);
 
   return limerick;
 };
 
-export const gptGetEmoji = async (
+export const gptGetEmoji = async ({
   textToAnalyze,
   openAiClient,
-  interaction = null,
-) => {
+  model = 'gpt-3.5-turbo',
+  temperature = 0.2,
+  user = 'default-user',
+}) => {
   let emojiJson = [
     {
       emoji: '😞',
@@ -71,28 +88,26 @@ export const gptGetEmoji = async (
     },
   ];
   try {
-    const emojiPrompt = `
-      Analyze the following text and provide at least 1 emojis from unicode 
-      v15 in order of relevance, and their markdown short codes, that best 
-      represent it as JSON with keys for emoji, short code, and reasoning. 
-      Only return the resulting JSON array of objects: ${textToAnalyze.trim()}
+    const systemPrompt = `
+      You're a text to emoji translation service. Analyze the text supplied by 
+      users and provide at least 1 emojis from unicode v15 in order of relevance 
+      to the text. You should also provide the markdown short code for each emoji 
+      and the reasoning behind your selection. The results should be returned as 
+      a JSON array of objects with each object containing keys for the emoji, short 
+      code, and reasoning. Return ONLY the resulting JSON array of objects like an API.
     `;
 
-    const emojiResponse = await openAiClient.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'assistant',
-          content: emojiPrompt.trim(),
-        },
-      ],
-      temperature: 0.3,
-      user: interaction.user.id,
+    const emojiResponse = await gptAnalyzeText({
+      systemPrompt,
+      textToAnalyze,
+      openAiClient,
+      model,
+      temperature,
+      user,
     });
 
-    birdLog(`[gptGetEmoji] ${emojiResponse.data.choices[0].message.content}`);
-
-    let content = emojiResponse.data.choices[0].message.content.trim();
+    let content = emojiResponse[0].message.content.trim();
+    birdLog(`[gptGetEmoji] ${content}`);
 
     const getContent = (content, char1, char2) => {
       let str = content.split(char1);
