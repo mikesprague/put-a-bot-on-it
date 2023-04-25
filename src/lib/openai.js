@@ -34,7 +34,7 @@ export const gptGetHaiku = async ({
   temperature = 0.2,
   user = undefined,
 }) => {
-  const systemPrompt = `You are an AI haiku generator. You should return a haiku about whatever topics you are given by users.`;
+  const systemPrompt = `You are an AI haiku generator. You should return one haiku about whatever topics you are given by users.`;
   const haikuResponse = await gptAnalyzeText({
     systemPrompt,
     textToAnalyze,
@@ -45,7 +45,7 @@ export const gptGetHaiku = async ({
   });
 
   const haiku = haikuResponse[0].message.content;
-  // console.log(haiku);
+  console.log(haiku);
 
   return haiku;
 };
