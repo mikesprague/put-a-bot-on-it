@@ -62,9 +62,7 @@ export default {
       embedImage = `attachment://${aiImageName}`;
       embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
     } catch (error) {
-      console.log(
-        `[/haiku] image generation failed for prompt: ${imagePrompt}`,
-      );
+      birdLog(`[/haiku] image generation failed for prompt: ${imagePrompt}`);
     }
 
     const emojiJson = await gptGetEmoji({

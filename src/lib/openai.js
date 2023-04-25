@@ -51,7 +51,7 @@ export const gptGetHaiku = async ({
   });
 
   const haiku = haikuResponse[0].message.content;
-  console.log(haiku);
+  // console.log(haiku);
 
   return haiku;
 };
@@ -119,7 +119,7 @@ export const gptGetEmoji = async ({
     });
 
     let content = emojiResponse[0].message.content.trim();
-    console.log(content);
+    // console.log(content);
 
     if (content.includes('inappropriate') && content.includes('offensive')) {
       emojiJson = [
