@@ -77,9 +77,8 @@ export default {
 
     // birdLog(`[/national-day] ${aiImage}`);
 
-    const haikuPrompt = `Generate a haiku about the subject: ${aiSummary}`;
     const haiku = await gptGetHaiku({
-      textToAnalyze: haikuPrompt,
+      textToAnalyze: aiSummary,
       openAiClient: openai,
     });
 
