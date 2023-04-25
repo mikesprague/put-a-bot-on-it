@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { oneLineTrim } from 'common-tags';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -38,20 +39,27 @@ export default {
 
     birdLog('[/national-day]', title);
 
+    const systemPrompt = oneLineTrim`
+      You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users. 
+      You should reply with a short but descriptive paragraph of 3 sentences or less and try to avoid general words 
+      like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics 
+      and/or subjects. Do not mention the specific occasion, just describe it.
+    `;
+
     const textResponse = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
         {
           role: 'system',
-          content: `You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users. You should reply with a short but descriptive paragraph of 3 sentences or less and try to avoid general words like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics and/or subjects. Do not mention the specific occasion, just describe it.`,
+          content: systemPrompt,
         },
         {
           role: 'user',
           content: description,
         },
       ],
-      temperature: 0.3,
-      // user: interaction.user.id,
+      temperature: 0.5,
+      user: uuidv4(),
     });
 
     // console.log(textPrompt);
@@ -69,6 +77,7 @@ export default {
       prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
+      user: uuidv4(),
     });
     const aiImage = imageResponse.data.data[0].url;
     const aiImageName = `${uuidv4()}.png`;
@@ -77,15 +86,15 @@ export default {
 
     // birdLog(`[/national-day] ${aiImage}`);
 
-    const haiku = await gptGetHaiku({
-      textToAnalyze: aiSummary,
-      openAiClient: openai,
-    });
+    // const haiku = await gptGetHaiku({
+    //   textToAnalyze: aiSummary,
+    //   openAiClient: openai,
+    // });
 
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,
       embedColor: randomColor,
-      embedDescription: `${description} [Read More](${link})\n\n**Haiku**\n${haiku}`,
+      embedDescription: `${description} [Read More](${link})`, // \n\n**Haiku**\n${haiku}
       embedImage: `attachment://${aiImageName}`,
       embedUrl: link,
     });
