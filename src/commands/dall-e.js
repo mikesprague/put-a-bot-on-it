@@ -73,9 +73,7 @@ export default {
           embedImage = `attachment://${aiImageName}`;
           birdLog(`[dall-e] ${response.data.data[0].url}`);
         } catch (error) {
-          console.log(
-            `[/dall-e] image generation failed for prompt: ${prompt}`,
-          );
+          birdLog(`[/dall-e] image generation failed for prompt: ${prompt}`);
           embedImage =
             'https://media.giphy.com/media/U1aN4HTfJ2SmgB2BBK/giphy.gif';
         }
