@@ -85,7 +85,7 @@ export const gptGetLimerick = async ({
 export const gptGetEmoji = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-3.5-turbo',
+  model = 'text-davinci-003',
   temperature = 0.2,
   user = uuidv4(),
 }) => {
