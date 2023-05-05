@@ -91,10 +91,8 @@
     "tabWidth": 2
   },
   "config": {
-    "config": {
-      "commitizen": {
-        "path": "./node_modules/cz-git"
-      }
+    "commitizen": {
+      "path": "./node_modules/cz-git"
     }
   }
 }
