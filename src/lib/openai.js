@@ -87,23 +87,31 @@ export const gptGetEmoji = async ({
   openAiClient,
   user = uuidv4(),
 }) => {
+  const resultsShape = [
+    {
+      emoji: '',
+      shortCode: '',
+      reason: '',
+    },
+  ];
+
   let emojiJson = [
     {
       emoji: '😞',
-      short_code: ':disappointed_face:',
-      reasoning: 'There was an error with the request.',
+      shortCode: ':disappointed_face:',
+      reason: 'There was an error with the request.',
     },
   ];
   try {
     const prompt = stripIndents`
-      Analyze the following text and return a JSON array of objects containing unique 
+      Analyze the supplied text and return a JSON array of objects containing unique 
       unicode v15 emojis that best represent it. Each object in the array should contain 
       the emoji, the markdown short code for the emoji, and the reasoning for choosing it. 
       Don't return any duplicate emojis.
 
-      Analyze the following text and return only the JSON array of objects:
+      JSON response should have a shape of: ${JSON.stringify(resultsShape)}
 
-      ${textToAnalyze}
+      Text to analyze: ${textToAnalyze}
     `;
 
     const emojiResponse = await openAiClient.createCompletion({
@@ -121,18 +129,18 @@ export const gptGetEmoji = async ({
       emojiJson = [
         {
           emoji: '🙈',
-          short_code: ':see_no_evil_monkey:',
-          reasoning: 'There was inappropriate content in the request.',
+          shortCode: ':see_no_evil_monkey:',
+          reason: 'There was inappropriate content in the request.',
         },
         {
           emoji: '🙉',
-          short_code: ':hear_no_evil_monkey',
-          reasoning: 'There was inappropriate content in the request.',
+          shortCode: ':hear_no_evil_monkey',
+          reason: 'There was inappropriate content in the request.',
         },
         {
           emoji: '🙊',
-          short_code: ':speak_no_evil_monkey:',
-          reasoning: 'There was inappropriate content in the request.',
+          shortCode: ':speak_no_evil_monkey:',
+          reason: 'There was inappropriate content in the request.',
         },
       ];
     } else {
