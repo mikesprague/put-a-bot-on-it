@@ -42,7 +42,7 @@
     "uuid": "9.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.22.0",
+    "@babel/core": "7.22.1",
     "@babel/eslint-parser": "7.21.8",
     "cz-git": "1.6.1",
     "eslint": "8.41.0",
