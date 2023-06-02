@@ -31,7 +31,7 @@
     "cheerio": "1.0.0-rc.12",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.7",
+    "dayjs": "1.11.8",
     "discord-api-types": "0.37.43",
     "discord.js": "14.11.0",
     "dotenv": "16.1.3",
