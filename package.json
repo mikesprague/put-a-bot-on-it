@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.22.5",
-    "@babel/eslint-parser": "7.21.8",
+    "@babel/eslint-parser": "7.22.5",
     "cz-git": "1.6.1",
     "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
