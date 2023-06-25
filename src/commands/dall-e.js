@@ -37,6 +37,7 @@ export default {
 
       const moderation = await openai.createModeration({
         input: prompt,
+        model: 'text-moderation-latest',
       });
 
       if (moderation.data.results[0].flagged) {
