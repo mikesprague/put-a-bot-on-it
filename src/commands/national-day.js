@@ -72,7 +72,7 @@ export default {
       openAiClient: openai,
     });
 
-    const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition`;
+    const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
     const imageResponse = await openai.createImage({
       prompt: imagePrompt,
       n: 1,
