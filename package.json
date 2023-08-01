@@ -33,7 +33,7 @@
     "cross-env": "7.0.3",
     "dayjs": "1.11.9",
     "discord-api-types": "0.37.51",
-    "discord.js": "14.11.0",
+    "discord.js": "14.12.1",
     "dotenv": "16.3.1",
     "he": "1.2.0",
     "node-localstorage": "3.0.4",
