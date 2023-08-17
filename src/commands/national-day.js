@@ -64,16 +64,34 @@ export default {
     // console.log(textPrompt);
     // console.log(textResponse.choices[0].message.content);
     const aiSummary = textResponse.choices[0].message.content;
-    birdLog(`[/national-day] ${aiSummary}`);
+    // birdLog(`[/national-day] ${aiSummary}`);
 
     const emojiJson = await gptGetEmoji({
       textToAnalyze: aiSummary,
       openAiClient: openai,
     });
 
-    const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
+    const imagePrompt = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'system',
+          content:
+            "You're a helpful AI assistant that generates prompts to feed to DALL-E for images that represent various national days. You should reply with a prompt that describes the image you want DALL-E to generate. The images should not contain words and should look realistic.",
+        },
+        {
+          role: 'user',
+          content: description,
+        },
+      ],
+      temperature: 0,
+      user: uuidv4(),
+    });
+
+    // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
+    console.log(imagePrompt.choices[0].message.content);
     const imageResponse = await openai.images.generate({
-      prompt: imagePrompt,
+      prompt: imagePrompt.choices[0].message.content,
       n: 1,
       size: '1024x1024',
       user: uuidv4(),
