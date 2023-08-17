@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { oneLineTrim } from 'common-tags';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,10 +25,9 @@ export default {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const configuration = new Configuration({
+    const openai = new OpenAI({
       apiKey: OPEN_AI_API_KEY,
     });
-    const openai = new OpenAIApi(configuration);
 
     const randomColor = getRandomColor();
 
@@ -40,14 +39,14 @@ export default {
     birdLog('[/national-day]', title);
 
     const systemPrompt = oneLineTrim`
-      You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users. 
-      You should reply with a short but descriptive paragraph of 3 sentences or less and try to avoid general words 
-      like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics 
+      You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users.
+      You should reply with a short but descriptive paragraph of 3 sentences or less and try to avoid general words
+      like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics
       and/or subjects. Do not mention the specific occasion, just describe it.
     `;
 
-    const textResponse = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
+    const textResponse = await openai.chat.completions.create({
+      model: 'gpt-4',
       messages: [
         {
           role: 'system',
@@ -58,13 +57,13 @@ export default {
           content: description,
         },
       ],
-      temperature: 0.5,
+      temperature: 0.1,
       user: uuidv4(),
     });
 
     // console.log(textPrompt);
-    // console.log(textResponse.data.choices[0].message.content);
-    const aiSummary = textResponse.data.choices[0].message.content;
+    // console.log(textResponse.choices[0].message.content);
+    const aiSummary = textResponse.choices[0].message.content;
     birdLog(`[/national-day] ${aiSummary}`);
 
     const emojiJson = await gptGetEmoji({
@@ -73,13 +72,13 @@ export default {
     });
 
     const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
-    const imageResponse = await openai.createImage({
+    const imageResponse = await openai.images.generate({
       prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
       user: uuidv4(),
     });
-    const aiImage = imageResponse.data.data[0].url;
+    const aiImage = imageResponse.data[0].url;
     const aiImageName = `${uuidv4()}.png`;
 
     const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });

@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import dotenv from 'dotenv';
 
 import { birdLog } from '../lib/helpers.js';
@@ -24,10 +24,9 @@ export const event = {
           msg.content.startsWith('https://') &&
           !msg.content.includes('gif'))
       ) {
-        const configuration = new Configuration({
+        const openai = new OpenAI({
           apiKey: OPEN_AI_API_KEY,
         });
-        const openai = new OpenAIApi(configuration);
 
         const emojiJson = await gptGetEmoji({
           textToAnalyze: msg.content,

@@ -7,11 +7,11 @@ export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = 'gpt-3.5-turbo-0613',
-  temperature = 0.2,
+  model = 'gpt-4',
+  temperature = 0.1,
   user = uuidv4(),
 }) => {
-  const gptResponse = await openAiClient.createChatCompletion({
+  const gptResponse = await openAiClient.chat.completions.create({
     model,
     messages: [
       {
@@ -27,18 +27,18 @@ export const gptAnalyzeText = async ({
     user,
   });
 
-  return gptResponse.data.choices;
+  return gptResponse.choices;
 };
 
 export const gptGetHaiku = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-3.5-turbo-0613',
-  temperature = 0.2,
+  model = 'gpt-4',
+  temperature = 0.1,
   user = uuidv4(),
 }) => {
   const systemPrompt = oneLineTrim`
-    You are an AI haiku generator. You should return one 
+    You are an AI haiku generator. You should return one
     haiku about whatever topics you are given by users.
   `;
   const haikuResponse = await gptAnalyzeText({
@@ -59,8 +59,8 @@ export const gptGetHaiku = async ({
 export const gptGetLimerick = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-3.5-turbo-0613',
-  temperature = 0.2,
+  model = 'gpt-4',
+  temperature = 0.1,
   user = uuidv4(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -104,9 +104,9 @@ export const gptGetEmoji = async ({
   ];
   try {
     const prompt = stripIndents`
-      Analyze the supplied text and return a JSON array of objects containing unique 
-      unicode v15 emojis that best represent it. Each object in the array should contain 
-      the emoji, the markdown short code for the emoji, and the reasoning for choosing it. 
+      Analyze the supplied text and return a JSON array of objects containing unique
+      unicode v15 emojis that best represent it. Each object in the array should contain
+      the emoji, the markdown short code for the emoji, and the reasoning for choosing it.
       Don't return any duplicate emojis.
 
       JSON response should have a shape of: ${JSON.stringify(resultsShape)}
@@ -114,15 +114,15 @@ export const gptGetEmoji = async ({
       Text to analyze: ${textToAnalyze}
     `;
 
-    const emojiResponse = await openAiClient.createCompletion({
+    const emojiResponse = await openAiClient.completions.create({
       prompt,
-      temperature: 0.2,
+      temperature: 0.1,
       max_tokens: 1000,
       model: 'text-davinci-003',
       user,
     });
 
-    let content = emojiResponse.data.choices[0].text.trim();
+    let content = emojiResponse.choices[0].text.trim();
     // console.log(content);
 
     if (content.includes('inappropriate') && content.includes('offensive')) {

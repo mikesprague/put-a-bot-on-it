@@ -1,8 +1,9 @@
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { v4 as uuidv4 } from 'uuid';
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import {
   birdLog,
+  getCustomEmojiCode,
   getRandomColor,
   prepareEmbed,
   sendEmbed,
@@ -26,21 +27,20 @@ export default {
     const prompt = interaction.options.getString('query');
 
     try {
-      const configuration = new Configuration({
+      const openai = new OpenAI({
         apiKey: OPEN_AI_API_KEY,
       });
-      const openai = new OpenAIApi(configuration);
 
       birdLog(`[dall-e] ${prompt}`);
 
       const randomColor = getRandomColor();
 
-      const moderation = await openai.createModeration({
+      const moderation = await openai.moderations.create({
         input: prompt,
         model: 'text-moderation-latest',
       });
 
-      if (moderation.data.results[0].flagged) {
+      if (moderation.results[0].flagged) {
         birdLog(`[dall-e] failed moderation`);
         const failedEmbed = prepareEmbed({
           embedFooter: prompt,
@@ -61,18 +61,16 @@ export default {
         let embedImage = '';
 
         try {
-          const response = await openai.createImage({
+          const response = await openai.images.generate({
             prompt,
             n: 1,
             size: '1024x1024',
           });
-          // console.log(response.data);
-
-          const aiImage = response.data.data[0].url;
+          const aiImage = response.data[0].url;
           aiImageName = `${uuidv4()}.png`;
           embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
           embedImage = `attachment://${aiImageName}`;
-          birdLog(`[dall-e] ${response.data.data[0].url}`);
+          birdLog(`[dall-e] ${response.data[0].url}`);
         } catch (error) {
           birdLog(`[/dall-e] image generation failed for prompt: ${prompt}`);
           embedImage =
@@ -85,11 +83,13 @@ export default {
           embedColor: randomColor,
         });
 
+        const greatSuccessEmoji = getCustomEmojiCode('great_success');
         return await sendEmbed({
           interaction,
           content: artworkEmbed,
           file: embedFile,
           deferred: true,
+          reaction: greatSuccessEmoji,
         });
       }
     } catch (error) {

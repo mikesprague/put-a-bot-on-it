@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -26,10 +26,9 @@ export default {
 
     const subject = interaction.options.getString('subject');
 
-    const configuration = new Configuration({
+    const openai = new OpenAI({
       apiKey: OPEN_AI_API_KEY,
     });
-    const openai = new OpenAIApi(configuration);
 
     birdLog(`[/limerick] ${subject}`);
 

@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -32,10 +32,9 @@ export default {
 
     const subject = interaction.options.getString('subject');
 
-    const configuration = new Configuration({
+    const openai = new OpenAI({
       apiKey: OPEN_AI_API_KEY,
     });
-    const openai = new OpenAIApi(configuration);
 
     const haiku = await gptGetHaiku({
       textToAnalyze: subject,
@@ -52,12 +51,12 @@ export default {
     const imagePrompt = `${haiku.replace('\n', ' ')}, photo, detailed image`;
 
     try {
-      const imageResponse = await openai.createImage({
+      const imageResponse = await openai.images.generate({
         prompt: imagePrompt,
         n: 1,
         size: '1024x1024',
       });
-      const aiImage = imageResponse.data.data[0].url;
+      const aiImage = imageResponse.data[0].url;
       aiImageName = `${uuidv4()}.png`;
       embedImage = `attachment://${aiImageName}`;
       embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
