@@ -11,4 +11,12 @@ updates:
       prefix: "chore"
       prefix-development: "chore"
       include: "scope"
-
+    groups:
+      discord-js:
+        patterns:
+          - "discord.js"
+          - "@discordjs/rest"
+          - "discord-api-types"
+      babel:
+        patterns:
+          - "@babel*"
