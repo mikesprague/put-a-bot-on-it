@@ -123,7 +123,7 @@ export const getRandomGifByTerm = async (searchTerm, useDownsized = true) => {
 };
 
 export const prepareEmbed = ({
-  embedAuthor = '',
+  embedAuthor = { name: '' },
   embedTitle = '',
   embedDescription = '',
   embedImage = '',
@@ -134,7 +134,7 @@ export const prepareEmbed = ({
 }) => {
   const discordEmbed = new Discord.EmbedBuilder();
 
-  if (embedAuthor.trim().length) {
+  if (embedAuthor.name.trim().length) {
     discordEmbed.setAuthor(embedAuthor);
   }
   if (embedColor.trim().length) {
