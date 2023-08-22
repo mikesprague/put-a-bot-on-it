@@ -33,10 +33,30 @@ export default {
 
       birdLog(`[dall-e] ${prompt}`);
 
+      let imagePrompt = await openai.chat.completions.create({
+        model: 'gpt-4',
+        messages: [
+          {
+            role: 'system',
+            content:
+              "You're a helpful AI assistant that generates prompts to feed to DALL-E for images that represent various national days. You should reply with a prompt that describes the image you want DALL-E to generate. The images should not contain words and should look realistic.",
+          },
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        temperature: 0,
+        user: uuidv4(),
+      });
+
+      imagePrompt = imagePrompt.choices[0].message.content;
+      console.log(imagePrompt);
+
       const randomColor = getRandomColor();
 
       const moderation = await openai.moderations.create({
-        input: prompt,
+        input: imagePrompt,
         model: 'text-moderation-latest',
       });
 
@@ -62,7 +82,7 @@ export default {
 
         try {
           const response = await openai.images.generate({
-            prompt,
+            prompt: imagePrompt,
             n: 1,
             size: '1024x1024',
           });
@@ -72,7 +92,10 @@ export default {
           embedImage = `attachment://${aiImageName}`;
           birdLog(`[dall-e] ${response.data[0].url}`);
         } catch (error) {
-          birdLog(`[/dall-e] image generation failed for prompt: ${prompt}`);
+          console.log(error);
+          birdLog(
+            `[/dall-e] image generation failed for prompt: ${imagePrompt}`,
+          );
           embedImage =
             'https://media.giphy.com/media/U1aN4HTfJ2SmgB2BBK/giphy.gif';
         }
