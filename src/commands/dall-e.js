@@ -38,8 +38,7 @@ export default {
         messages: [
           {
             role: 'system',
-            content:
-              "You're a helpful AI assistant that generates prompts to feed to DALL-E for images that represent various national days. You should reply with a prompt that describes the image you want DALL-E to generate. The images should not contain words and should look realistic.",
+            content: `You're a helpful AI assistant that generates prompts to feed to DALL-E for images. You should reply with a prompt that describes the images you want DALL-E to generate based on the supplied text. The images should look realistic.`,
           },
           {
             role: 'user',
@@ -101,7 +100,8 @@ export default {
         }
 
         const artworkEmbed = prepareEmbed({
-          embedFooter: prompt,
+          embedAuthor: { name: prompt },
+          embedFooter: imagePrompt,
           embedImage,
           embedColor: randomColor,
         });
