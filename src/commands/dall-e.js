@@ -1,4 +1,5 @@
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { stripIndents } from 'common-tags';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
 import {
@@ -38,7 +39,12 @@ export default {
         messages: [
           {
             role: 'system',
-            content: `You're a helpful AI assistant that generates prompts to feed to DALL-E for images. You should reply with a prompt that describes the images you want DALL-E to generate based on the supplied text. The images should look realistic.`,
+            content: stripIndents`
+            You're a helpful AI assistant that generates prompts to feed to DALL-E to generate photos based on the user's input:
+            - You should reply with a prompt that describes the images the user wants based on their input
+            - Images should be photo realistic
+            - Images should not contain any text
+            `,
           },
           {
             role: 'user',
@@ -100,7 +106,7 @@ export default {
         }
 
         const artworkEmbed = prepareEmbed({
-          embedAuthor: { name: prompt },
+          embedDescription: prompt,
           embedFooter: imagePrompt,
           embedImage,
           embedColor: randomColor,
