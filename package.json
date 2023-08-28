@@ -27,7 +27,7 @@
   "dependencies": {
     "@discordjs/rest": "2.0.1",
     "@nastyox/rando.js": "2.0.6",
-    "axios": "1.4.0",
+    "axios": "1.5.0",
     "cheerio": "1.0.0-rc.12",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
