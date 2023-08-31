@@ -8,11 +8,21 @@ import { gptGetEmoji } from '../lib/openai.js';
 
 dotenv.config();
 
-const { DISCORD_GUILD_ADMIN_ID, OPEN_AI_API_KEY } = process.env;
+const { DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPEN_AI_API_KEY } =
+  process.env;
 
 export const event = {
   name: 'messageCreate',
   async execute(msg) {
+    if (msg.mentions.has(DISCORD_CLIENT_ID)) {
+      const authorId = msg.author.id;
+      const messageContent = msg.content
+        .replace(`<@${DISCORD_CLIENT_ID}>`, '')
+        .trim();
+      // console.log(`<@${authorId}>`);
+      // console.log(messageContent);
+      msg.reply(`<@${authorId}> :middle_finger: suck it`);
+    }
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
     }
