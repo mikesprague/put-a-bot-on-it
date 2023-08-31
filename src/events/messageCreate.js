@@ -20,8 +20,8 @@ export const event = {
         .replace(`<@${DISCORD_CLIENT_ID}>`, '')
         .trim();
       // console.log(`<@${authorId}>`);
-      // console.log(messageContent);
-      msg.reply(`<@${authorId}> :middle_finger: suck it`);
+      console.log(messageContent);
+      msg.reply(`:middle_finger: suck it`);
     }
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
