@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
+import { oneLineTrim } from 'common-tags';
 
 import { birdLog } from '../lib/helpers.js';
 import { initEasterEggs } from '../lib/easter-eggs.js';
@@ -15,13 +16,43 @@ export const event = {
   name: 'messageCreate',
   async execute(msg) {
     if (msg.mentions.has(DISCORD_CLIENT_ID)) {
-      const authorId = msg.author.id;
+      const openaiDM = new OpenAI({
+        apiKey: OPEN_AI_API_KEY,
+      });
+      // const authorId = msg.author.id;
       const messageContent = msg.content
         .replace(`<@${DISCORD_CLIENT_ID}>`, '')
         .trim();
       // console.log(`<@${authorId}>`);
       console.log(messageContent);
-      msg.reply(`:middle_finger: suck it`);
+
+      const systemMessage = {
+        role: 'system',
+        content: oneLineTrim`
+          You are a robotic bird that's an AI assistant for a Discord server.
+          You are very helpful but also very sarcastic.
+          You should respond to messages with relevant information, but also be a bit of a jerk.
+          Your responses should have some personality, be a bit snarky, occasionally rude, feature bird related puns when possible, and should be short (3 sentences or less).
+        `,
+      };
+
+      const messages = [systemMessage];
+      // messages.push({ role: 'user', content: `` });
+      // messages.push({ role: 'assistant', content: ``});
+
+      messages.push({ role: 'user', content: messageContent });
+
+      const chatResponse = await openaiDM.chat.completions
+        .create({
+          model: 'gpt-4',
+          messages,
+          temperature: 0.1,
+        })
+        .then((response) => response.choices[0].message.content);
+
+      console.log(chatResponse);
+
+      msg.reply(chatResponse);
     }
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
