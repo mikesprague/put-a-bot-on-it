@@ -1,7 +1,7 @@
 import { Collection } from 'discord.js';
 import fs from 'node:fs';
 
-import { initAllGifGreetings } from '../lib/greetings.js';
+// import { initAllGifGreetings } from '../lib/greetings.js';
 import { birdLog } from '../lib/helpers.js';
 
 export const event = {
