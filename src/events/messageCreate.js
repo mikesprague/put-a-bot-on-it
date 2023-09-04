@@ -20,6 +20,22 @@ const localStorage = new LocalStorage(
 export const event = {
   name: 'messageCreate',
   async execute(msg) {
+    const storageKey = `messageHistory_${msg.author.id}}`;
+    if (
+      msg.content
+        .replace(`<@${DISCORD_CLIENT_ID}>`, '')
+        .trim()
+        .toLowerCase() === 'clear-history'
+    ) {
+      localStorage.removeItem(storageKey);
+      if (msg.channel.id === '814956028965158955') {
+        msg.channel.send('Your message history has been cleared.');
+      } else {
+        msg.reply('Your message history has been cleared.');
+      }
+      birdLog(`[messageCreate] ${msg.author.username} cleared message history`);
+      return;
+    }
     if (
       (msg.channel.id === '814956028965158955' ||
         msg.mentions.has(DISCORD_CLIENT_ID)) &&
@@ -28,8 +44,6 @@ export const event = {
       const openaiDM = new OpenAI({
         apiKey: OPEN_AI_API_KEY,
       });
-      const storageKey = `messageHistory_${msg.author.id}}`;
-      // localStorage.removeItem(storageKey);
       let messageHistory = localStorage.getItem(storageKey);
       if (messageHistory) {
         messageHistory = JSON.parse(messageHistory);
