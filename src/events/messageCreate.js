@@ -90,6 +90,8 @@ export const event = {
           model: 'gpt-4',
           messages,
           temperature: 0.1,
+          presence_penalty: 2.0,
+          frequency_penalty: 2.0,
         })
         .then((response) => response.choices[0].message.content);
 
