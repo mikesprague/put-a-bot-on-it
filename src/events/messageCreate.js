@@ -37,16 +37,13 @@ export const event = {
         messageHistory = [];
       }
       // console.log(messageHistory);
-      const currentUser = client.users.cache.find(
-        (user) => user.id === msg.author.id,
-      );
 
       const messageContent =
         msg.channel.id === '814956028965158955'
           ? msg.content.trim()
           : msg.content.replace(`<@${DISCORD_CLIENT_ID}>`, '').trim();
 
-      birdLog(`[@${currentUser.username}] ${messageContent}`);
+      birdLog(`[@${msg.author.username}] ${messageContent}`);
 
       const systemMessage = {
         role: 'system',
