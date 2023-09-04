@@ -85,7 +85,11 @@ export const event = {
       messageHistory.push(newReply);
       localStorage.setItem(storageKey, JSON.stringify(messageHistory));
 
-      msg.reply(chatResponse);
+      if (msg.channel.id === '814956028965158955') {
+        msg.channel.send(chatResponse);
+      } else {
+        msg.reply(chatResponse);
+      }
     }
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
