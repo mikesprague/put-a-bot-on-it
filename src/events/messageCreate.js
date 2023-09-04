@@ -19,7 +19,7 @@ const localStorage = new LocalStorage(
 
 export const event = {
   name: 'messageCreate',
-  async execute(msg, client) {
+  async execute(msg) {
     if (
       (msg.channel.id === '814956028965158955' ||
         msg.mentions.has(DISCORD_CLIENT_ID)) &&
