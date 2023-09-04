@@ -36,7 +36,7 @@ export const event = {
       } else {
         messageHistory = [];
       }
-      console.log(messageHistory);
+      // console.log(messageHistory);
       const messageContent =
         msg.channel.id === '814956028965158955'
           ? msg.content.trim()
@@ -67,12 +67,7 @@ export const event = {
       };
 
       messageHistory.push(newMessage);
-
-      console.log('messages: ', messages);
-      console.log('messageHistory2: ', messageHistory);
       messages.push(newMessage);
-      // messages.push({ role: 'user', content: `` });
-      // messages.push({ role: 'assistant', content: ``});
 
       const chatResponse = await openaiDM.chat.completions
         .create({
@@ -82,7 +77,7 @@ export const event = {
         })
         .then((response) => response.choices[0].message.content);
 
-      console.log(chatResponse);
+      // console.log(chatResponse);
       const newReply = {
         role: 'assistant',
         content: chatResponse,
