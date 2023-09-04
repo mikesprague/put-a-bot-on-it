@@ -19,7 +19,7 @@ const localStorage = new LocalStorage(
 
 export const event = {
   name: 'messageCreate',
-  async execute(msg) {
+  async execute(msg, client) {
     if (
       (msg.channel.id === '814956028965158955' ||
         msg.mentions.has(DISCORD_CLIENT_ID)) &&
@@ -37,11 +37,16 @@ export const event = {
         messageHistory = [];
       }
       // console.log(messageHistory);
+      const currentUser = client.users.cache.find(
+        (user) => user.id === msg.author.id,
+      );
+
       const messageContent =
         msg.channel.id === '814956028965158955'
           ? msg.content.trim()
           : msg.content.replace(`<@${DISCORD_CLIENT_ID}>`, '').trim();
-      // console.log(messageContent);
+
+      birdLog(`[@${currentUser.username}] ${messageContent}`);
 
       const systemMessage = {
         role: 'system',
@@ -90,6 +95,7 @@ export const event = {
       } else {
         msg.reply(chatResponse);
       }
+      birdLog(`[@Bird Bot] ${chatResponse}`);
     }
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
