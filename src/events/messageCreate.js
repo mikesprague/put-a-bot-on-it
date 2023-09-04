@@ -97,42 +97,44 @@ export const event = {
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
     }
-    try {
-      const messageSize = msg.content.split(' ').length;
-      if (
-        messageSize > 8 ||
-        (messageSize === 1 &&
-          msg.content.startsWith('https://') &&
-          !msg.content.includes('gif'))
-      ) {
-        const openai = new OpenAI({
-          apiKey: OPEN_AI_API_KEY,
-        });
+    if (msg.channel.id !== '814956028965158955') {
+      try {
+        const messageSize = msg.content.split(' ').length;
+        if (
+          messageSize > 8 ||
+          (messageSize === 1 &&
+            msg.content.startsWith('https://') &&
+            !msg.content.includes('gif'))
+        ) {
+          const openai = new OpenAI({
+            apiKey: OPEN_AI_API_KEY,
+          });
 
-        const emojiJson = await gptGetEmoji({
-          textToAnalyze: msg.content,
-          openAiClient: openai,
-        });
-        birdLog(`[messageCreate] ${msg.content}`);
-        emojiJson.forEach((item) => {
-          msg.react(item.emoji);
-        });
+          const emojiJson = await gptGetEmoji({
+            textToAnalyze: msg.content,
+            openAiClient: openai,
+          });
+          birdLog(`[messageCreate] ${msg.content}`);
+          emojiJson.forEach((item) => {
+            msg.react(item.emoji);
+          });
+        }
+        await initEasterEggs(msg);
+      } catch (error) {
+        birdLog(
+          '[messageCreate] Error: 💀 There was an error with an easter egg: \n',
+          error,
+        );
       }
-      await initEasterEggs(msg);
-    } catch (error) {
-      birdLog(
-        '[messageCreate] Error: 💀 There was an error with an easter egg: \n',
-        error,
-      );
-    }
 
-    try {
-      await initReactions(msg);
-    } catch (error) {
-      birdLog(
-        '[messageCreate] Error: 💀 There was an error with a reaction: \n',
-        error,
-      );
+      try {
+        await initReactions(msg);
+      } catch (error) {
+        birdLog(
+          '[messageCreate] Error: 💀 There was an error with a reaction: \n',
+          error,
+        );
+      }
     }
   },
 };
