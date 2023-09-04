@@ -28,16 +28,20 @@ export const event = {
       const openaiDM = new OpenAI({
         apiKey: OPEN_AI_API_KEY,
       });
-      const authorId = msg.author.id;
-      // localStorage.removeItem(`messageHistory-${authorId}`);
-      const messageHistory =
-        localStorage.getItem(`messageHistory-${authorId}`) || [];
+      const storageKey = `messageHistory_${msg.author.id}}`;
+      // localStorage.removeItem(storageKey);
+      let messageHistory = localStorage.getItem(storageKey);
+      if (messageHistory) {
+        messageHistory = JSON.parse(messageHistory);
+      } else {
+        messageHistory = [];
+      }
       console.log(messageHistory);
-      const messageContent = msg.content
-        .replace(`<@${DISCORD_CLIENT_ID}>`, '')
-        .trim();
-      // console.log(`<@${authorId}>`);
-      console.log(messageContent);
+      const messageContent =
+        msg.channel.id === '814956028965158955'
+          ? msg.content.trim()
+          : msg.content.replace(`<@${DISCORD_CLIENT_ID}>`, '').trim();
+      // console.log(messageContent);
 
       const systemMessage = {
         role: 'system',
@@ -50,23 +54,25 @@ export const event = {
       };
 
       const messages = [systemMessage];
+
+      if (messageHistory.length && messageHistory.length > 8) {
+        messageHistory.shift();
+      }
+
       messages.push(...messageHistory);
 
-      console.log(JSON.parse(messageHistory));
-
-      JSON.parse(messageHistory).push({
+      const newMessage = {
         role: 'user',
         content: messageContent,
-      });
+      };
 
-      console.log(messages);
-      messages.push({ role: 'user', content: messageContent });
+      messageHistory.push(newMessage);
+
+      console.log('messages: ', messages);
+      console.log('messageHistory2: ', messageHistory);
+      messages.push(newMessage);
       // messages.push({ role: 'user', content: `` });
       // messages.push({ role: 'assistant', content: ``});
-      localStorage.setItem(
-        `messageHistory-${authorId}`,
-        JSON.stringify(messageHistory),
-      );
 
       const chatResponse = await openaiDM.chat.completions
         .create({
@@ -77,6 +83,12 @@ export const event = {
         .then((response) => response.choices[0].message.content);
 
       console.log(chatResponse);
+      const newReply = {
+        role: 'assistant',
+        content: chatResponse,
+      };
+      messageHistory.push(newReply);
+      localStorage.setItem(storageKey, JSON.stringify(messageHistory));
 
       msg.reply(chatResponse);
     }
