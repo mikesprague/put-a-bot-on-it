@@ -29,7 +29,11 @@ export const event = {
         .trim()
         .toLowerCase() === 'clear-history'
     ) {
-      const returnMessage = `Oh, look at that! Your message history is as empty as a bird's nest in winter. Don't worry though, I'm sure you'll fill it up with your incessant chirping soon enough.`;
+      const returnMessage = oneLineTrim`
+        Oh, look at that! Your message history is as empty as a bird's nest
+        in winter. Don't worry though, I'm sure you'll fill it up with your
+        incessant chirping soon enough.
+      `;
       localStorage.removeItem(storageKey);
       if (msg.channel.id === '814956028965158955') {
         msg.channel.send(returnMessage);
