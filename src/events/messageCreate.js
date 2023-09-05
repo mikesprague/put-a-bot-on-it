@@ -100,6 +100,7 @@ export const event = {
         .then((response) => response.choices[0].message.content);
 
       // console.log(chatResponse);
+      birdLog(`[@Bird Bot] ${chatResponse}`);
       const newReply = {
         role: 'assistant',
         content: chatResponse,
