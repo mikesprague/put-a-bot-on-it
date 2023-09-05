@@ -17,6 +17,8 @@ const localStorage = new LocalStorage(
   NODE_ENV === 'production' ? '/local-storage' : './local-storage',
 );
 
+let isAiResponse = false;
+
 export const event = {
   name: 'messageCreate',
   async execute(msg) {
@@ -27,12 +29,14 @@ export const event = {
         .trim()
         .toLowerCase() === 'clear-history'
     ) {
+      const returnMessage = `Oh, look at that! Your message history is as empty as a bird's nest in winter. Don't worry though, I'm sure you'll fill it up with your incessant chirping soon enough.`;
       localStorage.removeItem(storageKey);
       if (msg.channel.id === '814956028965158955') {
-        msg.channel.send('Your message history has been cleared.');
+        msg.channel.send(returnMessage);
       } else {
-        msg.reply('Your message history has been cleared.');
+        msg.reply(returnMessage);
       }
+      isAiResponse = true;
       birdLog(`[messageCreate] ${msg.author.username} cleared message history`);
       return;
     }
@@ -100,6 +104,7 @@ export const event = {
         role: 'assistant',
         content: chatResponse,
       };
+      isAiResponse = true;
       messageHistory.push(newReply);
       localStorage.setItem(storageKey, JSON.stringify(messageHistory));
 
@@ -108,12 +113,11 @@ export const event = {
       } else {
         msg.reply(chatResponse);
       }
-      birdLog(`[@Bird Bot] ${chatResponse}`);
     }
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
     }
-    if (msg.channel.id !== '814956028965158955') {
+    if (msg.channel.id !== '814956028965158955' && !isAiResponse) {
       try {
         const messageSize = msg.content.split(' ').length;
         if (
