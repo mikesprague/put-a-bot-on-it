@@ -118,6 +118,7 @@ export const event = {
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
     }
+    console.log(isAiResponse);
     if (msg.channel.id !== '814956028965158955' && !isAiResponse) {
       try {
         const messageSize = msg.content.split(' ').length;
@@ -137,7 +138,11 @@ export const event = {
           });
           birdLog(`[messageCreate] ${msg.content}`);
           emojiJson.forEach((item) => {
-            msg.react(item.emoji);
+            try {
+              msg.react(item.emoji);
+            } catch (error) {
+              console.log(error);
+            }
           });
         }
         await initEasterEggs(msg);
