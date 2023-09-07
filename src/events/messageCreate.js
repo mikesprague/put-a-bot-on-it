@@ -17,8 +17,6 @@ const localStorage = new LocalStorage(
   NODE_ENV === 'production' ? '/local-storage' : './local-storage',
 );
 
-let isAiResponse = false;
-
 export const event = {
   name: 'messageCreate',
   async execute(msg) {
@@ -36,7 +34,6 @@ export const event = {
       } else {
         msg.reply(returnMessage);
       }
-      isAiResponse = true;
       birdLog(`[messageCreate] ${msg.author.username} cleared message history`);
       return;
     }
@@ -105,7 +102,6 @@ export const event = {
         role: 'assistant',
         content: chatResponse,
       };
-      isAiResponse = true;
       messageHistory.push(newReply);
       localStorage.setItem(storageKey, JSON.stringify(messageHistory));
 
@@ -118,8 +114,10 @@ export const event = {
     if (msg.author.id === DISCORD_GUILD_ADMIN_ID) {
       // admin specific
     }
-    console.log(isAiResponse);
-    if (msg.channel.id !== '814956028965158955' && !isAiResponse) {
+    if (
+      msg.channel.id !== '814956028965158955' &&
+      msg.author.id !== DISCORD_CLIENT_ID
+    ) {
       try {
         const messageSize = msg.content.split(' ').length;
         if (
@@ -145,6 +143,14 @@ export const event = {
             }
           });
         }
+      } catch (error) {
+        birdLog(
+          '[messageCreate] Error: 💀 There was an error with emoji analysis: \n',
+          error,
+        );
+      }
+
+      try {
         await initEasterEggs(msg);
       } catch (error) {
         birdLog(
