@@ -2,12 +2,14 @@
   "$schema": "https://biomejs.dev/schemas/1.1.2/schema.json",
   "files": {
     "ignore": [
-      "**/.history/*",
-      "**/node_modules/*",
+      "**/.devcontainer/*",
       "**/.git/*",
       "**/.github/*",
+      "**/.history/*",
       "**/.vscode/*",
-      "**/.devcontainer/*"
+      "**/local-storage/*",
+      "**/node_modules/*",
+      "/src/disabled/**/*"
     ]
   },
   "organizeImports": {
