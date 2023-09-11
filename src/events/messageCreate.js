@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import dotenv from 'dotenv';
 import { stripIndents } from 'common-tags';
 import { LocalStorage } from 'node-localstorage';
 
@@ -7,8 +6,6 @@ import { birdLog } from '../lib/helpers.js';
 import { initEasterEggs } from '../lib/easter-eggs.js';
 import { initReactions } from '../lib/reactions.js';
 import { gptGetEmoji } from '../lib/openai.js';
-
-dotenv.config();
 
 const { NODE_ENV, DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPEN_AI_API_KEY } =
   process.env;

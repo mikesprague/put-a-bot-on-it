@@ -1,8 +1,5 @@
 import { Client, GatewayIntentBits, Partials } from 'discord.js';
 import fs from 'node:fs';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const { DISCORD_BOT_TOKEN } = process.env;
 

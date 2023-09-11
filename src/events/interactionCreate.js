@@ -1,9 +1,6 @@
 import { InteractionType } from 'discord.js';
-import dotenv from 'dotenv';
 
-import { sendContent } from '../lib/helpers.js';
-
-dotenv.config();
+// import { sendContent } from '../lib/helpers.js';
 
 const { DISCORD_GUILD_ADMIN_ID } = process.env;
 
