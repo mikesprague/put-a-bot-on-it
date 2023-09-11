@@ -1,7 +1,7 @@
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { stripIndents } from 'common-tags';
-import { v4 as uuidv4 } from 'uuid';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
+import { v4 as uuidv4 } from 'uuid';
 import {
   birdLog,
   getCustomEmojiCode,
@@ -66,7 +66,7 @@ export default {
       });
 
       if (moderation.results[0].flagged) {
-        birdLog(`[dall-e] failed moderation`);
+        birdLog('[dall-e] failed moderation');
         const failedEmbed = prepareEmbed({
           embedFooter: prompt,
           embedImage:
@@ -79,7 +79,7 @@ export default {
           content: failedEmbed,
         });
       } else {
-        birdLog(`[dall-e] passed moderation`);
+        birdLog('[dall-e] passed moderation');
 
         let aiImageName = null;
         let embedFile = null;

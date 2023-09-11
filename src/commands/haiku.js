@@ -1,11 +1,11 @@
-import OpenAI from 'openai';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import OpenAI from 'openai';
 import { v4 as uuidv4 } from 'uuid';
 import {
   birdLog,
+  getRandomColor,
   prepareEmbed,
   sendEmbed,
-  getRandomColor,
 } from '../lib/helpers.js';
 import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
 

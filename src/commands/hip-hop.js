@@ -48,7 +48,7 @@ export default {
   async execute(interaction) {
     await interaction.deferReply();
     const arg = interaction.options.getString('song');
-    const useArg = Boolean(arg && arg.trim().length);
+    const useArg = Boolean(arg?.trim().length);
     let searchString = interaction.options.getString('artist');
     if (searchString === 'random') {
       searchString = encodeURIComponent(

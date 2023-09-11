@@ -1,16 +1,17 @@
 import { SlashCommandBuilder } from 'discord.js';
+
+import { commands } from '../lib/embed-options.js';
 import {
   filterArrayOfObjects,
   getCustomEmojiCode,
-  getRandomNum,
   getRandomColor,
+  getRandomNum,
   getTenorGifs,
   prepareEmbed,
   registerTenorGifShare,
   sendEmbed,
   sortArrayOfObjects,
 } from '../lib/helpers.js';
-import { commands } from '../lib/embed-options.js';
 
 const sortedCommands = sortArrayOfObjects(commands, 'name');
 const choices = sortedCommands
@@ -47,7 +48,7 @@ export default {
     const embedColor = getRandomColor();
 
     const arg = interaction.options.getString('query');
-    const useArg = Boolean(arg && arg.trim().length);
+    const useArg = Boolean(arg?.trim().length);
     const searchTerm = useArg ? `${subject} ${arg}` : subject;
 
     const subjectGifs = await getTenorGifs({ searchTerm });
@@ -57,7 +58,7 @@ export default {
       : getRandomNum(subjectGifs.length);
 
     const embedImage = subjectGifs[randomNum].media_formats.gif.url;
-    
+
     const subjectEmbed = prepareEmbed({
       embedImage,
       embedFooter: useArg ? `query: ${arg}` : '',

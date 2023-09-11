@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
 const defaultTimezone = 'America/New_York';
 
@@ -10,8 +10,8 @@ dayjs.tz.setDefault(defaultTimezone);
 
 import {
   getRandomGifByTerm,
-  normalizeMsgContent,
   messageIncludesWords,
+  normalizeMsgContent,
 } from './helpers.js';
 import { insultStrings } from './lists.js';
 

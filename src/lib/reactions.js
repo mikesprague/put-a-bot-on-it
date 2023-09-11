@@ -1,13 +1,13 @@
 import {
-  getRandomBirdEmoji,
   getCustomEmojiCode,
+  getRandomBirdEmoji,
   getRandomNum,
+  getTenorGifs,
   messageIncludesWord,
   messageIncludesWords,
   messageMatchesWord,
-  registerTenorGifShare,
-  getTenorGifs,
   prepareEmbed,
+  registerTenorGifShare,
 } from './helpers.js';
 import * as lists from './lists.js';
 

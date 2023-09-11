@@ -1,9 +1,9 @@
-import puppeteer from 'puppeteer';
-import { SlashCommandBuilder } from 'discord.js';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
+import { SlashCommandBuilder } from 'discord.js';
 import { LocalStorage } from 'node-localstorage';
+import puppeteer from 'puppeteer';
 
 import {
   birdLog,
@@ -24,14 +24,14 @@ export default {
   data: new SlashCommandBuilder()
     .setName('wordle')
     .setDescription(
-      `Random GIF from Tenor based on current Wordle solution - warning, could spoil current game`,
+      'Random GIF from Tenor based on current Wordle solution - warning, could spoil current game',
     ),
   async execute(interaction) {
     await interaction.deferReply();
     const wordleState = JSON.parse(localStorage.getItem('wordle'));
     let solution = null;
 
-    if (wordleState && wordleState.solution) {
+    if (wordleState?.solution) {
       if (
         dayjs().format('YYYYMMDD') ===
         dayjs(wordleState.date).format('YYYYMMDD')

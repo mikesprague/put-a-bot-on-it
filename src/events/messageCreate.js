@@ -1,11 +1,11 @@
-import OpenAI from 'openai';
 import { stripIndents } from 'common-tags';
 import { LocalStorage } from 'node-localstorage';
+import OpenAI from 'openai';
 
-import { birdLog } from '../lib/helpers.js';
 import { initEasterEggs } from '../lib/easter-eggs.js';
-import { initReactions } from '../lib/reactions.js';
+import { birdLog } from '../lib/helpers.js';
 import { gptGetEmoji } from '../lib/openai.js';
+import { initReactions } from '../lib/reactions.js';
 
 const { NODE_ENV, DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPEN_AI_API_KEY } =
   process.env;

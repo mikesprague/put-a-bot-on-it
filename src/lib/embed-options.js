@@ -15,7 +15,7 @@ export const commands = [
     emoji: null,
   },
   {
-    name: `Game of Thrones`,
+    name: 'Game of Thrones',
     value: 'game of thrones',
     emoji: null,
   },
@@ -40,7 +40,7 @@ export const commands = [
     emoji: ['rick', 'morty', 'portal'],
   },
   {
-    name: `Run the Jewels`,
+    name: 'Run the Jewels',
     value: 'run the jewels',
     emoji: null,
   },
@@ -60,7 +60,7 @@ export const commands = [
     emoji: ['towelie'],
   },
   {
-    name: `Star Trek`,
+    name: 'Star Trek',
     value: 'star trek',
     emoji: null,
   },

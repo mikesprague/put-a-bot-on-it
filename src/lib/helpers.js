@@ -1,6 +1,6 @@
-import Discord from 'discord.js';
-import axios from 'axios';
 import { rando } from '@nastyox/rando.js';
+import axios from 'axios';
+import Discord from 'discord.js';
 import randomColor from 'randomcolor';
 
 import { birdEmojis, customEmoji } from './lists.js';
@@ -87,7 +87,7 @@ export const getTenorGifs = async ({ searchTerm }) => {
     searchTerm: encodedSearchTerm,
   });
   const remoteData = await makeApiCall(apiUrl);
-  if (remoteData.results && remoteData.results.length) {
+  if (remoteData?.results.length) {
     return remoteData.results;
   }
   const backupSearchTerm = encodeURIComponent('swedish chef');

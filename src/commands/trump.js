@@ -1,11 +1,11 @@
 import { SlashCommandBuilder } from 'discord.js';
 import {
+  getCustomEmojiCode,
   getRandomColor,
   getRandomGifByTerm,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
-  getCustomEmojiCode,
 } from '../lib/helpers.js';
 import { trumpApi } from '../lib/urls.js';
 

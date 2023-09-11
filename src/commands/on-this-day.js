@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from 'discord.js';
 import dayjs from 'dayjs';
+import { SlashCommandBuilder } from 'discord.js';
 import he from 'he';
 
-import { makeApiCall, sendContent, getRandomNum } from '../lib/helpers.js';
+import { getRandomNum, makeApiCall, sendContent } from '../lib/helpers.js';
 import { onThisDayApi } from '../lib/urls.js';
 
 export default {

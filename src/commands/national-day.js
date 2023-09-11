@@ -1,18 +1,18 @@
-import OpenAI from 'openai';
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { oneLineTrim } from 'common-tags';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import OpenAI from 'openai';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  // getTenorGifs,
-  getRandomNum,
+  birdLog,
   getRandomColor,
+  getRandomNum,
+  // getTenorGifs,
   prepareEmbed,
   sendEmbed,
-  birdLog,
 } from '../lib/helpers.js';
-import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
 import { initNationalDayData } from '../lib/national-day.js';
+import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
 
 const { OPEN_AI_API_KEY } = process.env;
 

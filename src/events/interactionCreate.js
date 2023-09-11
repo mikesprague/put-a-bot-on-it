@@ -21,7 +21,7 @@ export const event = {
     try {
       await slashCommand.default.execute(interaction);
     } catch (error) {
-      console.error(`[interactionCreate] Error:`, error);
+      console.error('[interactionCreate] Error:', error);
       // await sendContent({
       //   interaction,
       //   content: '💀 There was an error while executing this slash command!',

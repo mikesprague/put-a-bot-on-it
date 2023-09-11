@@ -2,9 +2,9 @@ import { SlashCommandBuilder } from 'discord.js';
 import {
   getCustomEmojiCode,
   // getGiphyGifs,
-  getTenorGifs,
   getRandomColor,
   getRandomNum,
+  getTenorGifs,
   makeApiCall,
   prepareEmbed,
   sendEmbed,

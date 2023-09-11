@@ -24,7 +24,7 @@ export const event = {
 
       birdLog(`[presenceUpdate] ${currentUser.username} ${newStatus.status}`);
 
-      let greetingToSend = null;
+      // let greetingToSend = null;
       // if (newStatus.status === 'online' && oldStatus.status !== 'online') {
       //   greetingToSend = `${
       //     greetingStrings[getRandomNum(greetingStrings.length)]
@@ -36,22 +36,22 @@ export const event = {
       //   } ${currentUser.username} 👋`;
       // }
 
-      if (greetingToSend) {
-        channel.send(greetingToSend).then(async (msg) => {
-          setTimeout(async () => {
-            try {
-              await msg.delete();
-              birdLog(`[presenceUpdate] removed message: ${msg.content}`);
-            } catch (error) {
-              birdLog(
-                `[presenceUpdate] ERROR, unable to remove message: ${msg.content}`,
-                msg,
-              );
-            }
-          }, 120000);
-          birdLog(`[presenceUpdate] message sent: ${msg.content}`);
-        });
-      }
+      // if (greetingToSend) {
+      //   channel.send(greetingToSend).then(async (msg) => {
+      //     setTimeout(async () => {
+      //       try {
+      //         await msg.delete();
+      //         birdLog(`[presenceUpdate] removed message: ${msg.content}`);
+      //       } catch (error) {
+      //         birdLog(
+      //           `[presenceUpdate] ERROR, unable to remove message: ${msg.content}`,
+      //           msg,
+      //         );
+      //       }
+      //     }, 120000);
+      //     birdLog(`[presenceUpdate] message sent: ${msg.content}`);
+      //   });
+      // }
     }
   },
 };

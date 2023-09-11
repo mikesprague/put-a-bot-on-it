@@ -22,7 +22,7 @@ export default {
     const keys = Object.keys(apiData);
     const key = keys.length > 1 ? keys[keys.length - 1] : keys[0];
     const data = apiData[key];
-    if (data && data.length) {
+    if (data?.length) {
       const latestUpdate = data[data.length - 1];
       const locationString =
         typeof latestUpdate.location === 'object'

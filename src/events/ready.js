@@ -1,5 +1,5 @@
-import { Collection } from 'discord.js';
 import fs from 'node:fs';
+import { Collection } from 'discord.js';
 
 // import { initAllGifGreetings } from '../lib/greetings.js';
 import { birdLog } from '../lib/helpers.js';
@@ -30,6 +30,6 @@ export const event = {
 
     // initAllGifGreetings(client);
 
-    birdLog(`[ready] Bird Bot is online`);
+    birdLog('[ready] Bird Bot is online');
   },
 };
