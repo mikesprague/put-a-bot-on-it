@@ -6,14 +6,15 @@ on:
       - "*.md"
       - ".vscode/**"
       - ".devcontainer/**"
-      - ".github/dependabot.yml"    
+      - ".github/dependabot.yml"
+      - "biome.json"
     branches-ignore:
       - "dependabot/*"
 
   pull_request:
     branches-ignore:
       - "dependabot/*"
-  
+
   workflow_dispatch:
 
 permissions:
