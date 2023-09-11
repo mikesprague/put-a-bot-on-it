@@ -1,25 +1,27 @@
-FROM node:20-alpine as base
-RUN apk add --no-cache \
+FROM oven/bun as base
+RUN apt update -y && apt install -y \
   chromium \
-  nss \
-  freetype \
-  harfbuzz \
-  ca-certificates \
-  ttf-freefont
-RUN npm install --global npm --silent
+  software-properties-common
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 WORKDIR /usr/src/app
 COPY ./package*.json ./
+COPY ./bun.lockb ./
+
+RUN apt remove -qy --purge software-properties-common \
+  && apt autoclean -qy \
+  && apt autoremove -qy --purge \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /.cache/*
 
 FROM base as production
 ENV NODE_ENV=production
-RUN npm install --omit=dev --silent
+RUN bun install --omit=dev
 COPY . .
-CMD ["npm", "start"]
+CMD ["bun", "start"]
 
 FROM base as dev
 ENV NODE_ENV=development
-RUN npm install
+RUN bun install
 COPY . .
-CMD ["npm", "run", "dev"]
+CMD ["bun", "run", "dev"]
