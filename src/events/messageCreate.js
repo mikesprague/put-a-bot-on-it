@@ -69,7 +69,7 @@ export const event = {
 
       const messages = [systemMessage];
 
-      if (messageHistory.length && messageHistory.length > 8) {
+      if (messageHistory.length && messageHistory.length > 9) {
         messageHistory.shift();
       }
 
@@ -87,9 +87,9 @@ export const event = {
         .create({
           model: 'gpt-4',
           messages,
-          temperature: 0.1,
-          presence_penalty: 2.0,
-          frequency_penalty: 2.0,
+          temperature: 0.2,
+          presence_penalty: 1.8,
+          frequency_penalty: 1.8,
         })
         .then((response) => response.choices[0].message.content);
 
