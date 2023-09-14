@@ -6,11 +6,11 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development bun --watch --inspect=0.0.0.0:9229 ./src/index.js ",
+    "dev": "NODE_ENV=development bun --watch --inspect=0.0.0.0:9229 run ./src/index.js ",
     "do-co:up": "docker-compose -f ./docker-compose.dev.yml up",
     "do-co:down": "docker-compose -f ./docker-compose.dev.yml down --rmi 'all'",
-    "slash-deploy": "NODE_ENV=production bun ./src/deploy-slash-commands.js",
-    "start": "NODE_ENV=production bun ./src/index.js",
+    "slash-deploy": "NODE_ENV=production bun run ./src/deploy-slash-commands.js",
+    "start": "NODE_ENV=production bun run ./src/index.js",
     "prestart": "bun run slash-deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,7 +33,7 @@
     "discord.js": "14.13.0",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
-    "openai": "4.6.0",
+    "openai": "4.7.0",
     "randomcolor": "0.6.2",
     "uuid": "9.0.1"
   },
