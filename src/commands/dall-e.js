@@ -112,7 +112,7 @@ export default {
           embedColor: randomColor,
         });
 
-        const greatSuccessEmoji = getCustomEmojiCode('great_success');
+        const greatSuccessEmoji = getCustomEmojiCode('bob_ross_painting');
         return await sendEmbed({
           interaction,
           content: artworkEmbed,

@@ -120,6 +120,8 @@ export const animatedEmoji = {
 };
 
 export const customEmoji = {
+  bob_ross: '1152217672998723605',
+  bob_ross_painting: '1152216552318435328',
   steve: '804812816287793192',
   wutang: '755775997646733492',
   trumphair: '755775997256925276',
