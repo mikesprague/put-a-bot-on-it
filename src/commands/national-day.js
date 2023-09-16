@@ -77,7 +77,12 @@ export default {
         {
           role: 'system',
           content:
-            "You're a helpful AI assistant that generates prompts to feed to DALL-E for images that represent various national days. You should reply with a prompt that describes the image you want DALL-E to generate. The images should not contain words and should look realistic.",
+            oneLineTrim`
+              You're a helpful AI assistant that generates prompts to feed to DALL-E for images
+              that represent various national days. You should reply with a prompt that describes
+              the image you want DALL-E to generate. The images should not contain letters or words,
+              and should look photo realistic with natural lighting.
+            `,
         },
         {
           role: 'user',
