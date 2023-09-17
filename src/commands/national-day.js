@@ -36,7 +36,7 @@ export default {
     const randomNum = getRandomNum(nationalDayData.length);
     const { title, description, link } = nationalDayData[randomNum];
 
-    birdLog('[/national-day]', title);
+    birdLog(`[/national-day] ${title}`);
 
     const systemPrompt = stripIndents`
       You are an AI assistant set up to specifically to extract the topics and
@@ -65,7 +65,7 @@ export default {
     // console.log(textPrompt);
     // console.log(textResponse.choices[0].message.content);
     const aiSummary = textResponse.choices[0].message.content;
-    // birdLog(`[/national-day] ${aiSummary}`);
+    birdLog(`[/national-day (aiSummary)] ${aiSummary}`);
 
     const emojiJson = await gptGetEmoji({
       textToAnalyze: aiSummary,
@@ -94,7 +94,7 @@ export default {
     });
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
-    console.log(imagePrompt.choices[0].message.content);
+    birdLog(`[/national-day (imagePrompt)] ${imagePrompt.choices[0].message.content}`);
     const imageResponse = await openai.images.generate({
       prompt: imagePrompt.choices[0].message.content,
       n: 1,
@@ -120,7 +120,7 @@ export default {
       embedImage: `attachment://${aiImageName}`,
       embedUrl: link,
     });
-    birdLog(`[/national-day] ${title}`);
+
     return await sendEmbed({
       interaction,
       content: nationalDayEmbed,
