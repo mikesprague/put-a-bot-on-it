@@ -1,4 +1,4 @@
-import { oneLineTrim } from 'common-tags';
+import { oneLineTrim, stripIndents } from 'common-tags';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,11 +38,12 @@ export default {
 
     birdLog('[/national-day]', title);
 
-    const systemPrompt = oneLineTrim`
-      You are an AI assistant set up to specifically to extract the topics and subjects from text input by your users.
-      You should reply with a short but descriptive paragraph of 3 sentences or less and try to avoid general words
-      like "celebration", "day", "week", "month", "national", or "international" and stick to describing the topics
-      and/or subjects. Do not mention the specific occasion, just describe it.
+    const systemPrompt = stripIndents`
+      You are an AI assistant set up to specifically to extract the topics and
+      subjects from text input by your users.
+      - You should reply with a short but descriptive paragraph of 3 sentences or less
+      - You should avoid general words like "celebration", "day", "week", "month", "national", or "international"
+      - You should describe the topics and/or subjects only do NOT mention the specific occasion
     `;
 
     const textResponse = await openai.chat.completions.create({
@@ -76,8 +77,7 @@ export default {
       messages: [
         {
           role: 'system',
-          content:
-            oneLineTrim`
+          content: oneLineTrim`
               You're a helpful AI assistant that generates prompts to feed to DALL-E for images
               that represent various national days. You should reply with a prompt that describes
               the image you want DALL-E to generate. The images should not contain letters or words,
