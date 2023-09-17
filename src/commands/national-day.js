@@ -20,7 +20,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('national-day')
     .setDescription(
-      'Random day from National Day Calendar (w/ possibly related AI-generated image)',
+      'Random day from National Day Calendar (w/ possibly related AI-generated image)'
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -94,7 +94,9 @@ export default {
     });
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
-    birdLog(`[/national-day (imagePrompt)] ${imagePrompt.choices[0].message.content}`);
+    birdLog(
+      `[/national-day (imagePrompt)] ${imagePrompt.choices[0].message.content}`
+    );
     const imageResponse = await openai.images.generate({
       prompt: imagePrompt.choices[0].message.content,
       n: 1,
