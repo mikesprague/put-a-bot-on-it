@@ -118,7 +118,7 @@ export const gptGetEmoji = async ({
       prompt,
       temperature: 0.1,
       max_tokens: 1000,
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo-instruct',
       user,
     });
 
