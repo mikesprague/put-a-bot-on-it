@@ -6,7 +6,7 @@ COPY ./bun.lockb ./
 
 FROM base as production
 ENV NODE_ENV=production
-RUN bun install --production
+RUN bun install --no-save
 COPY . .
 CMD ["bun", "start"]
 
