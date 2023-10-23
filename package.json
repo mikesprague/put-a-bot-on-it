@@ -29,7 +29,7 @@
     "axios": "1.5.1",
     "common-tags": "1.8.2",
     "dayjs": "1.11.10",
-    "discord-api-types": "0.37.60",
+    "discord-api-types": "0.37.61",
     "discord.js": "14.13.0",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
