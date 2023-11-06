@@ -11,7 +11,7 @@ const { NODE_ENV, DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPEN_AI_API_KEY } =
   process.env;
 
 const localStorage = new LocalStorage(
-  NODE_ENV === 'production' ? '/local-storage' : './local-storage',
+  NODE_ENV === 'production' ? '/local-storage' : './local-storage'
 );
 
 export const event = {
@@ -86,7 +86,7 @@ export const event = {
 
       const chatResponse = await openaiDM.chat.completions
         .create({
-          model: 'gpt-4',
+          model: 'gpt-4-1106-preview',
           messages,
           temperature: 0.2,
           presence_penalty: 1.8,
@@ -144,7 +144,7 @@ export const event = {
       } catch (error) {
         birdLog(
           '[messageCreate] Error: 💀 There was an error with emoji analysis: \n',
-          error,
+          error
         );
       }
 
@@ -153,7 +153,7 @@ export const event = {
       } catch (error) {
         birdLog(
           '[messageCreate] Error: 💀 There was an error with an easter egg: \n',
-          error,
+          error
         );
       }
 
@@ -162,7 +162,7 @@ export const event = {
       } catch (error) {
         birdLog(
           '[messageCreate] Error: 💀 There was an error with a reaction: \n',
-          error,
+          error
         );
       }
     }
