@@ -20,7 +20,7 @@ export default {
       option
         .setName('query')
         .setDescription('Enter description')
-        .setRequired(true),
+        .setRequired(true)
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -90,6 +90,7 @@ export default {
             prompt: imagePrompt,
             n: 1,
             size: '1024x1024',
+            model: 'dall-e-3',
           });
           const aiImage = response.data[0].url;
           aiImageName = `${uuidv4()}.png`;
@@ -99,7 +100,7 @@ export default {
         } catch (error) {
           console.log(error);
           birdLog(
-            `[/dall-e] image generation failed for prompt: ${imagePrompt}`,
+            `[/dall-e] image generation failed for prompt: ${imagePrompt}`
           );
           embedImage =
             'https://media.giphy.com/media/U1aN4HTfJ2SmgB2BBK/giphy.gif';
