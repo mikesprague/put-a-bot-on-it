@@ -59,7 +59,7 @@ export default {
         },
       ],
       temperature: 0.1,
-      user: uuidv4(),
+      user: interaction.user.id,
     });
 
     // console.log(textPrompt);
@@ -90,7 +90,7 @@ export default {
         },
       ],
       temperature: 0,
-      user: uuidv4(),
+      user: interaction.user.id,
     });
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
@@ -101,7 +101,8 @@ export default {
       prompt: imagePrompt.choices[0].message.content,
       n: 1,
       size: '1024x1024',
-      user: uuidv4(),
+      user: interaction.user.id,
+      model: 'dall-e-3',
     });
     const aiImage = imageResponse.data[0].url;
     const aiImageName = `${uuidv4()}.png`;

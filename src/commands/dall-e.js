@@ -52,7 +52,7 @@ export default {
           },
         ],
         temperature: 0,
-        user: uuidv4(),
+        user: interaction.user.id,
       });
 
       imagePrompt = imagePrompt.choices[0].message.content;
@@ -91,6 +91,7 @@ export default {
             n: 1,
             size: '1024x1024',
             model: 'dall-e-3',
+            user: interaction.user.id,
           });
           const aiImage = response.data[0].url;
           aiImageName = `${uuidv4()}.png`;

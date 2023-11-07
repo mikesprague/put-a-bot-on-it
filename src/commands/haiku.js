@@ -19,7 +19,7 @@ export default {
       option
         .setName('subject')
         .setDescription('Provide a subject/topic for the haiku')
-        .setRequired(true),
+        .setRequired(true)
     ),
   // .addBooleanOption((option) =>
   //   option
@@ -55,6 +55,8 @@ export default {
         prompt: imagePrompt,
         n: 1,
         size: '1024x1024',
+        model: 'dall-e-3',
+        user: interaction.user.id,
       });
       const aiImage = imageResponse.data[0].url;
       aiImageName = `${uuidv4()}.png`;
