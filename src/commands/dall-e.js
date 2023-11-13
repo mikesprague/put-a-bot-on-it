@@ -55,7 +55,9 @@ export default {
         user: interaction.user.id,
       });
 
-      imagePrompt = imagePrompt.choices[0].message.content;
+      imagePrompt = imagePrompt?.choices[0]?.message?.content
+        .replace('Prompt for DALL-E: ', '')
+        .trim();
       console.log(imagePrompt);
 
       const randomColor = getRandomColor();
