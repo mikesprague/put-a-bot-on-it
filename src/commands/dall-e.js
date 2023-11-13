@@ -44,6 +44,7 @@ export default {
             - You should reply with a prompt that describes the images the user wants based on their input
             - Images should be photo realistic
             - Images should not contain any text
+            - Return only the text for image prompt
             `,
           },
           {
@@ -56,7 +57,7 @@ export default {
       });
 
       imagePrompt = imagePrompt?.choices[0]?.message?.content
-        .replace('Prompt for DALL-E: ', '')
+        .replace('Prompt for DALL-E:', '')
         .trim();
       console.log(imagePrompt);
 
