@@ -24,7 +24,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@discordjs/rest": "2.1.0",
+    "@discordjs/rest": "2.2.0",
     "@nastyox/rando.js": "2.0.6",
     "axios": "1.6.2",
     "common-tags": "1.8.2",
