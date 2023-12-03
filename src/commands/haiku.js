@@ -48,7 +48,10 @@ export default {
     let embedFile = null;
     let embedImage = '';
 
-    const imagePrompt = `${haiku.replace('\n', ' ')}, photo, detailed image`;
+    const imagePrompt = `${haiku.replace(
+      '\n',
+      ' '
+    )}, captured in a realistic photograph with natural lighting`;
 
     try {
       const imageResponse = await openai.images.generate({

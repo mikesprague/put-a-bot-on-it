@@ -42,7 +42,7 @@ export default {
             content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to DALL-E to generate photos based on the user's input:
             - You should reply with a prompt that describes the images the user wants based on their input
-            - Images should be photo realistic
+            - Images should be captured in a realistic photograph with natural lighting
             - Images should not contain any text
             - Return only the text for image prompt
             `,
