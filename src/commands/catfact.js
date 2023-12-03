@@ -1,3 +1,4 @@
+import { stripIndents } from 'common-tags';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
@@ -33,8 +34,34 @@ export default {
     const randomNum = getRandomNum(apiData.length);
     const randomColor = getRandomColor();
     const catFact = apiData[randomNum];
+    console.log(catFact);
+    let imagePrompt = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo-1106',
+      messages: [
+        {
+          role: 'system',
+          content: stripIndents`
+            You're a helpful AI assistant that generates prompts to feed to DALL-E to generate photos based on the supplied cat fact:
+            - Images should be captured in a realistic photograph with natural lighting
+            - Images should not contain any text
+            - Return only the text for image prompt
+            `,
+        },
+        {
+          role: 'user',
+          content: catFact.fact,
+        },
+      ],
+      temperature: 0,
+      user: interaction.user.id,
+    });
+
+    imagePrompt = imagePrompt?.choices[0]?.message?.content
+      .replace('Prompt for DALL-E:', '')
+      .trim();
+    console.log(imagePrompt);
     const response = await openai.images.generate({
-      prompt: `${catFact.fact}, captured in a realistic photograph with natural lighting`,
+      prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
       model: 'dall-e-3',
