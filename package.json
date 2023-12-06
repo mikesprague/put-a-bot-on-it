@@ -40,7 +40,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.4.1",
     "bun": "1.0.15",
-    "cz-git": "1.7.1"
+    "cz-git": "1.8.0"
   },
   "config": {
     "commitizen": {
