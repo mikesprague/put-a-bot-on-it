@@ -1,5 +1,5 @@
 FROM node:20-buster-slim as base
-RUN npm install --location=global npm bun
+RUN npm install --location=global npm bun@1.0.16
 WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./bun.lockb ./
