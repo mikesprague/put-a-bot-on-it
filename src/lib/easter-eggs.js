@@ -57,8 +57,23 @@ const initBurger = (msg) => {
   }
 };
 
+const initTaco = (msg) => {
+  if (msg.author.bot) {
+    return;
+  }
+  const tacoWords = ['i could go for tacos', 'i would eat tacos', 'taco tuesday'];
+  if (
+    messageIncludesWords(msg, tacoWords)
+  ) {
+    msg.channel.send({
+      content: 'https://tenor.com/blAbF.gif',
+    });
+  }
+};
+
 export const initEasterEggs = async (msg) => {
   await initMiddleFinger(msg);
   initCate(msg);
   initBurger(msg);
+  initTaco(msg);
 };
