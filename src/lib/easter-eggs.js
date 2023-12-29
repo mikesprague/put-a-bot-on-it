@@ -61,7 +61,14 @@ const initTaco = (msg) => {
   if (msg.author.bot) {
     return;
   }
-  const tacoWords = ['i could go for tacos', 'i would eat tacos', 'taco tuesday'];
+  const tacoWords = [
+    'i could go for tacos', 
+    'i would eat tacos', 
+    'taco tuesday',
+    'i want tacos',
+    'tacos sound good',
+  ];
+  
   if (
     messageIncludesWords(msg, tacoWords)
   ) {
