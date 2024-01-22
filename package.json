@@ -38,7 +38,7 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.2",
+    "@biomejs/biome": "1.5.3",
     "bun": "1.0.25",
     "cz-git": "1.8.0"
   },
