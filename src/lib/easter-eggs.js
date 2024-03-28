@@ -62,18 +62,41 @@ const initTaco = (msg) => {
     return;
   }
   const tacoWords = [
-    'i could go for tacos', 
-    'i would eat tacos', 
+    'i could go for tacos',
+    'i would eat tacos',
     'taco tuesday',
     'i want tacos',
     'tacos sound good',
   ];
-  
-  if (
-    messageIncludesWords(msg, tacoWords)
-  ) {
+
+  if (messageIncludesWords(msg, tacoWords)) {
     msg.channel.send({
       content: 'https://tenor.com/blAbF.gif',
+    });
+  }
+};
+
+const initJava = (msg) => {
+  if (msg.author.bot) {
+    return;
+  }
+  const javaWords = [
+    'js',
+    'javascript',
+    'java script',
+    'java-script',
+    'react',
+    'angular',
+    'vue',
+    'node',
+    'node.js',
+    'nodejs',
+    'vanilla js',
+  ];
+
+  if (messageIncludesWords(msg, javaWords)) {
+    msg.channel.send({
+      content: 'https://tenor.com/bxOgD.gif',
     });
   }
 };
@@ -83,4 +106,5 @@ export const initEasterEggs = async (msg) => {
   initCate(msg);
   initBurger(msg);
   initTaco(msg);
+  initJava(msg);
 };
