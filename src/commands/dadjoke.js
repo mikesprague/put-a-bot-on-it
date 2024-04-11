@@ -11,6 +11,7 @@ export default {
     const apiUrl = dadJokeApi();
     const apiData = await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
+      'Accept-Encoding': 'gzip, deflate',
       'User-Agent': 'BirdBot (Discord.js bot on private server)',
     });
     const dadJokeContent = apiData.joke;
