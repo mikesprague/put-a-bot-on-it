@@ -47,7 +47,7 @@ export default {
     `;
 
     const textResponse = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
+      model: 'gpt-4-turbo',
       messages: [
         {
           role: 'system',
@@ -73,7 +73,7 @@ export default {
     });
 
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
+      model: 'gpt-4-turbo',
       messages: [
         {
           role: 'system',

@@ -35,7 +35,7 @@ export default {
       birdLog(`[dall-e] ${prompt}`);
 
       let imagePrompt = await openai.chat.completions.create({
-        model: 'gpt-4-turbo-preview',
+        model: 'gpt-4-turbo',
         messages: [
           {
             role: 'system',
@@ -81,51 +81,49 @@ export default {
           interaction,
           content: failedEmbed,
         });
-      } else {
-        birdLog('[dall-e] passed moderation');
-
-        let aiImageName = null;
-        let embedFile = null;
-        let embedImage = '';
-
-        try {
-          const response = await openai.images.generate({
-            prompt: imagePrompt,
-            n: 1,
-            size: '1024x1024',
-            model: 'dall-e-3',
-            user: interaction.user.id,
-          });
-          const aiImage = response.data[0].url;
-          aiImageName = `${uuidv4()}.png`;
-          embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
-          embedImage = `attachment://${aiImageName}`;
-          birdLog(`[dall-e] ${response.data[0].url}`);
-        } catch (error) {
-          console.log(error);
-          birdLog(
-            `[/dall-e] image generation failed for prompt: ${imagePrompt}`
-          );
-          embedImage =
-            'https://media.giphy.com/media/U1aN4HTfJ2SmgB2BBK/giphy.gif';
-        }
-
-        const artworkEmbed = prepareEmbed({
-          embedDescription: prompt,
-          embedFooter: imagePrompt,
-          embedImage,
-          embedColor: randomColor,
-        });
-
-        const greatSuccessEmoji = getCustomEmojiCode('bob_ross_painting');
-        return await sendEmbed({
-          interaction,
-          content: artworkEmbed,
-          file: embedFile,
-          deferred: true,
-          reaction: greatSuccessEmoji,
-        });
       }
+
+      birdLog('[dall-e] passed moderation');
+
+      let aiImageName = null;
+      let embedFile = null;
+      let embedImage = '';
+
+      try {
+        const response = await openai.images.generate({
+          prompt: imagePrompt,
+          n: 1,
+          size: '1024x1024',
+          model: 'dall-e-3',
+          user: interaction.user.id,
+        });
+        const aiImage = response.data[0].url;
+        aiImageName = `${uuidv4()}.png`;
+        embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+        embedImage = `attachment://${aiImageName}`;
+        birdLog(`[dall-e] ${response.data[0].url}`);
+      } catch (error) {
+        console.log(error);
+        birdLog(`[/dall-e] image generation failed for prompt: ${imagePrompt}`);
+        embedImage =
+          'https://media.giphy.com/media/U1aN4HTfJ2SmgB2BBK/giphy.gif';
+      }
+
+      const artworkEmbed = prepareEmbed({
+        embedDescription: prompt,
+        embedFooter: imagePrompt,
+        embedImage,
+        embedColor: randomColor,
+      });
+
+      const greatSuccessEmoji = getCustomEmojiCode('bob_ross_painting');
+      return await sendEmbed({
+        interaction,
+        content: artworkEmbed,
+        file: embedFile,
+        deferred: true,
+        reaction: greatSuccessEmoji,
+      });
     } catch (error) {
       let returnMessage = '';
       if (error.response) {
