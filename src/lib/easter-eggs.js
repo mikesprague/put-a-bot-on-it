@@ -81,6 +81,7 @@ const initJava = (msg) => {
     return;
   }
   const javaWords = [
+    'java',
     'js',
     'javascript',
     'java script',
@@ -91,7 +92,6 @@ const initJava = (msg) => {
     'node',
     'node.js',
     'nodejs',
-    'vanilla js',
   ];
 
   if (messageIncludesWords(msg, javaWords)) {
