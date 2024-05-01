@@ -23,11 +23,11 @@ export const messageIncludesWord = (message, word) =>
 
 export const messageIncludesWords = (message, wordsArray) => {
   let wordMatched = false;
-  wordsArray.forEach((word) => {
+  for (const word of wordsArray) {
     if (!wordMatched && messageIncludesWord(message, word)) {
       wordMatched = true;
     }
-  });
+  }
   return wordMatched;
 };
 
@@ -35,7 +35,7 @@ export const makeApiCall = async (
   apiEndpoint,
   requestMethod = 'GET',
   requestHeaders = null,
-  requestBody = null,
+  requestBody = null
 ) => {
   const axiosConfig = {};
   if (
@@ -216,9 +216,9 @@ export const sendEmbed = async ({
     if (reaction) {
       const message = await interaction.fetchReply();
       if (typeof reaction === 'object') {
-        reaction.forEach(async (emoji) => {
+        for await (const emoji of reaction) {
           message.react(emoji);
-        });
+        }
       } else {
         message.react(reaction);
       }
@@ -243,5 +243,5 @@ export const filterArrayOfObjects = (array, field, value) =>
 
 export const sortArrayOfObjects = (arrayToSort, key) =>
   arrayToSort.sort(
-    (item1, item2) => item1[key].toLowerCase() - item2[key].toLowerCase(),
+    (item1, item2) => item1[key].toLowerCase() - item2[key].toLowerCase()
   );
