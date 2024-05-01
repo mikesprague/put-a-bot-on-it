@@ -9,7 +9,7 @@ export default {
     .setDescription('Gets a random insult from a mean API'),
   async execute(interaction) {
     const apiUrl = evilInsultApi();
-    const apiData = await makeApiCall(apiUrl, {
+    const apiData = await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
       'Accept-Encoding': 'gzip, deflate',
       'User-Agent': 'BirdBot (Discord.js bot on private server)',
