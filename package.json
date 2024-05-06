@@ -30,7 +30,7 @@
     "common-tags": "1.8.2",
     "dayjs": "1.11.11",
     "discord-api-types": "0.37.83",
-    "discord.js": "14.15.1",
+    "discord.js": "14.15.2",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
     "openai": "4.40.2",
