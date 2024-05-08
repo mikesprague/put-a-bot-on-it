@@ -10,6 +10,7 @@ dayjs.tz.setDefault(defaultTimezone);
 
 import {
   getRandomGifByTerm,
+  getRandomNum,
   messageIncludesWords,
   normalizeMsgContent,
 } from './helpers.js';
@@ -76,6 +77,27 @@ const initTaco = (msg) => {
   }
 };
 
+const initMoist = (msg) => {
+  if (msg.author.bot) {
+    return;
+  }
+  const moistGifs = [
+    'https://tenor.com/bLkTB.gif',
+    'https://tenor.com/tWVU.gif',
+    'https://tenor.com/bzkJe.gif',
+    'https://tenor.com/MSHZ.gif',
+    'https://tenor.com/bP76J.gif',
+  ];
+  const moistWords = ['moist'];
+  const moistGif = moistGifs[getRandomNum(moistGifs.length)];
+
+  if (messageIncludesWords(msg, moistWords)) {
+    msg.channel.send({
+      content: moistGif,
+    });
+  }
+};
+
 const initJava = (msg) => {
   if (msg.author.bot) {
     return;
@@ -107,4 +129,5 @@ export const initEasterEggs = async (msg) => {
   initBurger(msg);
   initTaco(msg);
   initJava(msg);
+  initMoist(msg);
 };
