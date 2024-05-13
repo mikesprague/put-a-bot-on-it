@@ -7,7 +7,7 @@ export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = 'gpt-4-turbo',
+  model = 'gpt-4o',
   temperature = 0.1,
   user = uuidv4(),
 }) => {
@@ -33,7 +33,7 @@ export const gptAnalyzeText = async ({
 export const gptGetHaiku = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-4-turbo',
+  model = 'gpt-4o',
   temperature = 0.1,
   user = uuidv4(),
 }) => {
@@ -59,7 +59,7 @@ export const gptGetHaiku = async ({
 export const gptGetLimerick = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-4-turbo',
+  model = 'gpt-4o',
   temperature = 0.1,
   user = uuidv4(),
 }) => {

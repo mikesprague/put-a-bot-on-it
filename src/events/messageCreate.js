@@ -86,7 +86,7 @@ export const event = {
 
       const chatResponse = await openaiDM.chat.completions
         .create({
-          model: 'gpt-4-turbo',
+          model: 'gpt-4o',
           messages,
           temperature: 0.2,
           presence_penalty: 1.8,
@@ -133,13 +133,13 @@ export const event = {
             openAiClient: openai,
           });
           birdLog(`[messageCreate] ${msg.content}`);
-          emojiJson.forEach((item) => {
+          for (const item of emojiJson) {
             try {
               msg.react(item.emoji);
             } catch (error) {
               console.log(error);
             }
-          });
+          }
         }
       } catch (error) {
         birdLog(
