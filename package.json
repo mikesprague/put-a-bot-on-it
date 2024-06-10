@@ -35,7 +35,7 @@
     "node-localstorage": "3.0.5",
     "openai": "4.49.1",
     "randomcolor": "0.6.2",
-    "uuid": "9.0.1"
+    "uuid": "10.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.1",
