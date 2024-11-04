@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v10';
 
@@ -24,7 +24,7 @@ import { birdLog } from './lib/helpers.js';
       body: commands,
     })
     .then(() =>
-      birdLog('[slash-deploy] Successfully registered application commands.'),
+      birdLog('[slash-deploy] Successfully registered application commands.')
     )
     .catch(console.error);
 })();
