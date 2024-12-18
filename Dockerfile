@@ -1,4 +1,4 @@
-FROM node:20-buster-slim as base
+FROM node:22-bookworm-slim as base
 RUN npm install --location=global npm bun
 WORKDIR /usr/src/app
 COPY ./package.json ./
