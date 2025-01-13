@@ -1,5 +1,4 @@
 import { rando } from '@nastyox/rando.js';
-import axios from 'axios';
 import Discord from 'discord.js';
 import randomColor from 'randomcolor';
 
@@ -37,24 +36,25 @@ export const makeApiCall = async (
   requestHeaders = null,
   requestBody = null
 ) => {
-  const axiosConfig = {};
+  const fetchConfig = {
+    method: requestMethod,
+  };
   if (
     (requestMethod.toUpperCase() === 'POST' ||
       requestMethod.toUpperCase() === 'PUT') &&
     requestBody
   ) {
-    axiosConfig.data = requestBody;
+    fetchConfig.body = requestBody;
   }
   if (requestHeaders) {
-    axiosConfig.headers = {
+    fetchConfig.headers = {
       ...requestHeaders,
     };
   }
-  const apiData = await axios({
-    url: `${apiEndpoint}`,
-    method: `${requestMethod}`,
-    ...axiosConfig,
-  }).then((response) => response.data);
+  const apiData = await fetch(apiEndpoint, fetchConfig).then((response) =>
+    response.json()
+  );
+
   return apiData;
 };
 
