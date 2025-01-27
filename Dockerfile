@@ -2,7 +2,7 @@ FROM node:22-bookworm-slim as base
 RUN npm install --location=global npm bun
 WORKDIR /usr/src/app
 COPY ./package.json ./
-COPY ./bun.lockb ./
+COPY ./bun.lock ./
 
 FROM base as production
 ENV NODE_ENV=production
