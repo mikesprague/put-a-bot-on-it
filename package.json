@@ -28,7 +28,7 @@
     "@nastyox/rando.js": "2.0.6",
     "common-tags": "1.8.2",
     "dayjs": "1.11.13",
-    "discord-api-types": "0.37.118",
+    "discord-api-types": "0.37.119",
     "discord.js": "14.17.3",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
