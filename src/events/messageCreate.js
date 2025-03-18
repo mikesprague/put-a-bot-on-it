@@ -86,7 +86,7 @@ export const event = {
 
       const chatResponse = await openaiDM.chat.completions
         .create({
-          model: 'gpt-4o',
+          model: 'gpt-4.5-preview',
           messages,
           temperature: 0.2,
           presence_penalty: 1.8,
