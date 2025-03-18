@@ -110,19 +110,26 @@ export const gptGetEmoji = async ({
       Don't return any duplicate emojis.
 
       JSON response should have a shape of: ${JSON.stringify(resultsShape)}
-
-      Text to analyze: ${textToAnalyze}
     `;
 
     const emojiResponse = await openAiClient.chat.completions.create({
-      prompt,
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+        {
+          role: 'user',
+          content: textToAnalyze,
+        },
+      ],
       temperature: 0.1,
       max_tokens: 1000,
       model: 'gpt-4o',
       user,
     });
 
-    let content = emojiResponse.choices[0].text.trim();
+    let content = emojiResponse.choices[0].message.content.trim();
     // console.log(content);
 
     if (content.includes('inappropriate') && content.includes('offensive')) {
