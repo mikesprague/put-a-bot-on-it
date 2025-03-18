@@ -114,7 +114,7 @@ export const gptGetEmoji = async ({
       Text to analyze: ${textToAnalyze}
     `;
 
-    const emojiResponse = await openAiClient.completions.create({
+    const emojiResponse = await openAiClient.chat.completions.create({
       prompt,
       temperature: 0.1,
       max_tokens: 1000,
