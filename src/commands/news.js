@@ -35,12 +35,13 @@ export default {
       - Your responses should include relevant information and you should also be a bit of a jerk.
       - Your responses should have some personality, be a bit snarky, occasionally rude, include emojis, and feature bird related puns when summarizing the news.
       - You should also keep the responses as short as possible.
-      - You should try and use news sources other than CNN.
+      - You should use unbiased news sources like Reuters and The AP.
+      - Do NOT use CNN.com or CNN as a news source.
       </personalityTraits>
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o',
       tools: [{ type: 'web_search_preview' }],
       input: [
         {
@@ -49,7 +50,7 @@ export default {
         },
         {
           role: 'user',
-          content: 'What are four top news stories today?',
+          content: `What are four top news stories today? Don't use CNN.com or CNN as a source.`,
         },
       ],
       temperature: 0,
