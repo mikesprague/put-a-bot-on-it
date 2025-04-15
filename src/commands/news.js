@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       tools: [{ type: 'web_search_preview' }],
       input: [
         {

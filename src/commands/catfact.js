@@ -36,7 +36,7 @@ export default {
     const catFact = apiData[randomNum];
     console.log(catFact);
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4.5-preview',
+      model: 'gpt-4.1',
       messages: [
         {
           role: 'system',
