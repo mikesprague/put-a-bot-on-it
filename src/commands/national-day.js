@@ -73,14 +73,14 @@ export default {
     });
 
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4.1-mini',
       messages: [
         {
           role: 'system',
           content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to DALL-E for images
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image for images
             that represent various national days. You should reply with a prompt that describes
-            the image you want DALL-E to generate:
+            the image you want GPT-Image to generate:
               - Images should be photo realistic
               - Images should not contain any text
               - Return only the text for image prompt
@@ -96,7 +96,7 @@ export default {
     });
 
     imagePrompt = imagePrompt?.choices[0]?.message?.content
-      .replace('Prompt for DALL-E:', '')
+      .replace('Prompt for GPT-Image:', '')
       .trim();
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
@@ -106,12 +106,11 @@ export default {
       n: 1,
       size: '1024x1024',
       user: interaction.user.id,
-      model: 'dall-e-3',
+      model: 'gpt-image-1',
     });
-    const aiImage = imageResponse.data[0].url;
+    const aiImage = imageResponse.data[0].b64_json;
     const aiImageName = `${uuidv4()}.png`;
-
-    const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
 
     // birdLog(`[/national-day] ${aiImage}`);
 

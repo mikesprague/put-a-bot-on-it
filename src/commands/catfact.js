@@ -41,7 +41,7 @@ export default {
         {
           role: 'system',
           content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to DALL-E to generate photos based on the supplied cat fact:
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the supplied cat fact:
             - Images should be captured in a realistic photograph with natural lighting
             - Images should not contain any text
             - Return only the text for image prompt
@@ -57,19 +57,19 @@ export default {
     });
 
     imagePrompt = imagePrompt?.choices[0]?.message?.content
-      .replace('Prompt for DALL-E:', '')
+      .replace('Prompt for GPT-Image:', '')
       .trim();
     console.log(imagePrompt);
     const response = await openai.images.generate({
       prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
-      model: 'dall-e-3',
+      model: 'gpt-image-1',
       user: interaction.user.id,
     });
-    const aiImage = response.data[0].url;
+    const aiImage = response.data[0].b64_json;
     const aiImageName = `${uuidv4()}.png`;
-    const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
     const embedImage = `attachment://${aiImageName}`;
     const catFactEmbed = prepareEmbed({
       embedDescription: catFact.fact,

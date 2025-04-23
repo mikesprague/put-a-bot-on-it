@@ -35,12 +35,12 @@ export default {
       birdLog(`[dall-e] ${prompt}`);
 
       let imagePrompt = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4.1-mini',
         messages: [
           {
             role: 'system',
             content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to DALL-E to generate photos based on the user's input:
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
             - You should reply with a prompt that describes the images the user wants based on their input
             - Images should be captured in a realistic photograph with natural lighting
             - Images should not contain any text
@@ -57,7 +57,7 @@ export default {
       });
 
       imagePrompt = imagePrompt?.choices[0]?.message?.content
-        .replace('Prompt for DALL-E:', '')
+        .replace('Prompt for GPT-Image:', '')
         .trim();
       console.log(imagePrompt);
 
@@ -94,14 +94,15 @@ export default {
           prompt: imagePrompt,
           n: 1,
           size: '1024x1024',
-          model: 'dall-e-3',
+          model: 'gpt-image-1',
           user: interaction.user.id,
         });
-        const aiImage = response.data[0].url;
+        // console.log(response.data[0].b64_json);
+        const aiImage = response.data[0].b64_json;
         aiImageName = `${uuidv4()}.png`;
-        embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+        embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
         embedImage = `attachment://${aiImageName}`;
-        birdLog(`[dall-e] ${response.data[0].url}`);
+        birdLog(`[dall-e] ${embedImage}`);
       } catch (error) {
         console.log(error);
         birdLog(`[/dall-e] image generation failed for prompt: ${imagePrompt}`);

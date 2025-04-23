@@ -58,13 +58,13 @@ export default {
         prompt: imagePrompt,
         n: 1,
         size: '1024x1024',
-        model: 'dall-e-3',
+        model: 'gpt-image-1',
         user: interaction.user.id,
       });
-      const aiImage = imageResponse.data[0].url;
+      const aiImage = imageResponse.data[0].b64_json;
       aiImageName = `${uuidv4()}.png`;
       embedImage = `attachment://${aiImageName}`;
-      embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
+      embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
     } catch (error) {
       birdLog(`[/haiku] image generation failed for prompt: ${imagePrompt}`);
     }
