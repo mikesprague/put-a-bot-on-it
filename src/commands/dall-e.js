@@ -42,8 +42,7 @@ export default {
             content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
             - You should reply with a prompt that describes the images the user wants based on their input
-            - Images should be captured in a realistic photograph with natural lighting
-            - Images should not contain any text
+            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-1" model
             - Return only the text for image prompt
             `,
           },
@@ -93,7 +92,7 @@ export default {
         const response = await openai.images.generate({
           prompt: imagePrompt,
           n: 1,
-          size: '1024x1024',
+          size: 'auto',
           model: 'gpt-image-1',
           moderation: 'low',
           user: interaction.user.id,
