@@ -1,5 +1,5 @@
 import { rando } from '@nastyox/rando.js';
-import Discord from 'discord.js';
+import Discord, { MessageFlags } from 'discord.js';
 import randomColor from 'randomcolor';
 
 import { birdEmojis, customEmoji } from './lists.js';
@@ -172,9 +172,9 @@ export const sendContent = async ({
 }) => {
   try {
     if (deferred) {
-      await interaction.editReply({ content, ephemeral });
+      await interaction.editReply({ content, flags: ephemeral ? MessageFlags.Ephemeral : undefined });
     } else {
-      await interaction.reply({ content, ephemeral });
+      await interaction.reply({ content, flags: ephemeral ? MessageFlags.Ephemeral : undefined });
     }
     if (reaction) {
       const message = await interaction.fetchReply();
@@ -204,13 +204,13 @@ export const sendEmbed = async ({
       await interaction.editReply({
         embeds: [content],
         files: file ? [file] : null,
-        ephemeral,
+        flags: ephemeral ? MessageFlags.Ephemeral : undefined,
       });
     } else {
       await interaction.reply({
         embeds: [content],
         files: file ? [file] : null,
-        ephemeral,
+        flags: ephemeral ? MessageFlags.Ephemeral : undefined,
       });
     }
     if (reaction) {
