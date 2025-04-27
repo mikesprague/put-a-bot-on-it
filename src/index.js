@@ -12,6 +12,11 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildScheduledEvents,
+    GatewayIntentBits.GuildExpressions,
+    GatewayIntentBits.GuildIntegrations,
+    GatewayIntentBits.GuildMessagePolls,
+    GatewayIntentBits.GuildMessageReactions,
   ],
   partials: [
     Partials.Message,
@@ -19,6 +24,9 @@ const client = new Client({
     Partials.GuildMember,
     Partials.Channel,
     Partials.Reaction,
+    Partials.SoundboardSound,
+    Partials.GuildScheduledEvent,
+    Partials.ThreadMember,
     Partials.GuildEmoji,
   ],
 });
