@@ -27,16 +27,16 @@
     "@nastyox/rando.js": "2.0.6",
     "common-tags": "1.8.2",
     "dayjs": "1.11.13",
-    "discord.js": "14.19.2",
+    "discord.js": "14.19.3",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
-    "openai": "4.96.2",
+    "openai": "4.97.0",
     "randomcolor": "0.6.2",
     "uuid": "11.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "bun": "1.2.11",
+    "bun": "1.2.12",
     "cz-git": "1.11.1"
   },
   "config": {
