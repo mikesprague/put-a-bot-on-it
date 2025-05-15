@@ -55,7 +55,7 @@ export default {
         },
         {
           role: 'user',
-          content: description,
+          content: description.toLowerCase().includes("there's always more going on") ? title : description,
         },
       ],
       temperature: 0.1,
