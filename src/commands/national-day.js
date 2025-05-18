@@ -55,7 +55,7 @@ export default {
         },
         {
           role: 'user',
-          content: description.toLowerCase().includes("there's always more going on") ? title : description,
+          content: description.toLowerCase().includes("always more going on every month") || description.toLowerCase().includes("check out these videos for some extra inspiration") ? title : description,
         },
       ],
       temperature: 0.1,
