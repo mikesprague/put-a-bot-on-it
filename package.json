@@ -30,7 +30,7 @@
     "discord.js": "14.19.3",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
-    "openai": "4.98.0",
+    "openai": "4.100.0",
     "randomcolor": "0.6.2",
     "uuid": "11.1.0"
   },
