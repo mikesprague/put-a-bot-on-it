@@ -47,7 +47,7 @@ export default {
     `;
 
     const textResponse = await openai.chat.completions.create({
-      model: 'gpt-4.1',
+      model: 'gpt-4.1-mini',
       messages: [
         {
           role: 'system',
@@ -79,8 +79,8 @@ export default {
           role: 'system',
           content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to GPT-Image for images
-            that represent various national days. You should reply with a prompt that describes
-            the image you want GPT-Image to generate:
+            that represent various National Days. You will be provided with the name of a National Day.
+            You should reply with a prompt that describes the image for GPT-Image to generate:
               - Images should be photo realistic
               - Images should not contain any text
               - Return only the text for image prompt
@@ -88,7 +88,7 @@ export default {
         },
         {
           role: 'user',
-          content: description,
+          content: title,
         },
       ],
       temperature: 0,
