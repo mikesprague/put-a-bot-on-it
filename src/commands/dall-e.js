@@ -35,7 +35,7 @@ export default {
       birdLog(`[dall-e] ${prompt}`);
 
       let imagePrompt = await openai.chat.completions.create({
-        model: 'gpt-4.1-mini',
+        model: 'gpt-5-mini',
         messages: [
           {
             role: 'system',
@@ -100,7 +100,9 @@ export default {
         // console.log(response.data[0].b64_json);
         const aiImage = response.data[0].b64_json;
         aiImageName = `${uuidv4()}.png`;
-        embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+        embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+          name: aiImageName,
+        });
         embedImage = `attachment://${aiImageName}`;
         birdLog(`[dall-e] ${embedImage}`);
       } catch (error) {

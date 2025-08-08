@@ -36,7 +36,7 @@ export default {
     const catFact = apiData[randomNum];
     console.log(catFact);
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4.1',
+      model: 'gpt-5',
       messages: [
         {
           role: 'system',
@@ -69,7 +69,9 @@ export default {
     });
     const aiImage = response.data[0].b64_json;
     const aiImageName = `${uuidv4()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+      name: aiImageName,
+    });
     const embedImage = `attachment://${aiImageName}`;
     const catFactEmbed = prepareEmbed({
       embedDescription: catFact.fact,

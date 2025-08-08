@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-4.1',
+      model: 'gpt-5',
       tools: [{ type: 'web_search_preview' }],
       input: [
         {
@@ -67,7 +67,7 @@ export default {
     });
 
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4.1-mini',
+      model: 'gpt-5-mini',
       messages: [
         {
           role: 'system',
@@ -103,7 +103,9 @@ export default {
     });
     const aiImage = imageResponse.data[0].b64_json;
     const aiImageName = `${uuidv4()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+      name: aiImageName,
+    });
 
     const newsEmbed = prepareEmbed({
       embedTitle: 'Bird Bot News',
