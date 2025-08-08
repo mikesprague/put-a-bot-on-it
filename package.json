@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
-    "bun": "1.2.16",
+    "bun": "1.2.19",
     "cz-git": "1.11.2"
   },
   "config": {
