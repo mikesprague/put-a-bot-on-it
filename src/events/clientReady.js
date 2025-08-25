@@ -5,7 +5,7 @@ import { Collection } from 'discord.js';
 import { birdLog } from '../lib/helpers.js';
 
 export const event = {
-  name: 'ready',
+  name: 'clientReady',
   once: true,
   async execute(client) {
     const slashCommandFiles = await fs
@@ -21,7 +21,7 @@ export const event = {
     }
 
     const customEmoji = client.emojis.cache.filter(
-      (emoji) => emoji.animated === true,
+      (emoji) => emoji.animated === true
     );
 
     for (const emoji of customEmoji) {
@@ -30,6 +30,6 @@ export const event = {
 
     // initAllGifGreetings(client);
 
-    birdLog('[ready] Bird Bot is online');
+    birdLog('[clientReady] Bird Bot is online');
   },
 };
