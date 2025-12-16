@@ -47,7 +47,7 @@ export default {
     `;
 
     const textResponse = await openai.chat.completions.create({
-      model: 'gpt-4.1-mini',
+      model: 'gpt-5-mini',
       messages: [
         {
           role: 'system',
@@ -55,10 +55,17 @@ export default {
         },
         {
           role: 'user',
-          content: description.toLowerCase().includes("always more going on every month") || description.toLowerCase().includes("check out these videos for some extra inspiration") ? title : description,
+          content:
+            description
+              .toLowerCase()
+              .includes('always more going on every month') ||
+            description
+              .toLowerCase()
+              .includes('check out these videos for some extra inspiration')
+              ? title
+              : description,
         },
       ],
-      temperature: 0.1,
       user: interaction.user.id,
     });
 
@@ -73,7 +80,7 @@ export default {
     });
 
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4.1-mini',
+      model: 'gpt-5-mini',
       messages: [
         {
           role: 'system',
@@ -91,7 +98,6 @@ export default {
           content: title,
         },
       ],
-      temperature: 0,
       user: interaction.user.id,
     });
 
@@ -106,11 +112,13 @@ export default {
       n: 1,
       size: '1024x1024',
       user: interaction.user.id,
-      model: 'gpt-image-1',
+      model: 'gpt-image-1-mini',
     });
     const aiImage = imageResponse.data[0].b64_json;
     const aiImageName = `${uuidv4()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+      name: aiImageName,
+    });
 
     // birdLog(`[/national-day] ${aiImage}`);
 

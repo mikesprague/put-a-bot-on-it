@@ -7,12 +7,12 @@ export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = 'gpt-4.1',
-  temperature = 0.1,
+  model = 'gpt-5.2',
   user = uuidv4(),
 }) => {
   const gptResponse = await openAiClient.chat.completions.create({
     model,
+    reasoning_effort: 'none',
     messages: [
       {
         role: 'system',
@@ -23,7 +23,6 @@ export const gptAnalyzeText = async ({
         content: textToAnalyze.trim(),
       },
     ],
-    temperature,
     user,
   });
 
@@ -33,8 +32,7 @@ export const gptAnalyzeText = async ({
 export const gptGetHaiku = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-4.1',
-  temperature = 0.1,
+  model = 'gpt-5.2',
   user = uuidv4(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -46,7 +44,6 @@ export const gptGetHaiku = async ({
     textToAnalyze,
     openAiClient,
     model,
-    temperature,
     user,
   });
 
@@ -59,8 +56,7 @@ export const gptGetHaiku = async ({
 export const gptGetLimerick = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-4.1',
-  temperature = 0.1,
+  model = 'gpt-5.2',
   user = uuidv4(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -72,7 +68,6 @@ export const gptGetLimerick = async ({
     textToAnalyze,
     openAiClient,
     model,
-    temperature,
     user,
   });
 
@@ -123,9 +118,9 @@ export const gptGetEmoji = async ({
           content: textToAnalyze,
         },
       ],
-      temperature: 0.1,
-      max_tokens: 1000,
-      model: 'gpt-4.1',
+      max_completion_tokens: 1000,
+      model: 'gpt-5.2',
+      reasoning_effort: 'none',
       user,
     });
 

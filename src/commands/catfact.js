@@ -36,7 +36,8 @@ export default {
     const catFact = apiData[randomNum];
     console.log(catFact);
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-4.1',
+      model: 'gpt-5.2',
+      reasoning_effort: 'none',
       messages: [
         {
           role: 'system',
@@ -52,7 +53,6 @@ export default {
           content: catFact.fact,
         },
       ],
-      temperature: 0,
       user: interaction.user.id,
     });
 
@@ -64,12 +64,14 @@ export default {
       prompt: imagePrompt,
       n: 1,
       size: '1024x1024',
-      model: 'gpt-image-1',
+      model: 'gpt-image-1-mini',
       user: interaction.user.id,
     });
     const aiImage = response.data[0].b64_json;
     const aiImageName = `${uuidv4()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+      name: aiImageName,
+    });
     const embedImage = `attachment://${aiImageName}`;
     const catFactEmbed = prepareEmbed({
       embedDescription: catFact.fact,

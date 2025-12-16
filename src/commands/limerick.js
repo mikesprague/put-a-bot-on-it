@@ -19,7 +19,7 @@ export default {
       option
         .setName('subject')
         .setDescription('Provide a subject/topic for the limerick')
-        .setRequired(true),
+        .setRequired(true)
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -35,7 +35,6 @@ export default {
     const limerick = await gptGetLimerick({
       textToAnalyze: subject,
       openAiClient: openai,
-      temperature: 0.3,
     });
 
     birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);

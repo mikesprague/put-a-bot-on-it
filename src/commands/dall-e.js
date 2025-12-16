@@ -35,14 +35,15 @@ export default {
       birdLog(`[dall-e] ${prompt}`);
 
       let imagePrompt = await openai.chat.completions.create({
-        model: 'gpt-4.1-mini',
+        model: 'gpt-5-mini',
+        reasoning_effort: 'none',
         messages: [
           {
             role: 'system',
             content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
             - You should reply with a prompt that describes the images the user wants based on their input
-            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-1" model
+            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-1.5" model
             - Return only the text for image prompt
             `,
           },
@@ -51,7 +52,6 @@ export default {
             content: prompt,
           },
         ],
-        temperature: 0,
         user: interaction.user.id,
       });
 
@@ -100,7 +100,9 @@ export default {
         // console.log(response.data[0].b64_json);
         const aiImage = response.data[0].b64_json;
         aiImageName = `${uuidv4()}.png`;
-        embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+        embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+          name: aiImageName,
+        });
         embedImage = `attachment://${aiImageName}`;
         birdLog(`[dall-e] ${embedImage}`);
       } catch (error) {

@@ -39,7 +39,6 @@ export default {
     const haiku = await gptGetHaiku({
       textToAnalyze: subject,
       openAiClient: openai,
-      temperature: 0.2,
     });
 
     birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
@@ -58,13 +57,15 @@ export default {
         prompt: imagePrompt,
         n: 1,
         size: '1024x1024',
-        model: 'gpt-image-1',
+        model: 'gpt-image-1-mini',
         user: interaction.user.id,
       });
       const aiImage = imageResponse.data[0].b64_json;
       aiImageName = `${uuidv4()}.png`;
       embedImage = `attachment://${aiImageName}`;
-      embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), { name: aiImageName });
+      embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+        name: aiImageName,
+      });
     } catch (error) {
       birdLog(`[/haiku] image generation failed for prompt: ${imagePrompt}`);
     }
