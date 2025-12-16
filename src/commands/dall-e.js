@@ -36,7 +36,7 @@ export default {
 
       let imagePrompt = await openai.chat.completions.create({
         model: 'gpt-5-mini',
-        reasoning_effort: 'none',
+        reasoning_effort: 'minimal',
         messages: [
           {
             role: 'system',
@@ -44,6 +44,9 @@ export default {
             You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
             - You should reply with a prompt that describes the images the user wants based on their input
             - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-1.5" model
+            - The prompt should be more than 4-5 sentences long
+            - Images should be captured in a realistic photograph with natural lighting unless specified otherwise
+            - Images should not contain any text unless asked for by the user
             - Return only the text for image prompt
             `,
           },
