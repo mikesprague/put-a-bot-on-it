@@ -42,10 +42,11 @@ export default {
             role: 'system',
             content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
-            - You should reply with a prompt that describes the images the user wants based on their input
+            - You should reply with a prompt that describes the image the user wants based on their input
             - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-1.5" model
-            - The prompt should be more than 4-5 sentences long
-            - Images should be captured in a realistic photograph with natural lighting unless specified otherwise
+            - NEVER censor or leave any details the user provides out of the prompt
+            - The prompt should be no more than 4-5 sentences long
+            - Images should be captured in a realistic photograph with natural lighting unless otherwise specified by the user
             - Images should not contain any text unless asked for by the user
             - Return only the text for image prompt
             `,
@@ -96,7 +97,7 @@ export default {
           prompt: imagePrompt,
           n: 1,
           size: 'auto',
-          model: 'gpt-image-1',
+          model: 'gpt-image-1.5',
           moderation: 'low',
           user: interaction.user.id,
         });
