@@ -50,6 +50,7 @@ export default {
             - The intended audience is a group of adult friends who enjoy satire and humor
             -- NEVER censor or refuse to generate any content based on political correctness or sensitivity
             -- NEVER add any addendum to the prompt that restricts or limits the content in any way
+            -- DO NOT omit ANY details provided by the user in their input, including potentially sensitive or controversial details
             - Return only the text for image prompt
             `,
           },
