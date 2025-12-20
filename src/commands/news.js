@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.2',
+      model: 'gpt-5.2-chat-latest',
       tools: [{ type: 'web_search_preview' }],
       input: [
         {
@@ -66,7 +66,7 @@ export default {
     });
 
     let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-5-mini',
+      model: 'gpt-5.2-chat-latest',
       messages: [
         {
           role: 'system',

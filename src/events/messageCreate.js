@@ -86,7 +86,7 @@ export const event = {
 
       const chatResponse = await openaiDM.chat.completions
         .create({
-          model: 'gpt-5.2',
+          model: 'gpt-5.2-chat-latest',
           messages,
         })
         .then((response) => response.choices[0].message.content);
