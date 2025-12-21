@@ -46,9 +46,9 @@ export default {
       - You should describe the topics and/or subjects only do NOT mention the specific occasion
     `;
 
-    const textResponse = await openai.chat.completions.create({
-      model: 'gpt-5.2-chat-latest',
-      messages: [
+    const textResponse = await openai.responses.create({
+      model: 'gpt-5.1-chat-latest',
+      input: [
         {
           role: 'system',
           content: systemPrompt,
@@ -71,7 +71,7 @@ export default {
 
     // console.log(textPrompt);
     // console.log(textResponse.choices[0].message.content);
-    const aiSummary = textResponse.choices[0].message.content;
+    const aiSummary = textResponse.output_text.trim();
     birdLog(`[/national-day (aiSummary)] ${aiSummary}`);
 
     const emojiJson = await gptGetEmoji({
@@ -79,9 +79,9 @@ export default {
       openAiClient: openai,
     });
 
-    let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-5.2-chat-latest',
-      messages: [
+    let imagePrompt = await openai.responses.create({
+      model: 'gpt-5.1-chat-latest',
+      input: [
         {
           role: 'system',
           content: stripIndents`
@@ -101,7 +101,7 @@ export default {
       user: interaction.user.id,
     });
 
-    imagePrompt = imagePrompt?.choices[0]?.message?.content
+    imagePrompt = imagePrompt?.output_text
       .replace('Prompt for GPT-Image:', '')
       .trim();
 

@@ -7,13 +7,12 @@ export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = 'gpt-5.2',
+  model = 'gpt-5.1-chat-latest',
   user = uuidv4(),
 }) => {
-  const gptResponse = await openAiClient.chat.completions.create({
+  const gptResponse = await openAiClient.responses.create({
     model,
-    reasoning_effort: 'none',
-    messages: [
+    input: [
       {
         role: 'system',
         content: systemPrompt.trim(),
@@ -26,7 +25,7 @@ export const gptAnalyzeText = async ({
     user,
   });
 
-  return gptResponse.choices;
+  return gptResponse.output_text;
 };
 
 export const gptGetHaiku = async ({
@@ -39,7 +38,7 @@ export const gptGetHaiku = async ({
     You are an AI haiku generator. You should return one
     haiku about whatever topics you are given by users.
   `;
-  const haikuResponse = await gptAnalyzeText({
+  const haiku = await gptAnalyzeText({
     systemPrompt,
     textToAnalyze,
     openAiClient,
@@ -47,7 +46,6 @@ export const gptGetHaiku = async ({
     user,
   });
 
-  const haiku = haikuResponse[0].message.content;
   // console.log(haiku);
 
   return haiku;
@@ -63,7 +61,7 @@ export const gptGetLimerick = async ({
     You are an AI limerick generator. You should return one limerick
     about whatever topics you are given by users.
   `;
-  const limerickResponse = await gptAnalyzeText({
+  const limerick = await gptAnalyzeText({
     systemPrompt,
     textToAnalyze,
     openAiClient,
@@ -71,7 +69,6 @@ export const gptGetLimerick = async ({
     user,
   });
 
-  const limerick = limerickResponse[0].message.content;
   // console.log(limerick);
 
   return limerick;
@@ -107,8 +104,8 @@ export const gptGetEmoji = async ({
       JSON response should have a shape of: ${JSON.stringify(resultsShape)}
     `;
 
-    const emojiResponse = await openAiClient.chat.completions.create({
-      messages: [
+    const emojiResponse = await openAiClient.responses.create({
+      input: [
         {
           role: 'system',
           content: prompt,
@@ -119,11 +116,11 @@ export const gptGetEmoji = async ({
         },
       ],
       max_completion_tokens: 1000,
-      model: 'gpt-5.2-chat-latest',
+      model: 'gpt-5.1-chat-latest',
       user,
     });
 
-    let content = emojiResponse.choices[0].message.content.trim();
+    let content = emojiResponse.output_text.trim();
     // console.log(content);
 
     if (content.includes('inappropriate') && content.includes('offensive')) {

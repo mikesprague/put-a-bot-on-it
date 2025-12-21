@@ -68,13 +68,13 @@ export const event = {
         `,
       };
 
-      const messages = [systemMessage];
+      const input = [systemMessage];
 
       if (messageHistory.length && messageHistory.length > 9) {
         messageHistory.shift();
       }
 
-      messages.push(...messageHistory);
+      input.push(...messageHistory);
 
       const newMessage = {
         role: 'user',
@@ -82,14 +82,14 @@ export const event = {
       };
 
       messageHistory.push(newMessage);
-      messages.push(newMessage);
+      input.push(newMessage);
 
-      const chatResponse = await openaiDM.chat.completions
+      const chatResponse = await openaiDM.responses
         .create({
-          model: 'gpt-5.2-chat-latest',
-          messages,
+          model: 'gpt-5.1-chat-latest',
+          input,
         })
-        .then((response) => response.choices[0].message.content);
+        .then((response) => response.output_text);
 
       // console.log(chatResponse);
       birdLog(`[@Bird Bot] ${chatResponse}`);

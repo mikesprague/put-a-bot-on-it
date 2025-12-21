@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.2-chat-latest',
+      model: 'gpt-5.1-chat-latest',
       tools: [{ type: 'web_search_preview' }],
       input: [
         {
@@ -65,9 +65,9 @@ export default {
       openAiClient: openai,
     });
 
-    let imagePrompt = await openai.chat.completions.create({
-      model: 'gpt-5.2-chat-latest',
-      messages: [
+    let imagePrompt = await openai.responses.create({
+      model: 'gpt-5.1-chat-latest',
+      input: [
         {
           role: 'system',
           content: stripIndents`
@@ -87,7 +87,7 @@ export default {
       user: interaction.user.id,
     });
 
-    imagePrompt = imagePrompt?.choices[0]?.message?.content
+    imagePrompt = imagePrompt?.output_text
       .replace('Prompt for GPT-Image:', '')
       .trim();
 
