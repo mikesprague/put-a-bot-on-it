@@ -41,8 +41,8 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.1-chat-latest',
-      tools: [{ type: 'web_search_preview' }],
+      model: 'gpt-5.1',
+      tools: [{ type: 'web_search' }],
       input: [
         {
           role: 'developer',
