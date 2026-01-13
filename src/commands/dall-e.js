@@ -98,10 +98,12 @@ export default {
         const response = await openai.images.generate({
           prompt: imagePrompt,
           n: 1,
-          size: 'auto',
           model: 'gpt-image-1.5',
           moderation: 'low',
-          user: interaction.user.id,
+          quality: 'auto',
+          response_format: 'b64_json',
+          size: 'auto',
+          user: uuidv4(),
         });
         // console.log(response.data[0].b64_json);
         const aiImage = response.data[0].b64_json;
