@@ -19,13 +19,9 @@ export default {
     const apiUrl = ronSwansonApi();
     const searchTerm = 'ron swanson';
     const apiData = await makeApiCall(apiUrl);
-    // const ronGifs = await getGiphyGifs({ searchTerm });
     const ronGifs = await getKlipyGifs({ searchTerm });
-    // const ronStickers = await getGiphyGifs({ searchTerm, stickerSearch: true });
-    // const allGifs = [...ronGifs, ...ronStickers];
     const randomNum = getRandomNum(ronGifs.length);
     const randomColor = getRandomColor();
-    // const randomRon = ronGifs[randomNum].images.downsized.url;
     const randomRon = ronGifs[randomNum].file.hd.gif.url;
     const embed = prepareEmbed({
       embedColor: randomColor,

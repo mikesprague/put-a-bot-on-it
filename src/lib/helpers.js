@@ -104,12 +104,8 @@ export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
 };
 
 export const getRandomGifByTerm = async (searchTerm, useDownsized = false) => {
-  // const gifs = await getGiphyGifs({ searchTerm });
   const gifs = await getKlipyGifs({ searchTerm });
   const randomNum = getRandomNum(gifs.length);
-  // return useDownsized
-  //   ? gifs[randomNum].images.downsized.url
-  //   : gifs[randomNum].images.original.url;
   return useDownsized
     ? gifs[randomNum].file.md.gif.url
     : gifs[randomNum].file.hd.gif.url;

@@ -5,7 +5,7 @@ import { SlashCommandBuilder } from 'discord.js';
 import { LocalStorage } from 'node-localstorage';
 import puppeteer from 'puppeteer';
 
-import { birdLog, getRandomNum, getKlipyGifs } from '../lib/helpers.js';
+import { birdLog, getKlipyGifs, getRandomNum } from '../lib/helpers.js';
 
 const defaultTimezone = 'America/New_York';
 
@@ -69,10 +69,8 @@ export default {
       birdLog(`[/wordle] fetched new solution (${solution})`);
     }
 
-    // const wordleGifs = await getGiphyGifs({ searchTerm });
     const wordleGifs = await getKlipyGifs({ searchTerm: solution });
     const randomNum = getRandomNum(wordleGifs.length);
-    // const embedImage = wordleGifs[randomNum].images.original.url;
     const embedImage = wordleGifs[randomNum].file.hd.gif.url;
     await interaction.editReply({ content: embedImage, ephemeral: false });
     const message = await interaction.fetchReply();

@@ -16,21 +16,21 @@ export const dadJokeApi = () => 'https://icanhazdadjoke.com/';
 export const evilInsultApi = () =>
   'https://evilinsult.com/generate_insult.php?lang=en&type=json';
 
-export const giphyApi = ({
-  apiKey,
-  searchTerm,
-  limit = 50,
-  offset = 0,
-  stickerSearch = false,
-}) =>
-  `https://api.giphy.com/v1/${
-    stickerSearch ? 'stickers' : 'gifs'
-  }/search?api_key=${apiKey}&q=${searchTerm}&limit=${limit}&offset=${offset}&rating=r&lang=en`;
-
 export const jokeApi = () =>
   'https://v2.jokeapi.dev/joke/Any?blacklistFlags=racist,sexist,explicit';
 
 export const kanyeApi = () => 'https://api.kanye.rest/';
+
+export const klipyApiSearch = ({
+  apiKey,
+  searchTerm,
+  limit = 50,
+  offset = 0,
+}) =>
+  `https://api.klipy.com/api/v1/${apiKey}/gifs/search?q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&limit=${limit}&pos=${offset}&locale=US&format_filter=gif&content_filter=off`;
+
+export const klipyApiShare = ({ apiKey, searchTerm, gifId }) =>
+  `https://api.klipy.com/api/v1/${apiKey}/gifs/share/${gifId}?&q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&locale=US`;
 
 export const nasaApi = (NASA_API_KEY) =>
   `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`;
@@ -52,17 +52,6 @@ export const rickAndMortyApi = (graphql = false) =>
 
 export const ronSwansonApi = () =>
   'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
-
-export const klipyApiSearch = ({
-  apiKey,
-  searchTerm,
-  limit = 50,
-  offset = 0,
-}) =>
-  `https://api.klipy.com/api/v1/${apiKey}/gifs/search?q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&limit=${limit}&pos=${offset}&locale=US&format_filter=gif&content_filter=off`;
-
-export const klipyApiShare = ({ apiKey, searchTerm, gifId }) =>
-  `https://api.klipy.com/api/v1/${apiKey}/gifs/share/${gifId}?&q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&locale=US`;
 
 export const thisForThatApi = () => 'https://itsthisforthat.com/api.php?json';
 

@@ -68,28 +68,6 @@ export default {
 
       const randomColor = getRandomColor();
 
-      // const moderation = await openai.moderations.create({
-      //   input: imagePrompt,
-      //   model: 'text-moderation-latest',
-      // });
-
-      // if (moderation.results[0].flagged) {
-      //   birdLog('[dall-e] failed moderation');
-      //   const failedEmbed = prepareEmbed({
-      //     embedFooter: prompt,
-      //     embedImage:
-      //       // 'https://media.giphy.com/media/TK3ZD4W7Lt83Cqzrf7/giphy.gif',
-      //       'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTQzODc1ZjQ1ODczMzM0MTAxOGQ1Y2FkMWQ0N2JlZDM4Mzg1OWNjOCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/3oKIPD4zpQPe4OMCyc/giphy.gif',
-      //     embedDescription: 'Input Failed Moderation Check',
-      //   });
-      //   return await sendEmbed({
-      //     interaction,
-      //     content: failedEmbed,
-      //   });
-      // }
-
-      // birdLog('[dall-e] passed moderation');
-
       let aiImageName = null;
       let embedFile = null;
       let embedImage = '';

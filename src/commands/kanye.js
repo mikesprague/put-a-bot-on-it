@@ -1,9 +1,8 @@
 import { SlashCommandBuilder } from 'discord.js';
 import {
-  // getGiphyGifs,
+  getKlipyGifs,
   getRandomColor,
   getRandomNum,
-  getKlipyGifs,
   makeApiCall,
   prepareEmbed,
   sendEmbed,
@@ -19,7 +18,6 @@ export default {
   async execute(interaction) {
     await interaction.deferReply();
     const searchTerm = 'kanye';
-    // const kanyeGifs = await getGiphyGifs({ searchTerm });
     const kanyeGifs = await getKlipyGifs({ searchTerm });
     const emojiList = ['824289925129961513', '824291309224984656'];
     const kanyeEmoji = emojiList[getRandomNum(emojiList.length)];
@@ -27,7 +25,6 @@ export default {
     const randomColor = getRandomColor();
     const kanyeData = await makeApiCall(apiUrl);
     const randomNum = getRandomNum(kanyeGifs.length);
-    // const randomKanye = kanyeGifs[randomNum].images.original.url;
     const randomKanye = kanyeGifs[randomNum].file.hd.gif.url;
     const kanyeEmbed = prepareEmbed({
       embedColor: randomColor,
