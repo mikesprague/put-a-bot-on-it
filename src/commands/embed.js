@@ -4,9 +4,9 @@ import { commands } from '../lib/embed-options.js';
 import {
   filterArrayOfObjects,
   getCustomEmojiCode,
+  getKlipyGifs,
   getRandomColor,
   getRandomNum,
-  getKlipyGifs,
   prepareEmbed,
   registerKlipyGifShare,
   sendEmbed,
@@ -67,11 +67,12 @@ export default {
       embedColor,
     });
 
+    await registerKlipyGifShare(subjectGifs[randomNum], searchTerm);
+
     await sendEmbed({
       interaction,
       content: subjectEmbed,
       reaction: subjectEmoji,
     });
-    await registerKlipyGifShare(subjectGifs[randomNum], searchTerm);
   },
 };

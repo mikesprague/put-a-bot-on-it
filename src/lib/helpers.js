@@ -65,19 +65,6 @@ export const getRandomBirdEmoji = () => {
 
 export const getCustomEmojiCode = (emojiName) => customEmoji[emojiName.trim()];
 
-export const getGiphyGifs = async ({ searchTerm, stickerSearch = false }) => {
-  const encodedSearchTerm = encodeURIComponent(searchTerm);
-  const { GIPHY_API_KEY } = process.env;
-  birdLog(`[getGiphyGifs] ${encodedSearchTerm}`);
-  const apiUrl = urls.giphyApi({
-    apiKey: GIPHY_API_KEY,
-    searchTerm: encodedSearchTerm,
-    stickerSearch,
-  });
-  const remoteData = await makeApiCall(apiUrl);
-  return remoteData.data;
-};
-
 export const getKlipyGifs = async ({ searchTerm }) => {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
   const { KLIPY_API_KEY } = process.env;
@@ -103,6 +90,7 @@ export const getKlipyGifs = async ({ searchTerm }) => {
 
 export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
   const { KLIPY_API_KEY } = process.env;
+  birdLog(`[registerKlipyGifShare] ${searchTerm}`);
   const apiShareUrl = urls.klipyApiShare({
     apiKey: KLIPY_API_KEY,
     gifId: klipyGifObject.id,
@@ -115,7 +103,7 @@ export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
   });
 };
 
-export const getRandomGifByTerm = async (searchTerm, useDownsized = true) => {
+export const getRandomGifByTerm = async (searchTerm, useDownsized = false) => {
   // const gifs = await getGiphyGifs({ searchTerm });
   const gifs = await getKlipyGifs({ searchTerm });
   const randomNum = getRandomNum(gifs.length);
