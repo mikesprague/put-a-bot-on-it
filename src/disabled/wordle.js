@@ -5,12 +5,7 @@ import { SlashCommandBuilder } from 'discord.js';
 import { LocalStorage } from 'node-localstorage';
 import puppeteer from 'puppeteer';
 
-import {
-  birdLog,
-  getRandomNum,
-  // getGiphyGifs,
-  getTenorGifs,
-} from '../lib/helpers.js';
+import { birdLog, getRandomNum, getKlipyGifs } from '../lib/helpers.js';
 
 const defaultTimezone = 'America/New_York';
 
@@ -24,7 +19,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('wordle')
     .setDescription(
-      'Random GIF from Tenor based on current Wordle solution - warning, could spoil current game',
+      'Random GIF from Klipy based on current Wordle solution - warning, could spoil current game'
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -38,7 +33,7 @@ export default {
       ) {
         solution = wordleState.solution;
         birdLog(
-          `[/wordle] using cached solution (${wordleState.solution}) from ${wordleState.date}`,
+          `[/wordle] using cached solution (${wordleState.solution}) from ${wordleState.date}`
         );
       }
     }
@@ -58,7 +53,7 @@ export default {
 
       const gameState = await page.evaluate(() =>
         // eslint-disable-next-line no-undef
-        window.localStorage.getItem('nyt-wordle-state'),
+        window.localStorage.getItem('nyt-wordle-state')
       );
       solution = JSON.parse(gameState).solution;
 
@@ -69,16 +64,16 @@ export default {
         JSON.stringify({
           solution,
           date: dayjs().format('YYYYMMDD'),
-        }),
+        })
       );
       birdLog(`[/wordle] fetched new solution (${solution})`);
     }
 
     // const wordleGifs = await getGiphyGifs({ searchTerm });
-    const wordleGifs = await getTenorGifs({ searchTerm: solution });
+    const wordleGifs = await getKlipyGifs({ searchTerm: solution });
     const randomNum = getRandomNum(wordleGifs.length);
     // const embedImage = wordleGifs[randomNum].images.original.url;
-    const embedImage = wordleGifs[randomNum].media_formats.gif.url;
+    const embedImage = wordleGifs[randomNum].file.hd.gif.url;
     await interaction.editReply({ content: embedImage, ephemeral: false });
     const message = await interaction.fetchReply();
     await message.react('🔠');

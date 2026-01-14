@@ -17,6 +17,7 @@ export default {
     await interaction.deferReply();
     const apiUrl = trumpApi();
     const apiData = await makeApiCall(apiUrl);
+    console.log(apiData);
     const topicGif = await getRandomGifByTerm(apiData.tags[0], false);
     const randomColor = getRandomColor();
     const trumpQuote = apiData.value;

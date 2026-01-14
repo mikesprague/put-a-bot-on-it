@@ -1,4 +1,4 @@
-import { oneLineTrim, stripIndents } from 'common-tags';
+import { stripIndents } from 'common-tags';
 import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,12 +7,12 @@ import {
   birdLog,
   getRandomColor,
   getRandomNum,
-  // getTenorGifs,
+  // getKlipyGifs,
   prepareEmbed,
   sendEmbed,
 } from '../lib/helpers.js';
 import { initNationalDayData } from '../lib/national-day.js';
-import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
+import { gptGetEmoji } from '../lib/openai.js';
 
 const { OPEN_AI_API_KEY } = process.env;
 
@@ -121,11 +121,6 @@ export default {
     });
 
     // birdLog(`[/national-day] ${aiImage}`);
-
-    // const haiku = await gptGetHaiku({
-    //   textToAnalyze: aiSummary,
-    //   openAiClient: openai,
-    // });
 
     const nationalDayEmbed = prepareEmbed({
       embedTitle: title,

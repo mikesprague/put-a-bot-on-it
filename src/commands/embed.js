@@ -6,9 +6,9 @@ import {
   getCustomEmojiCode,
   getRandomColor,
   getRandomNum,
-  getTenorGifs,
+  getKlipyGifs,
   prepareEmbed,
-  registerTenorGifShare,
+  registerKlipyGifShare,
   sendEmbed,
   sortArrayOfObjects,
 } from '../lib/helpers.js';
@@ -30,10 +30,10 @@ export default {
         .setName('subject')
         .setDescription('Subject')
         .setRequired(true)
-        .addChoices(...choices),
+        .addChoices(...choices)
     )
     .addStringOption((option) =>
-      option.setName('query').setDescription('Enter optional search query'),
+      option.setName('query').setDescription('Enter optional search query')
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -51,13 +51,15 @@ export default {
     const useArg = Boolean(arg?.trim().length);
     const searchTerm = useArg ? `${subject} ${arg}` : subject;
 
-    const subjectGifs = await getTenorGifs({ searchTerm });
+    const subjectGifs = await getKlipyGifs({ searchTerm });
+
+    // console.log(subjectGifs);
 
     const randomNum = useArg
       ? getRandomNum(Math.min(subjectGifs.length, 20))
       : getRandomNum(subjectGifs.length);
 
-    const embedImage = subjectGifs[randomNum].media_formats.gif.url;
+    const embedImage = subjectGifs[randomNum].file.hd.gif.url;
 
     const subjectEmbed = prepareEmbed({
       embedImage,
@@ -70,6 +72,6 @@ export default {
       content: subjectEmbed,
       reaction: subjectEmoji,
     });
-    await registerTenorGifShare(subjectGifs[randomNum], searchTerm);
+    await registerKlipyGifShare(subjectGifs[randomNum], searchTerm);
   },
 };

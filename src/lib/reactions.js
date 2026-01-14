@@ -1,13 +1,13 @@
 import {
   getCustomEmojiCode,
+  getKlipyGifs,
   getRandomBirdEmoji,
   getRandomNum,
-  getTenorGifs,
   messageIncludesWord,
   messageIncludesWords,
   messageMatchesWord,
   prepareEmbed,
-  registerTenorGifShare,
+  registerKlipyGifShare,
 } from './helpers.js';
 import * as lists from './lists.js';
 
@@ -30,11 +30,10 @@ export const initReactions = async (msg) => {
     let score = scoreRegex.exec(msg.content);
     score = score[1];
     if (score === 'X') {
-      const failGifs = await getTenorGifs({ searchTerm: 'failure' });
-      const wompWompGifs = await getTenorGifs({ searchTerm: 'womp womp' });
+      const failGifs = await getKlipyGifs({ searchTerm: 'failure' });
+      const wompWompGifs = await getKlipyGifs({ searchTerm: 'womp womp' });
       const allGifs = [...failGifs, ...wompWompGifs];
-      const randomGif =
-        allGifs[getRandomNum(allGifs.length)].media_formats.gif.url;
+      const randomGif = allGifs[getRandomNum(allGifs.length)].file.hd.gif.url;
       await msg.channel.send({ content: randomGif });
     } else {
       score = Number(score);
@@ -48,17 +47,17 @@ export const initReactions = async (msg) => {
         'phew',
       ];
       const scoreTerm = scoreTerms[Number(score)];
-      const scoreGifs = await getTenorGifs({
+      const scoreGifs = await getKlipyGifs({
         searchTerm: scoreTerm,
       });
       const randomNum = getRandomNum(scoreGifs.length);
-      const randomGif = scoreGifs[randomNum].media_formats.gif.url;
+      const randomGif = scoreGifs[randomNum].file.hd.gif.url;
       const gameEmbed = prepareEmbed({
         embedImage: randomGif,
         embedFooter: `query: ${scoreTerm}`,
       });
       await msg.channel.send({ embeds: [gameEmbed] });
-      await registerTenorGifShare(scoreGifs[randomNum], scoreTerm);
+      await registerKlipyGifShare(scoreGifs[randomNum], scoreTerm);
     }
   }
 

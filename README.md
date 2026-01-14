@@ -23,8 +23,7 @@ Silly bot for a private discord server I run
    - `DISCORD_GUILD_ID`
    - `DISCORD_GUILD_ADMIN_ID`
    - `GIPHY_API_KEY`
-   - `TENOR_API_KEY`
-   - `TENOR_API_V2_KEY`
+   - `KLIPY_API_KEY`
    - `NASA_API_KEY`
    - `OPEN_AI_API_KEY`
 1. Run locally `bun run dev`
@@ -35,12 +34,11 @@ Silly bot for a private discord server I run
 - [Biome](https://biomejs.dev)
 - [discord.js Library](https://github.com/discordjs/discord.js)
 - [OpenAI library and APIs](https://github.com/openai/openai-node)
-- [Tenor API](https://developers.google.com/tenor/guides/quickstart)
+- [Klipy API](https://klipy.com/developers)
 - [YouTube API](https://developers.google.com/youtube/v3/getting-started)
-- [Giphy API](https://developers.giphy.com/)
 - [NASA API (Astronomy Picture of the Day)](https://api.nasa.gov/)
-- [icanhazdadjoke.com API](https://icanhazdadjoke.com)
 - [Cat Facts API](https://catfact.ninja/)
+- [icanhazdadjoke.com API](https://icanhazdadjoke.com)
 - [package.place API](https://package.place)
 - [kanye.rest API](https://kanye.rest/)
 - ...

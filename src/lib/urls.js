@@ -53,16 +53,16 @@ export const rickAndMortyApi = (graphql = false) =>
 export const ronSwansonApi = () =>
   'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
 
-export const tenorApiSearch = ({
+export const klipyApiSearch = ({
   apiKey,
   searchTerm,
   limit = 50,
   offset = 0,
 }) =>
-  `https://api.klipy.com/v2/search?key=${apiKey}&q=${searchTerm}&limit=${limit}&pos=${offset}&contentfilter=off&locale=en_US&media_filter=minimal`;
+  `https://api.klipy.com/api/v1/${apiKey}/gifs/search?q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&limit=${limit}&pos=${offset}&locale=US&format_filter=gif&content_filter=off`;
 
-export const tenorApiShare = ({ apiKey, searchTerm, gifId }) =>
-  `https://api.klipy.com/v2/registershare?key=${apiKey}&id=${gifId}&q=${searchTerm}&locale=en_US`;
+export const klipyApiShare = ({ apiKey, searchTerm, gifId }) =>
+  `https://api.klipy.com/api/v1/${apiKey}/gifs/share/${gifId}?&q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&locale=US`;
 
 export const thisForThatApi = () => 'https://itsthisforthat.com/api.php?json';
 
@@ -74,7 +74,7 @@ export const vaccineSpotterApi = (stateCode = 'NY') =>
 export const wordleSolutionApi = () =>
   'https://api.m5ls5e.com/api/get-wordle-solution';
 
-export const xkcdApi = (randumComicNum = null) =>
-  randumComicNum && Number.isInteger(randumComicNum)
-    ? `https://xkcd.com/${randumComicNum}/info.0.json`
+export const xkcdApi = (randomComicNum = null) =>
+  randomComicNum && Number.isInteger(randomComicNum)
+    ? `https://xkcd.com/${randomComicNum}/info.0.json`
     : 'https://xkcd.com/info.0.json';

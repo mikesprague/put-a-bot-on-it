@@ -78,32 +78,34 @@ export const getGiphyGifs = async ({ searchTerm, stickerSearch = false }) => {
   return remoteData.data;
 };
 
-export const getTenorGifs = async ({ searchTerm }) => {
+export const getKlipyGifs = async ({ searchTerm }) => {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
   const { KLIPY_API_KEY } = process.env;
-  birdLog(`[getTenorGifs] ${encodedSearchTerm}`);
-  const apiUrl = urls.tenorApiSearch({
+  birdLog(`[getKlipyGifs] ${encodedSearchTerm}`);
+  const apiUrl = urls.klipyApiSearch({
     apiKey: KLIPY_API_KEY,
     searchTerm: encodedSearchTerm,
   });
   const remoteData = await makeApiCall(apiUrl);
-  if (remoteData?.results.length) {
-    return remoteData.results;
+  // console.log('remoteData: ', remoteData);
+  if (remoteData?.data?.data.length) {
+    return remoteData.data.data;
   }
   const backupSearchTerm = encodeURIComponent('swedish chef');
-  const backupApiUrl = urls.tenorApiSearch({
+  const backupApiUrl = urls.klipyApiSearch({
     apiKey: KLIPY_API_KEY,
     searchTerm: backupSearchTerm,
   });
+  // console.log('backupApiUrl: ', backupApiUrl);
   const backupData = await makeApiCall(backupApiUrl);
-  return backupData.results;
+  return backupData.data.data;
 };
 
-export const registerTenorGifShare = async (tenorGifObject, searchTerm) => {
+export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
   const { KLIPY_API_KEY } = process.env;
-  const apiShareUrl = urls.tenorApiShare({
+  const apiShareUrl = urls.klipyApiShare({
     apiKey: KLIPY_API_KEY,
-    gifId: tenorGifObject.id,
+    gifId: klipyGifObject.id,
     searchTerm: encodeURIComponent(searchTerm),
   });
   // console.log(apiShareUrl);
@@ -112,14 +114,14 @@ export const registerTenorGifShare = async (tenorGifObject, searchTerm) => {
 
 export const getRandomGifByTerm = async (searchTerm, useDownsized = true) => {
   // const gifs = await getGiphyGifs({ searchTerm });
-  const gifs = await getTenorGifs({ searchTerm });
+  const gifs = await getKlipyGifs({ searchTerm });
   const randomNum = getRandomNum(gifs.length);
   // return useDownsized
   //   ? gifs[randomNum].images.downsized.url
   //   : gifs[randomNum].images.original.url;
   return useDownsized
-    ? gifs[randomNum].media_formats.gif.url
-    : gifs[randomNum].media_formats.gif.url;
+    ? gifs[randomNum].file.md.gif.url
+    : gifs[randomNum].file.hd.gif.url;
 };
 
 export const prepareEmbed = ({
