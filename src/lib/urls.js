@@ -59,10 +59,10 @@ export const tenorApiSearch = ({
   limit = 50,
   offset = 0,
 }) =>
-  `https://tenor.googleapis.com/v2/search?key=${apiKey}&q=${searchTerm}&limit=${limit}&pos=${offset}&contentfilter=off&locale=en_US&media_filter=minimal`;
+  `https://api.klipy.com/v2/search?key=${apiKey}&q=${searchTerm}&limit=${limit}&pos=${offset}&contentfilter=off&locale=en_US&media_filter=minimal`;
 
 export const tenorApiShare = ({ apiKey, searchTerm, gifId }) =>
-  `https://tenor.googleapis.com/v2/registershare?key=${apiKey}&id=${gifId}&q=${searchTerm}&locale=en_US`;
+  `https://api.klipy.com/v2/registershare?key=${apiKey}&id=${gifId}&q=${searchTerm}&locale=en_US`;
 
 export const thisForThatApi = () => 'https://itsthisforthat.com/api.php?json';
 

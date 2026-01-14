@@ -80,10 +80,10 @@ export const getGiphyGifs = async ({ searchTerm, stickerSearch = false }) => {
 
 export const getTenorGifs = async ({ searchTerm }) => {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
-  const { TENOR_API_V2_KEY } = process.env;
+  const { KLIPY_API_KEY } = process.env;
   birdLog(`[getTenorGifs] ${encodedSearchTerm}`);
   const apiUrl = urls.tenorApiSearch({
-    apiKey: TENOR_API_V2_KEY,
+    apiKey: KLIPY_API_KEY,
     searchTerm: encodedSearchTerm,
   });
   const remoteData = await makeApiCall(apiUrl);
@@ -92,7 +92,7 @@ export const getTenorGifs = async ({ searchTerm }) => {
   }
   const backupSearchTerm = encodeURIComponent('swedish chef');
   const backupApiUrl = urls.tenorApiSearch({
-    apiKey: TENOR_API_V2_KEY,
+    apiKey: KLIPY_API_KEY,
     searchTerm: backupSearchTerm,
   });
   const backupData = await makeApiCall(backupApiUrl);
@@ -100,9 +100,9 @@ export const getTenorGifs = async ({ searchTerm }) => {
 };
 
 export const registerTenorGifShare = async (tenorGifObject, searchTerm) => {
-  const { TENOR_API_V2_KEY } = process.env;
+  const { KLIPY_API_KEY } = process.env;
   const apiShareUrl = urls.tenorApiShare({
-    apiKey: TENOR_API_V2_KEY,
+    apiKey: KLIPY_API_KEY,
     gifId: tenorGifObject.id,
     searchTerm: encodeURIComponent(searchTerm),
   });
@@ -172,9 +172,15 @@ export const sendContent = async ({
 }) => {
   try {
     if (deferred) {
-      await interaction.editReply({ content, flags: ephemeral ? MessageFlags.Ephemeral : undefined });
+      await interaction.editReply({
+        content,
+        flags: ephemeral ? MessageFlags.Ephemeral : undefined,
+      });
     } else {
-      await interaction.reply({ content, flags: ephemeral ? MessageFlags.Ephemeral : undefined });
+      await interaction.reply({
+        content,
+        flags: ephemeral ? MessageFlags.Ephemeral : undefined,
+      });
     }
     if (reaction) {
       const message = await interaction.fetchReply();
