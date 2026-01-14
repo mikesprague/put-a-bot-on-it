@@ -109,7 +109,10 @@ export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
     searchTerm: encodeURIComponent(searchTerm),
   });
   // console.log(apiShareUrl);
-  await makeApiCall(apiShareUrl);
+  await makeApiCall(apiShareUrl, 'POST', null, {
+    customer_id: 'put-a-bot-on-it-discord-server',
+    q: searchTerm,
+  });
 };
 
 export const getRandomGifByTerm = async (searchTerm, useDownsized = true) => {
