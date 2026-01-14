@@ -56,7 +56,7 @@ export default {
     // console.log(subjectGifs);
 
     const randomNum = useArg
-      ? getRandomNum(Math.min(subjectGifs.length, 20))
+      ? getRandomNum(Math.min(subjectGifs.length, 12))
       : getRandomNum(subjectGifs.length);
 
     const embedImage = subjectGifs[randomNum].file.hd.gif.url;
