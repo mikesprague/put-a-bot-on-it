@@ -22,7 +22,6 @@ Silly bot for a private discord server I run
    - `DISCORD_CLIENT_ID`
    - `DISCORD_GUILD_ID`
    - `DISCORD_GUILD_ADMIN_ID`
-   - `GIPHY_API_KEY`
    - `KLIPY_API_KEY`
    - `NASA_API_KEY`
    - `OPEN_AI_API_KEY`
