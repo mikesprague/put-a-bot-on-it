@@ -66,8 +66,6 @@ export const klipyApiShare = ({ apiKey, searchTerm, gifId }) =>
 
 export const thisForThatApi = () => 'https://itsthisforthat.com/api.php?json';
 
-export const trumpApi = () => 'https://www.tronalddump.io/random/quote';
-
 export const vaccineSpotterApi = (stateCode = 'NY') =>
   `https://www.vaccinespotter.org/api/v0/states/${stateCode}.json`;
 
