@@ -13,17 +13,19 @@ export default {
   data: new SlashCommandBuilder()
     .setName('kanye')
     .setDescription(
-      'Random Kanye West quote from https://kanye.rest with GIF from Klipy'
+      'Random Kanye West GIF from Klipy with a random Kanye West quote from https://kanye.rest'
     ),
   async execute(interaction) {
     await interaction.deferReply();
     const searchTerm = 'kanye';
-    const kanyeGifs = await getKlipyGifs({ searchTerm });
     const emojiList = ['824289925129961513', '824291309224984656'];
     const kanyeEmoji = emojiList[getRandomNum(emojiList.length)];
     const apiUrl = kanyeApi();
     const randomColor = getRandomColor();
     const kanyeData = await makeApiCall(apiUrl);
+    const kanyeGifs = await getKlipyGifs({
+      searchTerm: `${searchTerm} ${kanyeData.quote}`,
+    });
     const randomNum = getRandomNum(kanyeGifs.length);
     const randomKanye = kanyeGifs[randomNum].file.hd.gif.url;
     const kanyeEmbed = prepareEmbed({

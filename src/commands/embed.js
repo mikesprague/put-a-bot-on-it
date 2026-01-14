@@ -24,7 +24,7 @@ const choices = sortedCommands
 export default {
   data: new SlashCommandBuilder()
     .setName('embed')
-    .setDescription('Create embed with random GIF from subject list')
+    .setDescription('Create embed with random Klipy GIF from subject list')
     .addStringOption((option) =>
       option
         .setName('subject')
