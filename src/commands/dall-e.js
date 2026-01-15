@@ -79,7 +79,6 @@ export default {
           model: 'gpt-image-1.5',
           moderation: 'low',
           quality: 'auto',
-          response_format: 'b64_json',
           size: 'auto',
           user: interaction.user.id,
         });
