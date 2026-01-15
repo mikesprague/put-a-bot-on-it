@@ -81,9 +81,9 @@ export default {
           quality: 'auto',
           response_format: 'b64_json',
           size: 'auto',
-          user: uuidv4(),
+          user: interaction.user.id,
         });
-        // console.log(response.data[0].b64_json);
+        console.log(response.data[0]);
         const aiImage = response.data[0].b64_json;
         aiImageName = `${uuidv4()}.png`;
         embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
