@@ -5,6 +5,11 @@ export const commands = [
     emoji: ['alf'],
   },
   {
+    name: 'Beavis and Butt-Head',
+    value: 'beavis butthead',
+    emoji: null,
+  },
+  {
     name: 'Borat',
     value: 'borat',
     emoji: ['borat', 'great_success'],
