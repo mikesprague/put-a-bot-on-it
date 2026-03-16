@@ -35,7 +35,7 @@ export default {
       birdLog(`[dall-e] ${prompt}`);
 
       let imagePrompt = await openai.responses.create({
-        model: 'gpt-5.1-chat-latest',
+        model: 'gpt-5.2-chat-latest',
         input: [
           {
             role: 'system',

@@ -36,7 +36,7 @@ export default {
     const catFact = apiData[randomNum];
     console.log(catFact);
     let imagePrompt = await openai.responses.create({
-      model: 'gpt-5.1-chat-latest',
+      model: 'gpt-5.2-chat-latest',
       input: [
         {
           role: 'system',

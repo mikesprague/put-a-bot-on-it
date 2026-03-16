@@ -116,7 +116,7 @@ export const gptGetEmoji = async ({
         },
       ],
       max_output_tokens: 1000,
-      model: 'gpt-5.1-chat-latest',
+      model: 'gpt-5.2-chat-latest',
       user,
     });
 
