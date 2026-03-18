@@ -47,7 +47,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.3-chat-latest',
+      model: 'gpt-5.4-mini',
       input: [
         {
           role: 'system',
@@ -80,7 +80,7 @@ export default {
     });
 
     let imagePrompt = await openai.responses.create({
-      model: 'gpt-5.3-chat-latest',
+      model: 'gpt-5.4-mini',
       input: [
         {
           role: 'system',
