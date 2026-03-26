@@ -1,16 +1,16 @@
-FROM node:22-bookworm-slim as base
+FROM node:24-bookworm-slim AS base
 RUN npm install --location=global npm bun
 WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./bun.lock ./
 
-FROM base as production
+FROM base AS production
 ENV NODE_ENV=production
 RUN bun install --no-save
 COPY . .
 CMD ["bun", "start"]
 
-FROM base as dev
+FROM base AS dev
 ENV NODE_ENV=development
 RUN bun install
 COPY . .
