@@ -1,5 +1,4 @@
-FROM node:24-bookworm-slim AS base
-RUN npm install --location=global npm bun
+FROM oven/bun:1.3-slim AS base
 WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./bun.lock ./
