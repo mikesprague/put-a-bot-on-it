@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./bun.lock ./
 COPY ./bunfig.toml ./
-COPY ./env.schema ./
+COPY ./.env.schema ./
 COPY ./env.d.ts ./
 
 FROM base AS production
