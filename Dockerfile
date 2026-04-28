@@ -2,6 +2,9 @@ FROM oven/bun:1.3-slim AS base
 WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./bun.lock ./
+COPY ./bunfig.toml ./
+COPY ./env.schema ./
+COPY ./env.d.ts ./
 
 FROM base AS production
 ENV NODE_ENV=production

@@ -8,7 +8,7 @@ Silly bot for a private discord server I run
 
 ## Requirements
 
-- Bun >= 1.x
+- Bun >= 1.3.x
   - <https://bun.sh/>
   - <https://bun.sh/docs/installation>
 
@@ -24,13 +24,15 @@ Silly bot for a private discord server I run
    - `DISCORD_GUILD_ADMIN_ID`
    - `KLIPY_API_KEY`
    - `NASA_API_KEY`
-   - `OPEN_AI_API_KEY`
+   - `OPENAI_API_KEY`
+   - `YOUTUBE_API_KEY`
 1. Run locally `bun run dev`
 
 ### Uses (incomplete list)
 
 - [Bun](https://bun.sh/)
 - [Biome](https://biomejs.dev)
+- [Varlock](https://varlock.dev)
 - [discord.js Library](https://github.com/discordjs/discord.js)
 - [OpenAI library and APIs](https://github.com/openai/openai-node)
 - [Klipy API](https://klipy.com/developers)

@@ -14,6 +14,7 @@
         "openai": "6.35.0",
         "randomcolor": "0.6.2",
         "uuid": "14.0.0",
+        "varlock": "0.9.1",
       },
       "devDependencies": {
         "@biomejs/biome": "2.4.13",
@@ -132,6 +133,8 @@
     "undici-types": ["undici-types@7.19.2", "", {}, "sha512-qYVnV5OEm2AW8cJMCpdV20CDyaN3g0AjDlOGf1OW4iaDEx8MwdtChUp4zu4H0VP3nDRF/8RKWH+IPp9uW0YGZg=="],
 
     "uuid": ["uuid@14.0.0", "", { "bin": { "uuid": "dist-node/bin/uuid" } }, "sha512-Qo+uWgilfSmAhXCMav1uYFynlQO7fMFiMVZsQqZRMIXp0O7rR7qjkj+cPvBHLgBqi960QCoo/PH2/6ZtVqKvrg=="],
+
+    "varlock": ["varlock@0.9.1", "", { "bin": { "varlock": "bin/cli.js" } }, "sha512-AMF41b5Pqo7rOOBK5mXuR+Jv++R/jeq9T9KdWCiYXD4ARZKH6MWbe0N/2JKpSPPDpiCWD2tlRLDPfh/gHAavkg=="],
 
     "write-file-atomic": ["write-file-atomic@5.0.1", "", { "dependencies": { "imurmurhash": "^0.1.4", "signal-exit": "^4.0.1" } }, "sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw=="],
 

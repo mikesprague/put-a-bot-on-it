@@ -1,33 +1,28 @@
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
-import OpenAI from 'openai';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  birdLog,
-  getRandomColor,
-  prepareEmbed,
-  sendEmbed,
-} from '../lib/helpers.js';
-import { gptGetEmoji, gptGetLimerick } from '../lib/openai.js';
+import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
+import OpenAI from "openai";
+import { v4 as uuidv4 } from "uuid";
+import { birdLog, getRandomColor, prepareEmbed, sendEmbed } from "../lib/helpers.js";
+import { gptGetEmoji, gptGetLimerick } from "../lib/openai.js";
 
-const { OPEN_AI_API_KEY } = process.env;
+const { OPENAI_API_KEY } = process.env;
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('limerick')
+    .setName("limerick")
     .setDescription(`Get's an AI-generated limerick on the subject you provide`)
     .addStringOption((option) =>
       option
-        .setName('subject')
-        .setDescription('Provide a subject/topic for the limerick')
-        .setRequired(true)
+        .setName("subject")
+        .setDescription("Provide a subject/topic for the limerick")
+        .setRequired(true),
     ),
   async execute(interaction) {
     await interaction.deferReply();
 
-    const subject = interaction.options.getString('subject');
+    const subject = interaction.options.getString("subject");
 
     const openai = new OpenAI({
-      apiKey: OPEN_AI_API_KEY,
+      apiKey: OPENAI_API_KEY,
     });
 
     birdLog(`[/limerick] ${subject}`);
@@ -37,7 +32,7 @@ export default {
       openAiClient: openai,
     });
 
-    birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
+    birdLog(`[/limerick] ${limerick.replace("\n", " ")}`);
 
     const emojiJson = await gptGetEmoji({
       textToAnalyze: limerick,

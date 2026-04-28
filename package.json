@@ -9,6 +9,8 @@
     "dev": "NODE_ENV=development bun --watch --inspect=0.0.0.0:9229 run ./src/index.js ",
     "do-co:up": "docker-compose -f ./docker-compose.dev.yml up",
     "do-co:down": "docker-compose -f ./docker-compose.dev.yml down --rmi 'all'",
+    "env:load": "bunx varlock load",
+    "env:scan": "bunx varlock scan",
     "slash-deploy": "NODE_ENV=production bun run ./src/deploy-slash-commands.js",
     "start": "NODE_ENV=production bun run ./src/index.js",
     "prestart": "bun run slash-deploy",
@@ -33,7 +35,8 @@
     "node-localstorage": "3.0.5",
     "openai": "6.35.0",
     "randomcolor": "0.6.2",
-    "uuid": "14.0.0"
+    "uuid": "14.0.0",
+    "varlock": "0.9.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",
