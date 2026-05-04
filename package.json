@@ -36,7 +36,7 @@
     "openai": "6.35.0",
     "randomcolor": "0.6.2",
     "uuid": "14.0.0",
-    "varlock": "1.0.0"
+    "varlock": "1.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
