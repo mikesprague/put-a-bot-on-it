@@ -1,6 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import OpenAI from "openai";
-import { v4 as uuidv4 } from "uuid";
+
 import { birdLog, getRandomColor, prepareEmbed, sendEmbed } from "../lib/helpers.js";
 import { gptGetEmoji, gptGetLimerick } from "../lib/openai.js";
 
@@ -49,7 +50,7 @@ export default {
     // });
     // // console.log(imageResponse.data);
     // const aiImage = imageResponse.data.data[0].url;
-    // const aiImageName = `${uuidv4()}.png`;
+    // const aiImageName = `${randomUUID()}.png`;
 
     // const embedFile = new AttachmentBuilder(aiImage, { name: aiImageName });
 

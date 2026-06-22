@@ -1,7 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { stripIndents } from "common-tags";
 import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import OpenAI from "openai";
-import { v4 as uuidv4 } from "uuid";
 
 import {
   birdLog,
@@ -109,7 +109,7 @@ export default {
       model: "gpt-image-2",
     });
     const aiImage = imageResponse.data[0].b64_json;
-    const aiImageName = `${uuidv4()}.png`;
+    const aiImageName = `${randomUUID()}.png`;
     const embedFile = new AttachmentBuilder(Buffer.from(aiImage, "base64"), {
       name: aiImageName,
     });

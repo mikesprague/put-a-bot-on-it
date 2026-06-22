@@ -1,7 +1,8 @@
+import { randomUUID } from "node:crypto";
 import { stripIndents } from "common-tags";
 import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import OpenAI from "openai";
-import { v4 as uuidv4 } from "uuid";
+
 import {
   birdLog,
   getCustomEmojiCode,
@@ -79,7 +80,7 @@ export default {
         });
         console.log(response.data[0]);
         const aiImage = response.data[0].b64_json;
-        aiImageName = `${uuidv4()}.png`;
+        aiImageName = `${randomUUID()}.png`;
         embedFile = new AttachmentBuilder(Buffer.from(aiImage, "base64"), {
           name: aiImageName,
         });
