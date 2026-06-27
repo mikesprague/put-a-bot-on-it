@@ -9,3 +9,5 @@ services:
       target: production
     environment:
       NODE_ENV: production
+    env_file:
+      - .env

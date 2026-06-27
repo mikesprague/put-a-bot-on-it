@@ -7,7 +7,8 @@ on:
       - ".vscode/**"
       - ".devcontainer/**"
       - ".github/dependabot.yml"
-      - "biome.json"
+      - ".oxfmtrc.json"
+      - ".oxlintrc.json"
     branches-ignore:
       - "dependabot/*"
 
