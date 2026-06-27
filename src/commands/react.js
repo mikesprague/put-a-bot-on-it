@@ -36,8 +36,8 @@ export default {
           { name: 'flying_money_parrot', value: '978295282196426784' },
           { name: 'sleeping_parrot', value: '978295282125111337' },
           { name: 'twins_parrot', value: '978295282062221363' },
-          { name: 'zombie', value: '756184776519450754' },
-        ),
+          { name: 'zombie', value: '756184776519450754' }
+        )
     ),
   async execute(interaction) {
     const emojiCode = interaction.options.getString('emoji');

@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
+
 import { makeApiCall, sendContent } from '../lib/helpers.js';
 import { packagePlaceApi } from '../lib/urls.js';
 
@@ -43,13 +44,12 @@ export default {
         ephemeral: true,
         deferred: true,
       });
-    } else {
-      return await sendContent({
-        interaction,
-        content: `**Status:** Unknown, try here <https://parcelsapp.com/en/tracking/${trackingId}>`,
-        ephemeral: true,
-        deferred: true,
-      });
     }
+    return await sendContent({
+      interaction,
+      content: `**Status:** Unknown, try here <https://parcelsapp.com/en/tracking/${trackingId}>`,
+      ephemeral: true,
+      deferred: true,
+    });
   },
 };

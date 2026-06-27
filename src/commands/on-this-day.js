@@ -13,15 +13,15 @@ export default {
       option
         .setName('category')
         .setDescription(
-          'Random notable event, birth, or death on this day in history',
+          'Random notable event, birth, or death on this day in history'
         )
         .setRequired(true)
         .addChoices(
           { name: 'Notable Event', value: 'Events' },
           { name: 'Birth', value: 'Births' },
           { name: 'Death', value: 'Deaths' },
-          { name: 'Random', value: 'Random' },
-        ),
+          { name: 'Random', value: 'Random' }
+        )
     ),
   async execute(interaction) {
     let category = interaction.options.getString('category');

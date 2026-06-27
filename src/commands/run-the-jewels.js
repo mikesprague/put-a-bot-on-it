@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
+
 import { getRandomNum, makeApiCall, sendContent } from '../lib/helpers.js';
 
 const { YOUTUBE_API_KEY } = process.env;

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+
 import { Collection } from 'discord.js';
 
 // import { initAllGifGreetings } from '../lib/greetings.js';

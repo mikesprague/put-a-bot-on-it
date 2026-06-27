@@ -1,24 +1,25 @@
-import { oneLineTrim, stripIndents } from "common-tags";
-import { randomUUID } from "node:crypto";
+import { randomUUID } from 'node:crypto';
 
-import { birdLog } from "../lib/helpers.js";
+import { oneLineTrim, stripIndents } from 'common-tags';
+
+import { birdLog } from '../lib/helpers.js';
 
 export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = "gpt-5.4-mini",
+  model = 'gpt-5.4-mini',
   user = randomUUID(),
 }) => {
   const gptResponse = await openAiClient.responses.create({
     model,
     input: [
       {
-        role: "system",
+        role: 'system',
         content: systemPrompt.trim(),
       },
       {
-        role: "user",
+        role: 'user',
         content: textToAnalyze.trim(),
       },
     ],
@@ -31,7 +32,7 @@ export const gptAnalyzeText = async ({
 export const gptGetHaiku = async ({
   textToAnalyze,
   openAiClient,
-  model = "gpt-5.4-mini",
+  model = 'gpt-5.4-mini',
   user = randomUUID(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -54,7 +55,7 @@ export const gptGetHaiku = async ({
 export const gptGetLimerick = async ({
   textToAnalyze,
   openAiClient,
-  model = "gpt-5.4-mini",
+  model = 'gpt-5.4-mini',
   user = randomUUID(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -74,20 +75,24 @@ export const gptGetLimerick = async ({
   return limerick;
 };
 
-export const gptGetEmoji = async ({ textToAnalyze, openAiClient, user = randomUUID() }) => {
+export const gptGetEmoji = async ({
+  textToAnalyze,
+  openAiClient,
+  user = randomUUID(),
+}) => {
   const resultsShape = [
     {
-      emoji: "",
-      shortCode: "",
-      reason: "",
+      emoji: '',
+      shortCode: '',
+      reason: '',
     },
   ];
 
   let emojiJson = [
     {
-      emoji: "😞",
-      shortCode: ":disappointed_face:",
-      reason: "There was an error with the request.",
+      emoji: '😞',
+      shortCode: ':disappointed_face:',
+      reason: 'There was an error with the request.',
     },
   ];
   try {
@@ -103,38 +108,38 @@ export const gptGetEmoji = async ({ textToAnalyze, openAiClient, user = randomUU
     const emojiResponse = await openAiClient.responses.create({
       input: [
         {
-          role: "system",
+          role: 'system',
           content: prompt,
         },
         {
-          role: "user",
+          role: 'user',
           content: textToAnalyze,
         },
       ],
       max_output_tokens: 1000,
-      model: "gpt-5.4-mini",
+      model: 'gpt-5.4-mini',
       user,
     });
 
     let content = emojiResponse.output_text.trim();
     // console.log(content);
 
-    if (content.includes("inappropriate") && content.includes("offensive")) {
+    if (content.includes('inappropriate') && content.includes('offensive')) {
       emojiJson = [
         {
-          emoji: "🙈",
-          shortCode: ":see_no_evil_monkey:",
-          reason: "There was inappropriate content in the request.",
+          emoji: '🙈',
+          shortCode: ':see_no_evil_monkey:',
+          reason: 'There was inappropriate content in the request.',
         },
         {
-          emoji: "🙉",
-          shortCode: ":hear_no_evil_monkey",
-          reason: "There was inappropriate content in the request.",
+          emoji: '🙉',
+          shortCode: ':hear_no_evil_monkey',
+          reason: 'There was inappropriate content in the request.',
         },
         {
-          emoji: "🙊",
-          shortCode: ":speak_no_evil_monkey:",
-          reason: "There was inappropriate content in the request.",
+          emoji: '🙊',
+          shortCode: ':speak_no_evil_monkey:',
+          reason: 'There was inappropriate content in the request.',
         },
       ];
     } else {
@@ -144,7 +149,7 @@ export const gptGetEmoji = async ({ textToAnalyze, openAiClient, user = randomUU
         return str[0];
       };
 
-      content = `[ ${getContent(content, "[", "]").trim()} ]`;
+      content = `[ ${getContent(content, '[', ']').trim()} ]`;
       birdLog(`[gptGetEmoji] ${content}`);
       emojiJson = JSON.parse(content);
     }

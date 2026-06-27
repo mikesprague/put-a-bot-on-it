@@ -1,21 +1,27 @@
-import { randomUUID } from "node:crypto";
-import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
-import OpenAI from "openai";
+import { randomUUID } from 'node:crypto';
 
-import { birdLog, getRandomColor, prepareEmbed, sendEmbed } from "../lib/helpers.js";
-import { gptGetEmoji, gptGetHaiku } from "../lib/openai.js";
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import OpenAI from 'openai';
+
+import {
+  birdLog,
+  getRandomColor,
+  prepareEmbed,
+  sendEmbed,
+} from '../lib/helpers.js';
+import { gptGetEmoji, gptGetHaiku } from '../lib/openai.js';
 
 const { OPENAI_API_KEY } = process.env;
 
 export default {
   data: new SlashCommandBuilder()
-    .setName("haiku")
+    .setName('haiku')
     .setDescription(`Get's an AI-generated haiku on the subject you provide`)
     .addStringOption((option) =>
       option
-        .setName("subject")
-        .setDescription("Provide a subject/topic for the haiku")
-        .setRequired(true),
+        .setName('subject')
+        .setDescription('Provide a subject/topic for the haiku')
+        .setRequired(true)
     ),
   // .addBooleanOption((option) =>
   //   option
@@ -26,7 +32,7 @@ export default {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const subject = interaction.options.getString("subject");
+    const subject = interaction.options.getString('subject');
 
     const openai = new OpenAI({
       apiKey: OPENAI_API_KEY,
@@ -37,33 +43,34 @@ export default {
       openAiClient: openai,
     });
 
-    birdLog(`[/haiku] ${haiku.replace("\n", " ")}`);
+    birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
 
     let aiImageName = null;
     let embedFile = null;
-    let embedImage = "";
+    let embedImage = '';
 
     const imagePrompt = `${haiku.replace(
-      "\n",
-      " ",
+      '\n',
+      ' '
     )}, captured in a realistic photograph with natural lighting`;
 
     try {
       const imageResponse = await openai.images.generate({
         prompt: imagePrompt,
         n: 1,
-        size: "1024x1024",
-        model: "gpt-image-2",
+        size: '1024x1024',
+        model: 'gpt-image-2',
         user: interaction.user.id,
       });
       const aiImage = imageResponse.data[0].b64_json;
       aiImageName = `${randomUUID()}.png`;
       embedImage = `attachment://${aiImageName}`;
-      embedFile = new AttachmentBuilder(Buffer.from(aiImage, "base64"), {
+      embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
         name: aiImageName,
       });
     } catch (error) {
       birdLog(`[/haiku] image generation failed for prompt: ${imagePrompt}`);
+      console.log(error);
     }
 
     const emojiJson = await gptGetEmoji({

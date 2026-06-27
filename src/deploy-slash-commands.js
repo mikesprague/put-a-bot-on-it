@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+
 import { REST, Routes } from 'discord.js';
 
 import { birdLog } from './lib/helpers.js';

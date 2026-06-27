@@ -9,7 +9,7 @@ export const event = {
       } catch (error) {
         birdLog(
           '[messageReactionAdd] Error: Something went wrong when fetching the message:\n',
-          error,
+          error
         );
         return;
       }

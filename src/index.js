@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+
 import { Client, GatewayIntentBits, Partials } from 'discord.js';
 
 const { DISCORD_BOT_TOKEN } = process.env;

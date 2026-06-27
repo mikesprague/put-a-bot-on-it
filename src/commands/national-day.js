@@ -1,7 +1,8 @@
-import { randomUUID } from "node:crypto";
-import { stripIndents } from "common-tags";
-import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
-import OpenAI from "openai";
+import { randomUUID } from 'node:crypto';
+
+import { stripIndents } from 'common-tags';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import OpenAI from 'openai';
 
 import {
   birdLog,
@@ -10,17 +11,17 @@ import {
   // getKlipyGifs,
   prepareEmbed,
   sendEmbed,
-} from "../lib/helpers.js";
-import { initNationalDayData } from "../lib/national-day.js";
-import { gptGetEmoji } from "../lib/openai.js";
+} from '../lib/helpers.js';
+import { initNationalDayData } from '../lib/national-day.js';
+import { gptGetEmoji } from '../lib/openai.js';
 
 const { OPENAI_API_KEY } = process.env;
 
 export default {
   data: new SlashCommandBuilder()
-    .setName("national-day")
+    .setName('national-day')
     .setDescription(
-      "Random day from National Day Calendar (w/ possibly related AI-generated image)",
+      'Random day from National Day Calendar (w/ possibly related AI-generated image)'
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -47,17 +48,21 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: "gpt-5.4-mini",
+      model: 'gpt-5.4-mini',
       input: [
         {
-          role: "system",
+          role: 'system',
           content: systemPrompt,
         },
         {
-          role: "user",
+          role: 'user',
           content:
-            description.toLowerCase().includes("always more going on every month") ||
-            description.toLowerCase().includes("check out these videos for some extra inspiration")
+            description
+              .toLowerCase()
+              .includes('always more going on every month') ||
+            description
+              .toLowerCase()
+              .includes('check out these videos for some extra inspiration')
               ? title
               : description,
         },
@@ -76,10 +81,10 @@ export default {
     });
 
     let imagePrompt = await openai.responses.create({
-      model: "gpt-5.4-mini",
+      model: 'gpt-5.4-mini',
       input: [
         {
-          role: "system",
+          role: 'system',
           content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to GPT-Image for images
             that represent various National Days. You will be provided with the name of a National Day.
@@ -90,27 +95,29 @@ export default {
             `,
         },
         {
-          role: "user",
+          role: 'user',
           content: title,
         },
       ],
       user: interaction.user.id,
     });
 
-    imagePrompt = imagePrompt?.output_text.replace("Prompt for GPT-Image:", "").trim();
+    imagePrompt = imagePrompt?.output_text
+      .replace('Prompt for GPT-Image:', '')
+      .trim();
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
     birdLog(`[/national-day (imagePrompt)] ${imagePrompt}`);
     const imageResponse = await openai.images.generate({
       prompt: imagePrompt,
       n: 1,
-      size: "1024x1024",
+      size: '1024x1024',
       user: interaction.user.id,
-      model: "gpt-image-2",
+      model: 'gpt-image-2',
     });
     const aiImage = imageResponse.data[0].b64_json;
     const aiImageName = `${randomUUID()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, "base64"), {
+    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
       name: aiImageName,
     });
 

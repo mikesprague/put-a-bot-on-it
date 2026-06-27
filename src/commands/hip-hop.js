@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
+
 import {
   birdLog,
   getRandomNum,
@@ -40,10 +41,10 @@ export default {
         .setName('artist')
         .setDescription('Artist')
         .setRequired(true)
-        .addChoices(...choices),
+        .addChoices(...choices)
     )
     .addStringOption((option) =>
-      option.setName('song').setDescription('Enter optional song name'),
+      option.setName('song').setDescription('Enter optional song name')
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -52,7 +53,7 @@ export default {
     let searchString = interaction.options.getString('artist');
     if (searchString === 'random') {
       searchString = encodeURIComponent(
-        artists[getRandomNum(artists.length)].toLowerCase(),
+        artists[getRandomNum(artists.length)].toLowerCase()
       );
     }
     if (useArg) {

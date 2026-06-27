@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
+
 import {
   getRandomNum,
   makeApiCall,
@@ -18,8 +19,8 @@ export default {
         .setRequired(true)
         .addChoices(
           { name: 'today', value: 'today' },
-          { name: 'random', value: 'random' },
-        ),
+          { name: 'random', value: 'random' }
+        )
     ),
   async execute(interaction) {
     await interaction.deferReply();
