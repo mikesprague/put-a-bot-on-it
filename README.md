@@ -30,7 +30,7 @@ Silly bot for a private discord server I run
 ### Uses (incomplete list)
 
 - [Bun](https://bun.sh/)
-- [Biome](https://biomejs.dev)
+- [Oxc](https://oxc.rs/) ([Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) / [Oxlint](https://oxc.rs/docs/guide/usage/linter.html))
 - [discord.js Library](https://github.com/discordjs/discord.js)
 - [OpenAI library and APIs](https://github.com/openai/openai-node)
 - [Klipy API](https://klipy.com/developers)
