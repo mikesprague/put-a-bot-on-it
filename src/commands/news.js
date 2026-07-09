@@ -42,7 +42,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.4',
+      model: 'gpt-5.6-terra',
       tools: [{ type: 'web_search' }],
       input: [
         {
@@ -67,7 +67,7 @@ export default {
     });
 
     let imagePrompt = await openai.responses.create({
-      model: 'gpt-5.4-mini',
+      model: 'gpt-5.6-luna',
       input: [
         {
           role: 'system',
@@ -96,7 +96,7 @@ export default {
     const imageResponse = await openai.images.generate({
       prompt: imagePrompt,
       n: 1,
-      size: '1024x1024',
+      size: 'auto',
       user: interaction.user.id,
       model: 'gpt-image-2',
     });

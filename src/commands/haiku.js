@@ -58,7 +58,7 @@ export default {
       const imageResponse = await openai.images.generate({
         prompt: imagePrompt,
         n: 1,
-        size: '1024x1024',
+        size: 'auto',
         model: 'gpt-image-2',
         user: interaction.user.id,
       });

@@ -37,7 +37,7 @@ export default {
     const catFact = apiData[randomNum];
     console.log(catFact);
     let imagePrompt = await openai.responses.create({
-      model: 'gpt-5.4-mini',
+      model: 'gpt-5.6-luna',
       input: [
         {
           role: 'system',
@@ -63,7 +63,7 @@ export default {
     const response = await openai.images.generate({
       prompt: imagePrompt,
       n: 1,
-      size: '1024x1024',
+      size: 'auto',
       model: 'gpt-image-2',
       user: interaction.user.id,
     });
