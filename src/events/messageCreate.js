@@ -86,7 +86,7 @@ export const event = {
 
       const chatResponse = await openaiDM.responses
         .create({
-          model: 'gpt-5.6-luna',
+          model: 'gpt-5.4',
           tools: [{ type: 'web_search' }],
           input,
         })
