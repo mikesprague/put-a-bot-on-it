@@ -18,7 +18,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName('news')
     .setDescription(
-      'Bird Bot (GPT-4o powered web search) returns some of the latest headlines.'
+      'Bird Bot (GPT powered web search) returns some of the latest headlines.'
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -42,7 +42,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.4',
+      model: 'gpt-5.5',
       tools: [{ type: 'web_search' }],
       input: [
         {
@@ -67,7 +67,7 @@ export default {
     });
 
     let imagePrompt = await openai.responses.create({
-      model: 'gpt-5.4-mini',
+      model: 'gpt-5.6-luna',
       input: [
         {
           role: 'system',

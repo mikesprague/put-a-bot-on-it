@@ -8,7 +8,7 @@ export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = 'gpt-5.4-mini',
+  model = 'gpt-5.6-luna',
   user = randomUUID(),
 }) => {
   const gptResponse = await openAiClient.responses.create({
@@ -32,7 +32,7 @@ export const gptAnalyzeText = async ({
 export const gptGetHaiku = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-5.4-mini',
+  model = 'gpt-5.6-luna',
   user = randomUUID(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -55,7 +55,7 @@ export const gptGetHaiku = async ({
 export const gptGetLimerick = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-5.4-mini',
+  model = 'gpt-5.6-luna',
   user = randomUUID(),
 }) => {
   const systemPrompt = oneLineTrim`
@@ -117,7 +117,7 @@ export const gptGetEmoji = async ({
         },
       ],
       max_output_tokens: 1000,
-      model: 'gpt-5.4-mini',
+      model: 'gpt-5.6-luna',
       user,
     });
 
