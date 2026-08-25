@@ -1,4 +1,4 @@
-FROM oven/bun:1.3-slim AS base
+FROM oven/bun:1.4-slim AS base
 WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./bun.lock ./
