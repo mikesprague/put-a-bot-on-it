@@ -1,6 +1,6 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from "discord.js";
 
-import { commands } from '../lib/embed-options.js';
+import { commands } from "../lib/embed-options.js";
 import {
   filterArrayOfObjects,
   getCustomEmojiCode,
@@ -11,9 +11,9 @@ import {
   registerKlipyGifShare,
   sendEmbed,
   sortArrayOfObjects,
-} from '../lib/helpers.js';
+} from "../lib/helpers.js";
 
-const sortedCommands = sortArrayOfObjects(commands, 'name');
+const sortedCommands = sortArrayOfObjects(commands, "name");
 const choices = sortedCommands
   .map((command) => ({
     name: command.name,
@@ -23,22 +23,22 @@ const choices = sortedCommands
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('embed')
-    .setDescription('Create embed with random Klipy GIF from subject list')
+    .setName("embed")
+    .setDescription("Create embed with random Klipy GIF from subject list")
     .addStringOption((option) =>
       option
-        .setName('subject')
-        .setDescription('Subject')
+        .setName("subject")
+        .setDescription("Subject")
         .setRequired(true)
-        .addChoices(...choices)
+        .addChoices(...choices),
     )
     .addStringOption((option) =>
-      option.setName('query').setDescription('Enter optional search query')
+      option.setName("query").setDescription("Enter optional search query"),
     ),
   async execute(interaction) {
     await interaction.deferReply();
-    const subject = interaction.options.getString('subject');
-    const [subjectOptions] = filterArrayOfObjects(commands, 'value', subject);
+    const subject = interaction.options.getString("subject");
+    const [subjectOptions] = filterArrayOfObjects(commands, "value", subject);
     const emojiStrings = subjectOptions.emoji;
 
     const subjectEmoji = emojiStrings
@@ -47,7 +47,7 @@ export default {
 
     const embedColor = getRandomColor();
 
-    const arg = interaction.options.getString('query');
+    const arg = interaction.options.getString("query");
     const useArg = Boolean(arg?.trim().length);
     const searchTerm = useArg ? `${subject} ${arg}` : subject;
 
@@ -63,7 +63,7 @@ export default {
 
     const subjectEmbed = prepareEmbed({
       embedImage,
-      embedFooter: useArg ? `query: ${arg}` : '',
+      embedFooter: useArg ? `query: ${arg}` : "",
       embedColor,
     });
 

@@ -7,7 +7,7 @@ export const commands = [
   {
     name: "Archer",
     value: "archer",
-    emoji: null,
+    emoji: ["archer", "archer_gun", "archer_gun_silencer", "archer_sniper"],
   },
   {
     name: "Beavis and Butt-Head",
