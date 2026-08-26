@@ -116,6 +116,10 @@ const initJava = (msg) => {
     "node",
     "node.js",
     "nodejs",
+    "bun",
+    "deno",
+    "typescript",
+    "ts",
   ];
 
   if (messageIncludesWords(msg, javaWords)) {
