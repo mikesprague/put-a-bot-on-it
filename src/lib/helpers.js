@@ -17,8 +17,11 @@ export const normalizeMsgContent = (msg) => msg.content.toLowerCase().trim();
 export const messageMatchesWord = (message, word) =>
   word.includes(normalizeMsgContent(message));
 
-export const messageIncludesWord = (message, word) =>
-  normalizeMsgContent(message).includes(word);
+export const messageIncludesWord = (message, word) => {
+  const words = normalizeMsgContent(message).split(' ');
+
+  return words.some((w) => w === word);
+};
 
 export const messageIncludesWords = (message, wordsArray) => {
   let wordMatched = false;
