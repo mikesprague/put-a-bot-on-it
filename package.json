@@ -30,14 +30,14 @@
     "discord.js": "14.27.0",
     "he": "1.2.0",
     "node-localstorage": "3.0.5",
-    "openai": "7.8.0",
+    "openai": "7.9.0",
     "randomcolor": "0.6.2"
   },
   "devDependencies": {
     "bun": "1.4.0",
     "cz-git": "1.14.0",
-    "oxfmt": "0.65.0",
-    "oxlint": "1.80.0"
+    "oxfmt": "0.66.0",
+    "oxlint": "1.81.0"
   },
   "config": {
     "commitizen": {
