@@ -1,5 +1,7 @@
+import { randomUUID } from 'node:crypto';
+
 import { rando } from '@nastyox/rando.js';
-import Discord, { MessageFlags } from 'discord.js';
+import Discord, { AttachmentBuilder, MessageFlags } from 'discord.js';
 import randomColor from 'randomcolor';
 
 import { birdEmojis, customEmoji } from './lists.js';
@@ -113,6 +115,28 @@ export const getRandomGifByTerm = async (searchTerm, useDownsized = false) => {
   return useDownsized
     ? gifs[randomNum].file.md.gif.url
     : gifs[randomNum].file.hd.gif.url;
+};
+
+export const generateImageAttachment = async ({
+  openai,
+  prompt,
+  userId,
+  options = {},
+}) => {
+  const response = await openai.images.generate({
+    prompt,
+    n: 1,
+    model: 'gpt-image-2',
+    size: 'auto',
+    ...options,
+    user: userId,
+  });
+  const aiImage = response.data[0].b64_json;
+  const aiImageName = `${randomUUID()}.png`;
+  const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
+    name: aiImageName,
+  });
+  return { embedFile, embedImage: `attachment://${aiImageName}` };
 };
 
 export const prepareEmbed = ({

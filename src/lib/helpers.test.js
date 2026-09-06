@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 
 import {
   filterArrayOfObjects,
+  generateImageAttachment,
   makeApiCall,
   messageIncludesWord,
   messageIncludesWords,
@@ -156,5 +157,46 @@ describe('makeApiCall', () => {
     await expect(makeApiCall('https://example.com/api')).rejects.toThrow(
       'HTTP 500: Internal Server Error'
     );
+  });
+});
+
+describe('generateImageAttachment', () => {
+  it('returns an embed file and image URL for a generated image', async () => {
+    const openai = {
+      images: {
+        generate: async () => ({
+          data: [{ b64_json: 'aGVsbG8=' }],
+        }),
+      },
+    };
+    const { embedFile, embedImage } = await generateImageAttachment({
+      openai,
+      prompt: 'test prompt',
+      userId: 'user-123',
+    });
+    expect(embedImage).toMatch(/^attachment:\/\/.*\.png$/);
+    expect(embedFile.name).toMatch(/\.png$/);
+  });
+
+  it('passes extra options to the generate call', async () => {
+    let capturedArgs;
+    const openai = {
+      images: {
+        generate: async (args) => {
+          capturedArgs = args;
+          return { data: [{ b64_json: 'aGVsbG8=' }] };
+        },
+      },
+    };
+    await generateImageAttachment({
+      openai,
+      prompt: 'test prompt',
+      userId: 'user-123',
+      options: { moderation: 'low', quality: 'auto' },
+    });
+    expect(capturedArgs.prompt).toBe('test prompt');
+    expect(capturedArgs.user).toBe('user-123');
+    expect(capturedArgs.moderation).toBe('low');
+    expect(capturedArgs.quality).toBe('auto');
   });
 });

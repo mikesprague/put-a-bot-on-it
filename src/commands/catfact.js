@@ -1,10 +1,9 @@
-import { randomUUID } from 'node:crypto';
-
 import { stripIndents } from 'common-tags';
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 
 import {
+  generateImageAttachment,
   getCustomEmojiCode,
   getRandomColor,
   // getRandomGifByTerm,
@@ -60,19 +59,11 @@ export default {
       .replace('Prompt for GPT-Image:', '')
       .trim();
     console.log(imagePrompt);
-    const response = await openai.images.generate({
+    const { embedFile, embedImage } = await generateImageAttachment({
+      openai,
       prompt: imagePrompt,
-      n: 1,
-      size: 'auto',
-      model: 'gpt-image-2',
-      user: interaction.user.id,
+      userId: interaction.user.id,
     });
-    const aiImage = response.data[0].b64_json;
-    const aiImageName = `${randomUUID()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
-      name: aiImageName,
-    });
-    const embedImage = `attachment://${aiImageName}`;
     const catFactEmbed = prepareEmbed({
       embedDescription: catFact.fact,
       embedImage,
