@@ -53,11 +53,13 @@ export const makeApiCall = async (
       ...requestHeaders,
     };
   }
-  const apiData = await fetch(apiEndpoint, fetchConfig).then((response) =>
-    response.json()
-  );
-
-  return apiData;
+  const response = await fetch(apiEndpoint, fetchConfig);
+  if (!response.ok) {
+    throw new Error(
+      `HTTP ${response.status}: ${response.statusText} for ${apiEndpoint}`
+    );
+  }
+  return response.json();
 };
 
 export const getRandomBirdEmoji = () => {

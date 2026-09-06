@@ -145,4 +145,16 @@ describe('makeApiCall', () => {
     await makeApiCall('https://example.com/api', 'GET', null, { foo: 'bar' });
     expect(capturedConfig.body).toBeUndefined();
   });
+
+  it('throws when the response status is not ok', async () => {
+    globalThis.fetch = async () => ({
+      ok: false,
+      status: 500,
+      statusText: 'Internal Server Error',
+      json: async () => ({ error: 'server error' }),
+    });
+    await expect(makeApiCall('https://example.com/api')).rejects.toThrow(
+      'HTTP 500: Internal Server Error'
+    );
+  });
 });

@@ -1,6 +1,4 @@
-import { InteractionType } from 'discord.js';
-
-// import { sendContent } from '../lib/helpers.js';
+import { InteractionType, MessageFlags } from 'discord.js';
 
 const { DISCORD_GUILD_ADMIN_ID } = process.env;
 
@@ -22,11 +20,26 @@ export const event = {
       await slashCommand.default.execute(interaction);
     } catch (error) {
       console.error('[interactionCreate] Error:', error);
-      // await sendContent({
-      //   interaction,
-      //   content: '💀 There was an error while executing this slash command!',
-      //   ephemeral: true,
-      // });
+
+      const errorReply = {
+        content: '💀 There was an error while executing this slash command!',
+        flags: MessageFlags.Ephemeral,
+      };
+
+      try {
+        if (interaction.replied) {
+          await interaction.followUp(errorReply);
+        } else if (interaction.deferred) {
+          await interaction.editReply(errorReply);
+        } else {
+          await interaction.reply(errorReply);
+        }
+      } catch (replyError) {
+        console.error(
+          '[interactionCreate] Failed to send error reply:',
+          replyError
+        );
+      }
     }
   },
 };
