@@ -21,7 +21,7 @@
     "prestart": "bun run slash-deploy",
     "slash-deploy": "NODE_ENV=production bun run ./src/deploy-slash-commands.js",
     "start": "NODE_ENV=production bun run ./src/index.js",
-    "test": "bun run format:check && bun run lint"
+    "test": "bun run format:check && bun run lint && bun test"
   },
   "dependencies": {
     "@nastyox/rando.js": "2.0.6",
