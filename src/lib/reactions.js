@@ -12,8 +12,7 @@ import {
 import * as lists from './lists.js';
 
 export const initReactions = async (msg) => {
-  const urlRegex =
-    /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/;
+  const urlRegex = /https?:\/\/\S+/i;
 
   if (msg.author.bot || urlRegex.test(msg.content)) {
     return;

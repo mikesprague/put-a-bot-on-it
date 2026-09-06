@@ -1,11 +1,11 @@
-import { rando } from "@nastyox/rando.js";
-import Discord, { MessageFlags } from "discord.js";
-import randomColor from "randomcolor";
+import { rando } from '@nastyox/rando.js';
+import Discord, { MessageFlags } from 'discord.js';
+import randomColor from 'randomcolor';
 
-import { birdEmojis, customEmoji } from "./lists.js";
-import * as urls from "./urls.js";
+import { birdEmojis, customEmoji } from './lists.js';
+import * as urls from './urls.js';
 
-export const birdLog = (...content) => console.log("🐦💬 ", ...content);
+export const birdLog = (...content) => console.log('🐦💬 ', ...content);
 
 export const getRandomNum = (maxValue) => Number(rando(0, maxValue - 1));
 
@@ -14,9 +14,13 @@ export const getRandomColor = (options = {}) =>
 
 export const normalizeMsgContent = (msg) => msg.content.toLowerCase().trim();
 
-export const messageMatchesWord = (message, word) => word.includes(normalizeMsgContent(message));
+export const messageMatchesWord = (message, word) => {
+  const normalized = normalizeMsgContent(message);
+  return Array.isArray(word) ? word.includes(normalized) : normalized === word;
+};
 
-export const messageIncludesWord = (message, word) => normalizeMsgContent(message).includes(word);
+export const messageIncludesWord = (message, word) =>
+  normalizeMsgContent(message).includes(word);
 
 export const messageIncludesWords = (message, wordsArray) => {
   let wordMatched = false;
@@ -30,15 +34,16 @@ export const messageIncludesWords = (message, wordsArray) => {
 
 export const makeApiCall = async (
   apiEndpoint,
-  requestMethod = "GET",
+  requestMethod = 'GET',
   requestHeaders = null,
-  requestBody = null,
+  requestBody = null
 ) => {
   const fetchConfig = {
     method: requestMethod,
   };
   if (
-    (requestMethod.toUpperCase() === "POST" || requestMethod.toUpperCase() === "PUT") &&
+    (requestMethod.toUpperCase() === 'POST' ||
+      requestMethod.toUpperCase() === 'PUT') &&
     requestBody
   ) {
     fetchConfig.body = requestBody;
@@ -48,7 +53,9 @@ export const makeApiCall = async (
       ...requestHeaders,
     };
   }
-  const apiData = await fetch(apiEndpoint, fetchConfig).then((response) => response.json());
+  const apiData = await fetch(apiEndpoint, fetchConfig).then((response) =>
+    response.json()
+  );
 
   return apiData;
 };
@@ -73,7 +80,7 @@ export const getKlipyGifs = async ({ searchTerm }) => {
   if (remoteData?.data?.data.length) {
     return remoteData.data.data;
   }
-  const backupSearchTerm = encodeURIComponent("swedish chef");
+  const backupSearchTerm = encodeURIComponent('swedish chef');
   const backupApiUrl = urls.klipyApiSearch({
     apiKey: KLIPY_API_KEY,
     searchTerm: backupSearchTerm,
@@ -92,8 +99,8 @@ export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
     searchTerm: encodeURIComponent(searchTerm),
   });
   // console.log(apiShareUrl);
-  await makeApiCall(apiShareUrl, "POST", null, {
-    customer_id: "put-a-bot-on-it-discord-server",
+  await makeApiCall(apiShareUrl, 'POST', null, {
+    customer_id: 'put-a-bot-on-it-discord-server',
     q: searchTerm,
   });
 };
@@ -101,18 +108,20 @@ export const registerKlipyGifShare = async (klipyGifObject, searchTerm) => {
 export const getRandomGifByTerm = async (searchTerm, useDownsized = false) => {
   const gifs = await getKlipyGifs({ searchTerm });
   const randomNum = getRandomNum(gifs.length);
-  return useDownsized ? gifs[randomNum].file.md.gif.url : gifs[randomNum].file.hd.gif.url;
+  return useDownsized
+    ? gifs[randomNum].file.md.gif.url
+    : gifs[randomNum].file.hd.gif.url;
 };
 
 export const prepareEmbed = ({
-  embedAuthor = { name: "" },
-  embedTitle = "",
-  embedDescription = "",
-  embedImage = "",
-  embedThumbnail = "",
-  embedColor = "",
-  embedUrl = "",
-  embedFooter = "",
+  embedAuthor = { name: '' },
+  embedTitle = '',
+  embedDescription = '',
+  embedImage = '',
+  embedThumbnail = '',
+  embedColor = '',
+  embedUrl = '',
+  embedFooter = '',
 }) => {
   const discordEmbed = new Discord.EmbedBuilder();
 
@@ -174,7 +183,7 @@ export const sendContent = async ({
       }
     }
   } catch (error) {
-    birdLog("[sendContent] 💀 Error: \n", error);
+    birdLog('[sendContent] 💀 Error: \n', error);
   }
 };
 
@@ -203,7 +212,7 @@ export const sendEmbed = async ({
     }
     if (reaction) {
       const message = await interaction.fetchReply();
-      if (typeof reaction === "object") {
+      if (typeof reaction === 'object') {
         for (const emoji of reaction) {
           message.react(emoji);
         }
@@ -217,11 +226,12 @@ export const sendEmbed = async ({
       }
     }
   } catch (error) {
-    birdLog("[sendEmbed] 💀 Error: \n", error);
+    birdLog('[sendEmbed] 💀 Error: \n', error);
   }
 };
 
-export const wait = async (delay = 0) => new Promise((resolve) => setTimeout(resolve, delay));
+export const wait = async (delay = 0) =>
+  new Promise((resolve) => setTimeout(resolve, delay));
 
 export const filterArrayOfObjects = (array, field, value) =>
   array.filter((item) => {
@@ -229,4 +239,6 @@ export const filterArrayOfObjects = (array, field, value) =>
   });
 
 export const sortArrayOfObjects = (arrayToSort, key) =>
-  arrayToSort.sort((item1, item2) => item1[key].toLowerCase() - item2[key].toLowerCase());
+  arrayToSort.sort((item1, item2) =>
+    item1[key].toLowerCase().localeCompare(item2[key].toLowerCase())
+  );

@@ -25,6 +25,7 @@ Silly bot for a private discord server I run
    - `KLIPY_API_KEY`
    - `NASA_API_KEY`
    - `OPEN_AI_API_KEY`
+   - `YOUTUBE_API_KEY`
 1. Run locally `bun run dev`
 
 ### Uses (incomplete list)

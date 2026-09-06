@@ -17,7 +17,7 @@ const localStorage = new LocalStorage(
 export const event = {
   name: 'messageCreate',
   async execute(msg) {
-    const storageKey = `messageHistory_${msg.author.id}}`;
+    const storageKey = `messageHistory_${msg.author.id}`;
     if (
       msg.content
         .replace(`<@${DISCORD_CLIENT_ID}>`, '')

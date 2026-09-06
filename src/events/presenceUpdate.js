@@ -14,7 +14,9 @@ export const event = {
         (user) => user.id === newStatus.userId
       );
 
-      birdLog(`[presenceUpdate] ${currentUser.username} ${newStatus.status}`);
+      if (currentUser) {
+        birdLog(`[presenceUpdate] ${currentUser.username} ${newStatus.status}`);
+      }
     }
   },
 };

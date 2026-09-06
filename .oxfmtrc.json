@@ -10,7 +10,7 @@
     "local-storage/**",
     "node_modules/**",
     "types/**",
-    "../**/scratch.ts"
+    "**/scratch.ts"
   ],
   "jsxSingleQuote": true,
   "printWidth": 80,
