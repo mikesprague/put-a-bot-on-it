@@ -1,11 +1,10 @@
-import { randomUUID } from 'node:crypto';
-
 import { stripIndents } from 'common-tags';
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 
 import {
   birdLog,
+  generateImageAttachment,
   getCustomEmojiCode,
   getRandomColor,
   prepareEmbed,
@@ -70,27 +69,18 @@ export default {
 
       const randomColor = getRandomColor();
 
-      let aiImageName = null;
       let embedFile = null;
       let embedImage = '';
 
       try {
-        const response = await openai.images.generate({
+        const generated = await generateImageAttachment({
+          openai,
           prompt: imagePrompt,
-          n: 1,
-          model: 'gpt-image-2',
-          moderation: 'low',
-          quality: 'auto',
-          size: 'auto',
-          user: interaction.user.id,
+          userId: interaction.user.id,
+          options: { moderation: 'low', quality: 'auto' },
         });
-        console.log(response.data[0]);
-        const aiImage = response.data[0].b64_json;
-        aiImageName = `${randomUUID()}.png`;
-        embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
-          name: aiImageName,
-        });
-        embedImage = `attachment://${aiImageName}`;
+        embedFile = generated.embedFile;
+        embedImage = generated.embedImage;
         birdLog(`[dall-e] ${embedImage}`);
       } catch (error) {
         console.log(error);

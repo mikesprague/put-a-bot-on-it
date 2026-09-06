@@ -1,11 +1,10 @@
-import { randomUUID } from 'node:crypto';
-
 import { stripIndents } from 'common-tags';
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 
 import {
   birdLog,
+  generateImageAttachment,
   getRandomColor,
   prepareEmbed,
   sendEmbed,
@@ -93,24 +92,17 @@ export default {
       .trim();
 
     birdLog(`[/news (imagePrompt)] ${imagePrompt}`);
-    const imageResponse = await openai.images.generate({
+    const { embedFile, embedImage } = await generateImageAttachment({
+      openai,
       prompt: imagePrompt,
-      n: 1,
-      size: 'auto',
-      user: interaction.user.id,
-      model: 'gpt-image-2',
-    });
-    const aiImage = imageResponse.data[0].b64_json;
-    const aiImageName = `${randomUUID()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
-      name: aiImageName,
+      userId: interaction.user.id,
     });
 
     const newsEmbed = prepareEmbed({
       embedTitle: 'Bird Bot News',
       embedColor: randomColor,
       embedDescription: textResponse.output_text,
-      embedImage: `attachment://${aiImageName}`,
+      embedImage,
     });
 
     return await sendEmbed({

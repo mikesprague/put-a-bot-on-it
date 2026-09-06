@@ -1,11 +1,10 @@
-import { randomUUID } from 'node:crypto';
-
 import { stripIndents } from 'common-tags';
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 
 import {
   birdLog,
+  generateImageAttachment,
   getRandomColor,
   getRandomNum,
   // getKlipyGifs,
@@ -108,17 +107,10 @@ export default {
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;
     birdLog(`[/national-day (imagePrompt)] ${imagePrompt}`);
-    const imageResponse = await openai.images.generate({
+    const { embedFile, embedImage } = await generateImageAttachment({
+      openai,
       prompt: imagePrompt,
-      n: 1,
-      size: 'auto',
-      user: interaction.user.id,
-      model: 'gpt-image-2',
-    });
-    const aiImage = imageResponse.data[0].b64_json;
-    const aiImageName = `${randomUUID()}.png`;
-    const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
-      name: aiImageName,
+      userId: interaction.user.id,
     });
 
     // birdLog(`[/national-day] ${aiImage}`);
@@ -127,7 +119,7 @@ export default {
       embedTitle: title,
       embedColor: randomColor,
       embedDescription: `${description} [Read More](${link})`, // \n\n**Haiku**\n${haiku}
-      embedImage: `attachment://${aiImageName}`,
+      embedImage,
       embedUrl: link,
     });
 

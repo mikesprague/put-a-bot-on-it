@@ -1,10 +1,9 @@
-import { randomUUID } from 'node:crypto';
-
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 import OpenAI from 'openai';
 
 import {
   birdLog,
+  generateImageAttachment,
   getRandomColor,
   prepareEmbed,
   sendEmbed,
@@ -45,7 +44,6 @@ export default {
 
     birdLog(`[/haiku] ${haiku.replace('\n', ' ')}`);
 
-    let aiImageName = null;
     let embedFile = null;
     let embedImage = '';
 
@@ -55,19 +53,13 @@ export default {
     )}, captured in a realistic photograph with natural lighting`;
 
     try {
-      const imageResponse = await openai.images.generate({
+      const generated = await generateImageAttachment({
+        openai,
         prompt: imagePrompt,
-        n: 1,
-        size: 'auto',
-        model: 'gpt-image-2',
-        user: interaction.user.id,
+        userId: interaction.user.id,
       });
-      const aiImage = imageResponse.data[0].b64_json;
-      aiImageName = `${randomUUID()}.png`;
-      embedImage = `attachment://${aiImageName}`;
-      embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
-        name: aiImageName,
-      });
+      embedFile = generated.embedFile;
+      embedImage = generated.embedImage;
     } catch (error) {
       birdLog(`[/haiku] image generation failed for prompt: ${imagePrompt}`);
       console.log(error);
