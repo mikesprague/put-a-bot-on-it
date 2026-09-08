@@ -1,0 +1,87 @@
+export const adviceApi = () => 'https://api.adviceslip.com/advice';
+
+export const affirmationApi = () => 'https://www.affirmations.dev/';
+
+export const boredApi = () =>
+  'https://www.boredapi.com/api/activity?participants=1';
+
+export const breakingBadQuotesApi = () =>
+  'https://breaking-bad-quotes.herokuapp.com/v1/quotes';
+
+export const catFactsApi = (numToReturn = 50): string =>
+  `https://catfact.ninja/facts?limit=${numToReturn}`;
+
+export const dadJokeApi = () => 'https://icanhazdadjoke.com/';
+
+export const evilInsultApi = () =>
+  'https://evilinsult.com/generate_insult.php?lang=en&type=json';
+
+export const jokeApi = () =>
+  'https://v2.jokeapi.dev/joke/Any?blacklistFlags=racist,sexist,explicit';
+
+export const kanyeApi = () => 'https://api.kanye.rest/';
+
+export const klipyApiSearch = ({
+  apiKey,
+  searchTerm,
+  limit = 50,
+  offset = 0,
+}: {
+  apiKey: string;
+  searchTerm: string;
+  limit?: number;
+  offset?: number;
+}): string =>
+  `https://api.klipy.com/api/v1/${apiKey}/gifs/search?q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&limit=${limit}&pos=${offset}&locale=US&format_filter=gif&content_filter=off`;
+
+export const klipyApiShare = ({
+  apiKey,
+  searchTerm,
+  gifId,
+}: {
+  apiKey: string;
+  searchTerm: string;
+  gifId: string;
+}): string =>
+  `https://api.klipy.com/api/v1/${apiKey}/gifs/share/${gifId}?&q=${searchTerm}&customer_id=put-a-bot-on-it-discord-server&locale=US`;
+
+export const nasaApi = (NASA_API_KEY: string): string =>
+  `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`;
+
+export const nationalDayApi = () =>
+  'https://api.m5ls5e.com/api/national-day-calendar';
+
+export const nationalTodayApi = () =>
+  'https://api.m5ls5e.com/api/national-today';
+
+export const onThisDayApi = ({
+  month,
+  day,
+}: {
+  month: string | number;
+  day: string | number;
+}): string => `https://today.zenquotes.io/api/${month}/${day}`;
+
+export const packagePlaceApi = (trackingId: string): string =>
+  `https://package.place/api/track/${trackingId}?stream=true`;
+
+export const rickAndMortyApi = (graphql = false) =>
+  `https://rickandmortyapi.com/${graphql ? 'graphql' : 'api'}`;
+
+export const ronSwansonApi = () =>
+  'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
+
+export const thisForThatApi = () => 'https://itsthisforthat.com/api.php?json';
+
+export const vaccineSpotterApi = (stateCode = 'NY') =>
+  `https://www.vaccinespotter.org/api/v0/states/${stateCode}.json`;
+
+export const wordleSolutionApi = () =>
+  'https://api.m5ls5e.com/api/get-wordle-solution';
+
+export const xkcdApi = (
+  randomComicNum: number | string | null = null
+): string =>
+  randomComicNum && Number.isInteger(randomComicNum)
+    ? `https://xkcd.com/${randomComicNum}/info.0.json`
+    : 'https://xkcd.com/info.0.json';

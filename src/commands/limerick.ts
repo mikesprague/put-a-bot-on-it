@@ -1,0 +1,63 @@
+import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
+import OpenAI from 'openai';
+
+import {
+  birdLog,
+  getRandomColor,
+  prepareEmbed,
+  sendEmbed,
+} from '../lib/helpers.ts';
+import { gptGetEmoji, gptGetLimerick } from '../lib/openai.ts';
+
+const { OPENAI_API_KEY } = process.env;
+
+export default {
+  data: new SlashCommandBuilder()
+    .setName('limerick')
+    .setDescription(`Get's an AI-generated limerick on the subject you provide`)
+    .addStringOption((option) =>
+      option
+        .setName('subject')
+        .setDescription('Provide a subject/topic for the limerick')
+        .setRequired(true)
+    ),
+  async execute(interaction: ChatInputCommandInteraction) {
+    await interaction.deferReply();
+
+    const subject = interaction.options.getString('subject')!;
+
+    const openai = new OpenAI({
+      apiKey: OPENAI_API_KEY!,
+    });
+
+    birdLog(`[/limerick] ${subject}`);
+
+    const limerick = await gptGetLimerick({
+      textToAnalyze: subject,
+      openAiClient: openai,
+    });
+
+    birdLog(`[/limerick] ${limerick.replace('\n', ' ')}`);
+
+    const emojiJson = await gptGetEmoji({
+      textToAnalyze: limerick,
+      openAiClient: openai,
+    });
+    // console.log('[/limerick]', emojiJson);
+
+    const randomColor = getRandomColor();
+
+    const limerickEmbed = prepareEmbed({
+      embedColor: randomColor,
+      embedDescription: limerick,
+      // embedImage: `attachment://${aiImageName}`,
+    });
+
+    return await sendEmbed({
+      interaction,
+      content: limerickEmbed,
+      reaction: emojiJson.map((item) => item.emoji),
+      deferred: true,
+    });
+  },
+};

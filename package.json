@@ -10,21 +10,22 @@
     "email": "mikesprague@gmail.com"
   },
   "type": "module",
-  "exports": "./src/index.js",
+  "exports": "./src/index.ts",
   "scripts": {
-    "dev": "NODE_ENV=development bun --watch --inspect=0.0.0.0:9229 run ./src/index.js ",
+    "declarations": "rm -rf ./types && tsc --emitDeclarationOnly --declaration true --declarationDir './types'",
+    "dev": "NODE_ENV=development bun --watch --inspect=0.0.0.0:9229 run ./src/index.ts ",
     "do-co:up": "docker-compose -f ./docker-compose.dev.yml up",
     "do-co:down": "docker-compose -f ./docker-compose.dev.yml down --rmi 'all'",
     "format": "bun x oxfmt src",
     "format:check": "bun x oxfmt --check src",
     "lint": "bun x oxlint src",
     "prestart": "bun run slash-deploy",
-    "slash-deploy": "NODE_ENV=production bun run ./src/deploy-slash-commands.js",
-    "start": "NODE_ENV=production bun run ./src/index.js",
-    "test": "bun run format:check && bun run lint && bun test"
+    "slash-deploy": "NODE_ENV=production bun run ./src/deploy-slash-commands.ts",
+    "typecheck": "tsc --noEmit",
+    "start": "NODE_ENV=production bun run ./src/index.ts",
+    "test": "bun run format:check && bun run lint && bun run typecheck && bun test"
   },
   "dependencies": {
-    "@nastyox/rando.js": "2.0.6",
     "common-tags": "1.8.2",
     "dayjs": "1.11.23",
     "discord.js": "14.27.0",
@@ -33,10 +34,17 @@
     "randomcolor": "0.6.2"
   },
   "devDependencies": {
+    "@types/common-tags": "^1.8.4",
+    "@types/he": "^1.2.3",
+    "@types/node": "26.5.0",
+    "@types/randomcolor": "^0.5.9",
+    "@typescript/native": "npm:typescript@7.0.2",
     "bun": "1.4.2",
+    "bun-types": "1.4.2",
     "cz-git": "1.14.0",
     "oxfmt": "0.67.0",
-    "oxlint": "1.82.0"
+    "oxlint": "1.82.0",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "config": {
     "commitizen": {

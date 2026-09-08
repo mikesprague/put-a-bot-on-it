@@ -1,0 +1,84 @@
+import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
+
+import { commands } from '../lib/embed-options.ts';
+import {
+  filterArrayOfObjects,
+  getCustomEmojiCode,
+  getKlipyGifs,
+  getRandomColor,
+  getRandomNum,
+  prepareEmbed,
+  registerKlipyGifShare,
+  sendEmbed,
+  sortArrayOfObjects,
+} from '../lib/helpers.ts';
+
+const sortedCommands = sortArrayOfObjects(commands, 'name');
+const choices = sortedCommands
+  .map((command) => ({
+    name: command.name,
+    value: command.value,
+  }))
+  .sort();
+
+export default {
+  data: new SlashCommandBuilder()
+    .setName('embed')
+    .setDescription('Create embed with random Klipy GIF from subject list')
+    .addStringOption((option) =>
+      option
+        .setName('subject')
+        .setDescription('Subject')
+        .setRequired(true)
+        .addChoices(...choices)
+    )
+    .addStringOption((option) =>
+      option.setName('query').setDescription('Enter optional search query')
+    ),
+  async execute(interaction: ChatInputCommandInteraction) {
+    await interaction.deferReply();
+    const subject = interaction.options.getString('subject') ?? '';
+    const [subjectOptions] = filterArrayOfObjects(commands, 'value', subject!);
+    const emojiStrings = subjectOptions.emoji;
+
+    const subjectEmoji =
+      emojiStrings && emojiStrings.length > 0
+        ? (getCustomEmojiCode(
+            emojiStrings[getRandomNum(emojiStrings.length)]
+          ) ?? null)
+        : null;
+
+    const embedColor = getRandomColor();
+
+    const arg = interaction.options.getString('query') ?? '';
+    const useArg = Boolean(arg.trim().length);
+    const searchTerm = useArg ? `${subject} ${arg}` : subject;
+
+    const subjectGifs: Array<{
+      id: string;
+      file: { hd: { gif: { url: string } } };
+    }> = await getKlipyGifs({ searchTerm });
+
+    // console.log(subjectGifs);
+
+    const randomNum = useArg
+      ? getRandomNum(Math.min(subjectGifs.length, 5))
+      : getRandomNum(subjectGifs.length);
+
+    const embedImage: string = subjectGifs[randomNum].file.hd.gif.url;
+
+    const subjectEmbed = prepareEmbed({
+      embedImage,
+      embedFooter: useArg ? `query: ${arg}` : '',
+      embedColor,
+    });
+
+    await registerKlipyGifShare(subjectGifs[randomNum], searchTerm);
+
+    await sendEmbed({
+      interaction,
+      content: subjectEmbed,
+      reaction: subjectEmoji ?? undefined,
+    });
+  },
+};
