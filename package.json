@@ -29,7 +29,6 @@
     "dayjs": "1.11.23",
     "discord.js": "14.27.0",
     "he": "1.2.0",
-    "node-localstorage": "3.0.5",
     "openai": "7.10.0",
     "randomcolor": "0.6.2"
   },

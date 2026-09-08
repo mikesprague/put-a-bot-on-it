@@ -1,18 +1,19 @@
 import { stripIndents } from 'common-tags';
-import { LocalStorage } from 'node-localstorage';
 import OpenAI from 'openai';
 
 import { initEasterEggs } from '../lib/easter-eggs.js';
 import { birdLog } from '../lib/helpers.js';
 import { gptGetEmoji } from '../lib/openai.js';
 import { initReactions } from '../lib/reactions.js';
+import {
+  readHistory,
+  removeHistory,
+  trimHistory,
+  writeHistory,
+} from '../lib/storage.js';
 
-const { NODE_ENV, DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPENAI_API_KEY } =
+const { DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPENAI_API_KEY } =
   process.env;
-
-const localStorage = new LocalStorage(
-  NODE_ENV === 'production' ? '/local-storage' : './local-storage'
-);
 
 export const event = {
   name: 'messageCreate',
@@ -25,7 +26,7 @@ export const event = {
         .toLowerCase() === 'clear-history'
     ) {
       const returnMessage = `Oh, look at that! Your message history is as empty as a bird's nest in winter. Don't worry though, I'm sure you'll fill it up with your incessant chirping soon enough.`;
-      localStorage.removeItem(storageKey);
+      removeHistory(storageKey);
       if (msg.channel.id === '814956028965158955') {
         msg.channel.send(returnMessage);
       } else {
@@ -42,12 +43,7 @@ export const event = {
       const openaiDM = new OpenAI({
         apiKey: OPENAI_API_KEY,
       });
-      let messageHistory = localStorage.getItem(storageKey);
-      if (messageHistory) {
-        messageHistory = JSON.parse(messageHistory);
-      } else {
-        messageHistory = [];
-      }
+      let messageHistory = readHistory(storageKey);
       // console.log(messageHistory);
 
       const messageContent =
@@ -70,9 +66,7 @@ export const event = {
 
       const input = [systemMessage];
 
-      if (messageHistory.length && messageHistory.length > 9) {
-        messageHistory.shift();
-      }
+      messageHistory = trimHistory(messageHistory);
 
       input.push(...messageHistory);
 
@@ -99,7 +93,7 @@ export const event = {
         content: chatResponse,
       };
       messageHistory.push(newReply);
-      localStorage.setItem(storageKey, JSON.stringify(messageHistory));
+      writeHistory(storageKey, messageHistory);
 
       if (msg.channel.id === '814956028965158955') {
         msg.channel.send(chatResponse);
