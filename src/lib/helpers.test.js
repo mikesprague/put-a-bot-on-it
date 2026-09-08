@@ -1,15 +1,29 @@
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 
+import { MessageFlags } from 'discord.js';
+
 import {
   filterArrayOfObjects,
   generateImageAttachment,
+  getCustomEmojiCode,
+  getKlipyGifs,
+  getRandomBirdEmoji,
+  getRandomColor,
+  getRandomGifByTerm,
+  getRandomNum,
   makeApiCall,
   messageIncludesWord,
   messageIncludesWords,
   messageMatchesWord,
   normalizeMsgContent,
+  prepareEmbed,
+  registerKlipyGifShare,
+  sendContent,
+  sendEmbed,
   sortArrayOfObjects,
+  wait,
 } from './helpers.js';
+import { birdEmojis, customEmoji } from './lists.js';
 
 describe('normalizeMsgContent', () => {
   it('lowercases and trims message content', () => {
@@ -61,6 +75,41 @@ describe('messageIncludesWords', () => {
   it('returns false when the message contains none of the words', () => {
     const msg = { content: 'I like pizza' };
     expect(messageIncludesWords(msg, ['tacos', 'burritos'])).toBe(false);
+  });
+});
+
+describe('getRandomNum', () => {
+  it('returns an integer within the range [0, maxValue)', () => {
+    const num = getRandomNum(10);
+    expect(Number.isInteger(num)).toBe(true);
+    expect(num).toBeGreaterThanOrEqual(0);
+    expect(num).toBeLessThan(10);
+  });
+});
+
+describe('getRandomColor', () => {
+  it('returns a hex color string', () => {
+    expect(getRandomColor()).toMatch(/^#[0-9a-f]{6}$/i);
+  });
+});
+
+describe('getRandomBirdEmoji', () => {
+  it('returns an emoji from the birdEmojis list', () => {
+    expect(birdEmojis).toContain(getRandomBirdEmoji());
+  });
+});
+
+describe('getCustomEmojiCode', () => {
+  it('returns the emoji code for a known name', () => {
+    expect(getCustomEmojiCode('steve')).toBe(customEmoji.steve);
+  });
+
+  it('trims whitespace from the name', () => {
+    expect(getCustomEmojiCode('  steve  ')).toBe(customEmoji.steve);
+  });
+
+  it('returns undefined for an unknown name', () => {
+    expect(getCustomEmojiCode('not-a-real-emoji')).toBeUndefined();
   });
 });
 
@@ -137,6 +186,26 @@ describe('makeApiCall', () => {
     expect(capturedConfig.body).toBe(JSON.stringify({ foo: 'bar' }));
   });
 
+  it('sends the body for PUT requests', async () => {
+    let capturedConfig;
+    globalThis.fetch = async (url, config) => {
+      capturedConfig = config;
+      return createOkResponse({ ok: true });
+    };
+    await makeApiCall('https://example.com/api', 'PUT', null, { foo: 'bar' });
+    expect(capturedConfig.body).toEqual({ foo: 'bar' });
+  });
+
+  it('sends the body when the method is lowercase', async () => {
+    let capturedConfig;
+    globalThis.fetch = async (url, config) => {
+      capturedConfig = config;
+      return createOkResponse({ ok: true });
+    };
+    await makeApiCall('https://example.com/api', 'post', null, { foo: 'bar' });
+    expect(capturedConfig.body).toEqual({ foo: 'bar' });
+  });
+
   it('does not send a body for GET requests even when one is provided', async () => {
     let capturedConfig;
     globalThis.fetch = async (url, config) => {
@@ -157,6 +226,239 @@ describe('makeApiCall', () => {
     await expect(makeApiCall('https://example.com/api')).rejects.toThrow(
       'HTTP 500: Internal Server Error'
     );
+  });
+});
+
+describe('getKlipyGifs', () => {
+  let originalFetch;
+  let originalKey;
+
+  beforeEach(() => {
+    originalFetch = globalThis.fetch;
+    originalKey = process.env.KLIPY_API_KEY;
+    process.env.KLIPY_API_KEY = 'test-key';
+  });
+
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+    process.env.KLIPY_API_KEY = originalKey;
+  });
+
+  it('returns gif data from the primary request', async () => {
+    let callCount = 0;
+    globalThis.fetch = async () => {
+      callCount += 1;
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ data: { data: [{ id: 1 }] } }),
+      };
+    };
+    const result = await getKlipyGifs({ searchTerm: 'party' });
+    expect(result).toEqual([{ id: 1 }]);
+    expect(callCount).toBe(1);
+  });
+
+  it('falls back to the backup search when the primary is empty', async () => {
+    const responses = [{ data: { data: [] } }, { data: { data: [{ id: 2 }] } }];
+    let callCount = 0;
+    globalThis.fetch = async () => {
+      const body = responses[callCount];
+      callCount += 1;
+      return { ok: true, status: 200, json: async () => body };
+    };
+    const result = await getKlipyGifs({ searchTerm: 'party' });
+    expect(result).toEqual([{ id: 2 }]);
+    expect(callCount).toBe(2);
+  });
+});
+
+describe('registerKlipyGifShare', () => {
+  let originalFetch;
+  let originalKey;
+
+  beforeEach(() => {
+    originalFetch = globalThis.fetch;
+    originalKey = process.env.KLIPY_API_KEY;
+    process.env.KLIPY_API_KEY = 'test-key';
+  });
+
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+    process.env.KLIPY_API_KEY = originalKey;
+  });
+
+  it('POSTs the share with the gif id and search term', async () => {
+    let capturedConfig;
+    globalThis.fetch = async (url, config) => {
+      capturedConfig = config;
+      return { ok: true, status: 200, json: async () => ({ ok: true }) };
+    };
+    await registerKlipyGifShare({ id: 'gif-123' }, 'party parrot');
+    expect(capturedConfig.method).toBe('POST');
+    expect(capturedConfig.body).toEqual({
+      customer_id: 'put-a-bot-on-it-discord-server',
+      q: 'party parrot',
+    });
+  });
+});
+
+describe('getRandomGifByTerm', () => {
+  let originalFetch;
+
+  beforeEach(() => {
+    originalFetch = globalThis.fetch;
+  });
+
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+  });
+
+  const gif = {
+    file: {
+      md: { gif: { url: 'md-url' } },
+      hd: { gif: { url: 'hd-url' } },
+    },
+  };
+
+  it('returns the hd gif url by default', async () => {
+    globalThis.fetch = async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ data: { data: [gif] } }),
+    });
+    expect(await getRandomGifByTerm('test')).toBe('hd-url');
+  });
+
+  it('returns the md gif url when useDownsized is true', async () => {
+    globalThis.fetch = async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ data: { data: [gif] } }),
+    });
+    expect(await getRandomGifByTerm('test', true)).toBe('md-url');
+  });
+});
+
+describe('prepareEmbed', () => {
+  it('returns an embed with no fields set when called without arguments', () => {
+    const embed = prepareEmbed();
+    expect(embed.data.title).toBeUndefined();
+    expect(embed.data.color).toBeUndefined();
+    expect(embed.data.description).toBeUndefined();
+    expect(embed.data.author).toBeUndefined();
+  });
+
+  it('sets all provided fields on the embed', () => {
+    const embed = prepareEmbed({
+      embedAuthor: { name: 'BirdBot' },
+      embedTitle: 'Hello',
+      embedDescription: 'World',
+      embedThumbnail: 'https://example.com/thumb.png',
+      embedImage: 'https://example.com/image.png',
+      embedColor: '#ff0000',
+      embedUrl: 'https://example.com',
+      embedFooter: 'Made with love',
+    });
+    expect(embed.data.author).toEqual({ name: 'BirdBot' });
+    expect(embed.data.title).toBe('Hello');
+    expect(embed.data.description).toBe('World');
+    expect(embed.data.thumbnail).toEqual({
+      url: 'https://example.com/thumb.png',
+    });
+    expect(embed.data.image).toEqual({ url: 'https://example.com/image.png' });
+    expect(embed.data.color).toBe(0xff0000);
+    expect(embed.data.url).toBe('https://example.com');
+    expect(embed.data.footer).toEqual({ text: 'Made with love' });
+  });
+});
+
+describe('sendContent', () => {
+  const makeInteraction = () => ({
+    reply: async () => {},
+    editReply: async () => {},
+    fetchReply: async () => ({ react: async () => {}, delete: async () => {} }),
+  });
+
+  it('replies when not deferred', async () => {
+    let args;
+    const interaction = makeInteraction();
+    interaction.reply = async (a) => {
+      args = a;
+    };
+    await sendContent({ interaction, content: 'hi' });
+    expect(args.content).toBe('hi');
+    expect(args.flags).toBeUndefined();
+  });
+
+  it('edits the reply when deferred', async () => {
+    let args;
+    const interaction = makeInteraction();
+    interaction.editReply = async (a) => {
+      args = a;
+    };
+    await sendContent({ interaction, content: 'hi', deferred: true });
+    expect(args.content).toBe('hi');
+  });
+
+  it('sets the ephemeral flag when requested', async () => {
+    let args;
+    const interaction = makeInteraction();
+    interaction.reply = async (a) => {
+      args = a;
+    };
+    await sendContent({ interaction, content: 'hi', ephemeral: true });
+    expect(args.flags).toBe(MessageFlags.Ephemeral);
+  });
+
+  it('reacts when a reaction is provided', async () => {
+    let reacted;
+    const interaction = makeInteraction();
+    interaction.fetchReply = async () => ({
+      react: async (emoji) => {
+        reacted = emoji;
+      },
+      delete: async () => {},
+    });
+    await sendContent({ interaction, content: 'hi', reaction: '👍' });
+    expect(reacted).toBe('👍');
+  });
+});
+
+describe('sendEmbed', () => {
+  it('replies with an embed and file when not deferred', async () => {
+    let args;
+    const interaction = {
+      reply: async (a) => {
+        args = a;
+      },
+      editReply: async () => {},
+      fetchReply: async () => ({ react: async () => {} }),
+    };
+    const embed = { title: 'hi' };
+    const file = { name: 'file.png' };
+    await sendEmbed({ interaction, content: embed, file, deferred: false });
+    expect(args.embeds).toEqual([embed]);
+    expect(args.files).toEqual([file]);
+  });
+
+  it('reacts with each emoji when the reaction is an array', async () => {
+    const reacted = [];
+    const interaction = {
+      reply: async () => {},
+      editReply: async () => {},
+      fetchReply: async () => ({
+        react: async (emoji) => {
+          reacted.push(emoji);
+        },
+      }),
+    };
+    await sendEmbed({
+      interaction,
+      content: { title: 'x' },
+      reaction: ['👍', '🔥'],
+    });
+    expect(reacted).toEqual(['👍', '🔥']);
   });
 });
 
@@ -198,5 +500,13 @@ describe('generateImageAttachment', () => {
     expect(capturedArgs.user).toBe('user-123');
     expect(capturedArgs.moderation).toBe('low');
     expect(capturedArgs.quality).toBe('auto');
+  });
+});
+
+describe('wait', () => {
+  it('resolves after the given delay', async () => {
+    const start = Date.now();
+    await wait(20);
+    expect(Date.now() - start).toBeGreaterThanOrEqual(20);
   });
 });

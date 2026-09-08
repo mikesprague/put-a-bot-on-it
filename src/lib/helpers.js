@@ -148,7 +148,7 @@ export const prepareEmbed = ({
   embedColor = '',
   embedUrl = '',
   embedFooter = '',
-}) => {
+} = {}) => {
   const discordEmbed = new Discord.EmbedBuilder();
 
   if (embedAuthor.name.trim().length) {
