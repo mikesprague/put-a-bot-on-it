@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'bun:test';
 
+import type OpenAI from 'openai';
+
 import {
   gptAnalyzeText,
   gptGetEmoji,
@@ -12,7 +14,7 @@ const makeClient = (outputText: string) =>
     responses: {
       create: async () => ({ output_text: outputText }),
     },
-  }) as any;
+  }) as unknown as OpenAI;
 
 describe('gptAnalyzeText', () => {
   it('returns the output text from the response', async () => {
@@ -26,15 +28,19 @@ describe('gptAnalyzeText', () => {
   });
 
   it('trims the input and passes through options', async () => {
-    let captured: any;
+    let captured!: { input: unknown; model: unknown; user: unknown };
     const openAiClient = {
       responses: {
-        create: async (args: any) => {
+        create: async (args: {
+          input: unknown;
+          model: unknown;
+          user: unknown;
+        }) => {
           captured = args;
           return { output_text: 'result' };
         },
       },
-    } as any;
+    } as unknown as OpenAI;
     await gptAnalyzeText({
       systemPrompt: '  sys  ',
       textToAnalyze: '  text  ',
@@ -120,7 +126,7 @@ describe('gptGetEmoji', () => {
             throw new Error('boom');
           },
         },
-      } as any;
+      } as unknown as OpenAI;
       const result = await gptGetEmoji({
         textToAnalyze: 'anything',
         openAiClient,

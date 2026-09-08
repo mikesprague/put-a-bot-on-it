@@ -8,6 +8,7 @@ import {
   removeHistory,
   trimHistory,
   writeHistory,
+  type ChatMessage,
 } from './storage.ts';
 
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'storage-test-'));
@@ -29,7 +30,7 @@ describe('readHistory', () => {
 
 describe('writeHistory / readHistory', () => {
   it('round-trips an array', () => {
-    const value = [{ role: 'user', content: 'hi' }];
+    const value: ChatMessage[] = [{ role: 'user', content: 'hi' }];
     writeHistory('roundtrip', value);
     expect(readHistory('roundtrip')).toEqual(value);
   });

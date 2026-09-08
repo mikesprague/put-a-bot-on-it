@@ -21,7 +21,7 @@ export default {
     await interaction.deferReply();
     const apiUrl = ronSwansonApi();
     const searchTerm = 'ron swanson';
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = (await makeApiCall(apiUrl)) as string[];
     const randomColor = getRandomColor();
     const ronGifs = await getKlipyGifs({
       searchTerm: `${searchTerm} ${apiData[0]}`,

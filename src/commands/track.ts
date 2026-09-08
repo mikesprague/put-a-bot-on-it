@@ -22,11 +22,16 @@ export default {
       .trim()
       .toLowerCase();
     const apiUrl = packagePlaceApi(trackingId);
-    const apiData = await makeApiCall(apiUrl, 'GET', {
+    type TrackingUpdate = {
+      location: { city: string; state: string } | string;
+      status: string;
+      timestamp: string;
+    };
+    const apiData = (await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
       'Accept-Encoding': 'gzip, deflate',
       'User-Agent': 'BirdBot (Discord.js bot on private server)',
-    });
+    })) as Record<string, TrackingUpdate[]>;
     const keys = Object.keys(apiData);
     const key = keys.length > 1 ? keys[keys.length - 1] : keys[0];
     const data = apiData[key];

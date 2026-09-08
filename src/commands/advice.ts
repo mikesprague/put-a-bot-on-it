@@ -9,7 +9,9 @@ export default {
     .setDescription('Get random advice from an API'),
   async execute(interaction: ChatInputCommandInteraction) {
     const apiUrl = adviceApi();
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = (await makeApiCall(apiUrl)) as {
+      slip: { advice: string };
+    };
     const adviceContent = apiData.slip.advice;
     return await sendContent({ interaction, content: adviceContent });
   },

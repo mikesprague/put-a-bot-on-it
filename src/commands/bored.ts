@@ -9,7 +9,7 @@ export default {
     .setDescription('Get random activity ideas from an API'),
   async execute(interaction: ChatInputCommandInteraction) {
     const apiUrl = boredApi();
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = (await makeApiCall(apiUrl)) as { activity: string };
     const boredContent = apiData.activity;
     // console.log(boredContent);
     return await sendContent({ interaction, content: boredContent });

@@ -7,11 +7,16 @@ const storageDir = () =>
     ? '/local-storage'
     : './local-storage');
 
-export const readHistory = (key: string): any[] => {
+export type ChatMessage = {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+};
+
+export const readHistory = (key: string): ChatMessage[] => {
   try {
     return JSON.parse(
       fs.readFileSync(path.join(storageDir(), `${key}.json`), 'utf8')
-    );
+    ) as ChatMessage[];
   } catch {
     return [];
   }

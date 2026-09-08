@@ -28,9 +28,19 @@ export default {
     const apiURLBase = nasaApi(NASA_API_KEY!);
     const isToday = interaction.options.getString('date') === 'today';
     const apiUrlSuffix = isToday ? '' : '&count=50';
-    const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
+    type NasaApod = {
+      title: string;
+      explanation: string;
+      hdurl?: string;
+      url: string;
+    };
+    const apiData = (await makeApiCall(`${apiURLBase}${apiUrlSuffix}`)) as
+      | NasaApod
+      | NasaApod[];
     const nasaColor = '#113991';
-    const nasaData = isToday ? apiData : apiData[getRandomNum(apiData.length)];
+    const nasaData = isToday
+      ? (apiData as NasaApod)
+      : (apiData as NasaApod[])[getRandomNum((apiData as NasaApod[]).length)];
     const nasaEmbed = prepareEmbed({
       embedColor: nasaColor,
       embedTitle: nasaData.title,

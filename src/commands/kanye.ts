@@ -23,7 +23,7 @@ export default {
     const kanyeEmoji = emojiList[getRandomNum(emojiList.length)];
     const apiUrl = kanyeApi();
     const randomColor = getRandomColor();
-    const kanyeData = await makeApiCall(apiUrl);
+    const kanyeData = (await makeApiCall(apiUrl)) as { quote: string };
     const kanyeGifs = await getKlipyGifs({
       searchTerm: `${searchTerm} ${kanyeData.quote}`,
     });

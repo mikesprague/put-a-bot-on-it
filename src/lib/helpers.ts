@@ -55,7 +55,7 @@ export const makeApiCall = async (
   requestHeaders: Record<string, string> | null = null,
   requestBody: unknown = null,
   timeoutMs = 10000
-): Promise<any> => {
+): Promise<unknown> => {
   const fetchConfig: {
     method: string;
     signal: AbortSignal;
@@ -94,11 +94,22 @@ export const getRandomBirdEmoji = (): string => {
 export const getCustomEmojiCode = (emojiName: string): string | undefined =>
   (customEmoji as Record<string, string>)[emojiName.trim()];
 
+type KlipyGif = {
+  id: string;
+  file: {
+    md: { gif: { url: string } };
+    hd: { gif: { url: string } };
+  };
+};
+type KlipyResponse = { data: { data: KlipyGif[] } };
+
+export type { KlipyGif };
+
 export const getKlipyGifs = async ({
   searchTerm,
 }: {
   searchTerm: string;
-}): Promise<any> => {
+}): Promise<KlipyGif[]> => {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
   const KLIPY_API_KEY = process.env.KLIPY_API_KEY!;
   birdLog(`[getKlipyGifs] ${encodedSearchTerm}`);
@@ -106,7 +117,7 @@ export const getKlipyGifs = async ({
     apiKey: KLIPY_API_KEY,
     searchTerm: encodedSearchTerm,
   });
-  const remoteData = await makeApiCall(apiUrl);
+  const remoteData = (await makeApiCall(apiUrl)) as KlipyResponse;
   // console.log('remoteData: ', remoteData);
   if (remoteData?.data?.data.length) {
     return remoteData.data.data;
@@ -117,7 +128,7 @@ export const getKlipyGifs = async ({
     searchTerm: backupSearchTerm,
   });
   // console.log('backupApiUrl: ', backupApiUrl);
-  const backupData = await makeApiCall(backupApiUrl);
+  const backupData = (await makeApiCall(backupApiUrl)) as KlipyResponse;
   return backupData.data.data;
 };
 
@@ -169,7 +180,7 @@ export const generateImageAttachment = async ({
     ...options,
     user: userId,
   });
-  const aiImage = (response as any).data[0].b64_json as string;
+  const aiImage = response.data?.[0]?.b64_json ?? '';
   const aiImageName = `${randomUUID()}.png`;
   const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
     name: aiImageName,

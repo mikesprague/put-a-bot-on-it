@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 
-import { ChatInputCommandInteraction, MessageFlags } from 'discord.js';
+import {
+  AttachmentBuilder,
+  ChatInputCommandInteraction,
+  EmbedBuilder,
+  MessageFlags,
+} from 'discord.js';
+import type OpenAI from 'openai';
 
 import {
   filterArrayOfObjects,
@@ -22,8 +28,11 @@ import {
   sendEmbed,
   sortArrayOfObjects,
   wait,
+  type KlipyGif,
 } from './helpers.ts';
 import { birdEmojis, customEmoji } from './lists.ts';
+
+type ReplyOpts = { content?: string; flags?: number };
 
 describe('normalizeMsgContent', () => {
   it('lowercases and trims message content', () => {
@@ -163,9 +172,9 @@ describe('makeApiCall', () => {
   });
 
   it('sends the provided method and headers', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return createOkResponse({ ok: true });
     }) as unknown as typeof fetch;
     await makeApiCall('https://example.com/api', 'POST', {
@@ -178,9 +187,9 @@ describe('makeApiCall', () => {
   });
 
   it('sends the body for POST requests', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return createOkResponse({ ok: true });
     }) as unknown as typeof fetch;
     await makeApiCall(
@@ -193,29 +202,29 @@ describe('makeApiCall', () => {
   });
 
   it('sends the body for PUT requests', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return createOkResponse({ ok: true });
     }) as unknown as typeof fetch;
     await makeApiCall('https://example.com/api', 'PUT', null, { foo: 'bar' });
-    expect(capturedConfig.body).toEqual({ foo: 'bar' });
+    expect(capturedConfig.body as unknown).toEqual({ foo: 'bar' });
   });
 
   it('sends the body when the method is lowercase', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return createOkResponse({ ok: true });
     }) as unknown as typeof fetch;
     await makeApiCall('https://example.com/api', 'post', null, { foo: 'bar' });
-    expect(capturedConfig.body).toEqual({ foo: 'bar' });
+    expect(capturedConfig.body as unknown).toEqual({ foo: 'bar' });
   });
 
   it('does not send a body for GET requests even when one is provided', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return createOkResponse({ ok: true });
     }) as unknown as typeof fetch;
     await makeApiCall('https://example.com/api', 'GET', null, { foo: 'bar' });
@@ -235,14 +244,14 @@ describe('makeApiCall', () => {
   });
 
   it('sets an AbortSignal timeout on the fetch config', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return createOkResponse({ ok: true });
     }) as unknown as typeof fetch;
     await makeApiCall('https://example.com/api');
     expect(capturedConfig.signal).toBeInstanceOf(AbortSignal);
-    expect(typeof capturedConfig.signal.aborted).toBe('boolean');
+    expect(typeof capturedConfig.signal!.aborted).toBe('boolean');
   });
 });
 
@@ -272,7 +281,7 @@ describe('getKlipyGifs', () => {
       };
     }) as unknown as typeof fetch;
     const result = await getKlipyGifs({ searchTerm: 'party' });
-    expect(result).toEqual([{ id: 1 }]);
+    expect(result).toEqual([{ id: 1 }] as unknown as KlipyGif[]);
     expect(callCount).toBe(1);
   });
 
@@ -285,7 +294,7 @@ describe('getKlipyGifs', () => {
       return { ok: true, status: 200, json: async () => body };
     }) as unknown as typeof fetch;
     const result = await getKlipyGifs({ searchTerm: 'party' });
-    expect(result).toEqual([{ id: 2 }]);
+    expect(result).toEqual([{ id: 2 }] as unknown as KlipyGif[]);
     expect(callCount).toBe(2);
   });
 });
@@ -306,14 +315,14 @@ describe('registerKlipyGifShare', () => {
   });
 
   it('POSTs the share with the gif id and search term', async () => {
-    let capturedConfig: any;
+    let capturedConfig!: RequestInit;
     globalThis.fetch = (async (_url: unknown, config: unknown) => {
-      capturedConfig = config;
+      capturedConfig = config as unknown as RequestInit;
       return { ok: true, status: 200, json: async () => ({ ok: true }) };
     }) as unknown as typeof fetch;
     await registerKlipyGifShare({ id: 'gif-123' }, 'party parrot');
     expect(capturedConfig.method).toBe('POST');
-    expect(capturedConfig.body).toEqual({
+    expect(capturedConfig.body as unknown).toEqual({
       customer_id: 'put-a-bot-on-it-discord-server',
       q: 'party parrot',
     });
@@ -402,10 +411,12 @@ describe('sendContent', () => {
     }) as unknown as ChatInputCommandInteraction;
 
   it('replies when not deferred', async () => {
-    let args: any;
+    let args!: ReplyOpts;
     const interaction = makeInteraction();
-    (interaction as any).reply = async (a: any) => {
-      args = a;
+    (
+      interaction as unknown as { reply: (o: ReplyOpts) => Promise<unknown> }
+    ).reply = async (o) => {
+      args = o;
     };
     await sendContent({ interaction, content: 'hi' });
     expect(args.content).toBe('hi');
@@ -413,30 +424,38 @@ describe('sendContent', () => {
   });
 
   it('edits the reply when deferred', async () => {
-    let args: any;
+    let args!: ReplyOpts;
     const interaction = makeInteraction();
-    (interaction as any).editReply = async (a: any) => {
-      args = a;
+    (
+      interaction as unknown as {
+        editReply: (o: ReplyOpts) => Promise<unknown>;
+      }
+    ).editReply = async (o) => {
+      args = o;
     };
     await sendContent({ interaction, content: 'hi', deferred: true });
     expect(args.content).toBe('hi');
   });
 
   it('sets the ephemeral flag when requested', async () => {
-    let args: any;
+    let args!: ReplyOpts;
     const interaction = makeInteraction();
-    (interaction as any).reply = async (a: any) => {
-      args = a;
+    (
+      interaction as unknown as { reply: (o: ReplyOpts) => Promise<unknown> }
+    ).reply = async (o) => {
+      args = o;
     };
     await sendContent({ interaction, content: 'hi', ephemeral: true });
     expect(args.flags).toBe(MessageFlags.Ephemeral);
   });
 
   it('reacts when a reaction is provided', async () => {
-    let reacted: any;
+    let reacted!: string;
     const interaction = makeInteraction();
-    (interaction as any).fetchReply = async () => ({
-      react: async (emoji: any) => {
+    (
+      interaction as unknown as { fetchReply: () => Promise<unknown> }
+    ).fetchReply = async () => ({
+      react: async (emoji: string) => {
         reacted = emoji;
       },
       delete: async () => {},
@@ -448,10 +467,13 @@ describe('sendContent', () => {
 
 describe('sendEmbed', () => {
   it('replies with an embed and file when not deferred', async () => {
-    let args: any;
+    let args!: ReplyOpts & {
+      embeds?: unknown;
+      files?: unknown;
+    };
     const interaction = {
-      reply: async (a: any) => {
-        args = a;
+      reply: async (o: ReplyOpts & { embeds?: unknown; files?: unknown }) => {
+        args = o;
       },
       editReply: async () => {},
       fetchReply: async () => ({ react: async () => {} }),
@@ -460,8 +482,8 @@ describe('sendEmbed', () => {
     const file = { name: 'file.png' };
     await sendEmbed({
       interaction,
-      content: embed as any,
-      file: file as any,
+      content: embed as unknown as EmbedBuilder,
+      file: file as unknown as AttachmentBuilder,
       deferred: false,
     });
     expect(args.embeds).toEqual([embed]);
@@ -469,19 +491,19 @@ describe('sendEmbed', () => {
   });
 
   it('reacts with each emoji when the reaction is an array', async () => {
-    const reacted: any[] = [];
+    const reacted: string[] = [];
     const interaction = {
       reply: async () => {},
       editReply: async () => {},
       fetchReply: async () => ({
-        react: async (emoji: any) => {
+        react: async (emoji: string) => {
           reacted.push(emoji);
         },
       }),
     } as unknown as ChatInputCommandInteraction;
     await sendEmbed({
       interaction,
-      content: { title: 'x' } as any,
+      content: { title: 'x' } as unknown as EmbedBuilder,
       reaction: ['👍', '🔥'],
     });
     expect(reacted).toEqual(['👍', '🔥']);
@@ -496,7 +518,7 @@ describe('generateImageAttachment', () => {
           data: [{ b64_json: 'aGVsbG8=' }],
         }),
       },
-    } as any;
+    } as unknown as OpenAI;
     const { embedFile, embedImage } = await generateImageAttachment({
       openai,
       prompt: 'test prompt',
@@ -507,15 +529,15 @@ describe('generateImageAttachment', () => {
   });
 
   it('passes extra options to the generate call', async () => {
-    let capturedArgs: any;
+    let capturedArgs!: Record<string, unknown>;
     const openai = {
       images: {
-        generate: async (args: any) => {
+        generate: async (args: Record<string, unknown>) => {
           capturedArgs = args;
           return { data: [{ b64_json: 'aGVsbG8=' }] };
         },
       },
-    } as any;
+    } as unknown as OpenAI;
     await generateImageAttachment({
       openai,
       prompt: 'test prompt',

@@ -16,7 +16,10 @@ export default {
   async execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     const apiUrl = thisForThatApi();
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = (await makeApiCall(apiUrl)) as {
+      this: string;
+      that: string;
+    };
     const topicGif = await getRandomGifByTerm(apiData.that, false);
     const randomColor = getRandomColor();
     const startupIdea = `${apiData.this} for ${apiData.that}`;

@@ -104,15 +104,14 @@ export default {
         deferred: true,
         reaction: greatSuccessEmoji,
       });
-    } catch (error: any) {
+    } catch (error) {
       let returnMessage = '';
-      if (error?.response) {
-        returnMessage = String(error.response.data ?? '');
+      const err = error as { response?: { data?: unknown }; message?: unknown };
+      if (err.response) {
+        returnMessage = String(err.response.data ?? '');
       } else {
         const errorMessage =
-          typeof error === 'object' && error && 'message' in error
-            ? String((error as { message: unknown }).message)
-            : String(error);
+          err.message !== undefined ? String(err.message) : String(err);
         console.log(errorMessage);
         returnMessage = errorMessage;
       }

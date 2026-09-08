@@ -9,7 +9,12 @@ export default {
     .setDescription('Gets a random joke from an API'),
   async execute(interaction: ChatInputCommandInteraction) {
     const apiUrl = jokeApi();
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = (await makeApiCall(apiUrl)) as {
+      type: string;
+      joke: string;
+      setup: string;
+      delivery: string;
+    };
     const { type, joke, setup, delivery } = apiData;
     const dadJokeContent =
       type === 'single' ? joke : `${setup}\n\n||${delivery}||`;

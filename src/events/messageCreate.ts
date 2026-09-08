@@ -11,6 +11,7 @@ import {
   removeHistory,
   trimHistory,
   writeHistory,
+  type ChatMessage,
 } from '../lib/storage.ts';
 
 const { DISCORD_CLIENT_ID, DISCORD_GUILD_ADMIN_ID, OPENAI_API_KEY } =
@@ -43,7 +44,7 @@ export const event = {
       const openaiDM = new OpenAI({
         apiKey: OPENAI_API_KEY!,
       });
-      let messageHistory: any[] = readHistory(storageKey);
+      let messageHistory: ChatMessage[] = readHistory(storageKey);
       // console.log(messageHistory);
 
       const messageContent =
@@ -53,7 +54,7 @@ export const event = {
 
       birdLog(`[@${msg.author.username}] ${messageContent}`);
 
-      const systemMessage = {
+      const systemMessage: ChatMessage = {
         role: 'system',
         content: stripIndents`
           You are a robotic bird that's an AI assistant for a Discord server:
@@ -64,13 +65,13 @@ export const event = {
         `,
       };
 
-      const input = [systemMessage];
+      const input: ChatMessage[] = [systemMessage];
 
       messageHistory = trimHistory(messageHistory);
 
       input.push(...messageHistory);
 
-      const newMessage = {
+      const newMessage: ChatMessage = {
         role: 'user',
         content: messageContent,
       };
@@ -82,13 +83,13 @@ export const event = {
         .create({
           model: 'gpt-5.5',
           tools: [{ type: 'web_search' }],
-          input: input as any,
+          input,
         })
         .then((response) => response.output_text);
 
       // console.log(chatResponse);
       birdLog(`[@Bird Bot] ${chatResponse}`);
-      const newReply = {
+      const newReply: ChatMessage = {
         role: 'assistant',
         content: chatResponse,
       };

@@ -9,7 +9,7 @@ export default {
     .setDescription('Get an affirmation from an API'),
   async execute(interaction: ChatInputCommandInteraction) {
     const apiUrl = affirmationApi();
-    const apiData = await makeApiCall(apiUrl);
+    const apiData = (await makeApiCall(apiUrl)) as { affirmation: string };
     const { affirmation } = apiData;
     return await sendContent({ interaction, content: affirmation });
   },

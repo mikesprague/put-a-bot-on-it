@@ -11,9 +11,9 @@ export default {
   async execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     const apiUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&part=id&maxResults=100&order=relevance&q=hall%20and%20oates&safeSearch=none&type=video&videoEmbeddable=true&publishedBefore=2013-01-01T00%3A00%3A00Z&key=${YOUTUBE_API_KEY}`;
-    const apiData = await makeApiCall(apiUrl, 'GET', {
+    const apiData = (await makeApiCall(apiUrl, 'GET', {
       Accept: 'application/json',
-    });
+    })) as { items: Array<{ id: { videoId: string } }> };
     // console.log(apiData);
     const randomNum = getRandomNum(apiData.items.length);
     const { videoId } = apiData.items[randomNum].id;
