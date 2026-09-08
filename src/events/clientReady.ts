@@ -2,7 +2,6 @@ import fs from 'node:fs';
 
 import { Client, Collection } from 'discord.js';
 
-// import { initAllGifGreetings } from '../lib/greetings.ts';
 import { birdLog } from '../lib/helpers.ts';
 
 export const event = {
