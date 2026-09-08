@@ -43,7 +43,7 @@ export default {
             content: stripIndents`
             You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
             - You should reply with a prompt that describes the image the user wants based on their input
-            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-2" model
+            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-2.5-flare" model
             - The prompt should be no more than 1 paragraph long
             - Images should be captured in a realistic photograph with natural lighting unless otherwise specified by the user
             - Images should not contain any text unless asked for by the user

@@ -175,7 +175,7 @@ export const generateImageAttachment = async ({
   const response = await openai.images.generate({
     prompt,
     n: 1,
-    model: 'gpt-image-2',
+    model: 'gpt-image-2.5-flare',
     size: 'auto',
     ...options,
     user: userId,
