@@ -87,6 +87,19 @@ describe('gptGetEmoji', () => {
     ]);
   });
 
+  it('parses a JSON array wrapped in markdown fences', async () => {
+    const openAiClient = makeClient(
+      '```json\n[{"emoji":"😀","shortCode":":grinning:","reason":"happy"}]\n```'
+    );
+    const result = await gptGetEmoji({
+      textToAnalyze: 'happy',
+      openAiClient,
+    });
+    expect(result).toEqual([
+      { emoji: '😀', shortCode: ':grinning:', reason: 'happy' },
+    ]);
+  });
+
   it('returns see-no-evil emojis for inappropriate content', async () => {
     const openAiClient = makeClient('inappropriate and offensive content');
     const result = await gptGetEmoji({

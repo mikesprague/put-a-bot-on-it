@@ -29,9 +29,8 @@ export default {
     const isToday = interaction.options.getString('date') === 'today';
     const apiUrlSuffix = isToday ? '' : '&count=50';
     const apiData = await makeApiCall(`${apiURLBase}${apiUrlSuffix}`);
-    const randomNum = getRandomNum(apiData.length);
     const nasaColor = '#113991';
-    const nasaData = isToday ? apiData : apiData[randomNum];
+    const nasaData = isToday ? apiData : apiData[getRandomNum(apiData.length)];
     const nasaEmbed = prepareEmbed({
       embedColor: nasaColor,
       embedTitle: nasaData.title,

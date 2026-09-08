@@ -143,13 +143,8 @@ export const gptGetEmoji = async ({
         },
       ];
     } else {
-      const getContent = (content, char1, char2) => {
-        let str = content.split(char1);
-        str = str[1].split(char2);
-        return str[0];
-      };
-
-      content = `[ ${getContent(content, '[', ']').trim()} ]`;
+      const match = content.match(/\[[\s\S]*\]/);
+      content = match ? match[0].trim() : '[]';
       birdLog(`[gptGetEmoji] ${content}`);
       emojiJson = JSON.parse(content);
     }

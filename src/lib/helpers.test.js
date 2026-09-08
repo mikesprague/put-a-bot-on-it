@@ -227,6 +227,17 @@ describe('makeApiCall', () => {
       'HTTP 500: Internal Server Error'
     );
   });
+
+  it('sets an AbortSignal timeout on the fetch config', async () => {
+    let capturedConfig;
+    globalThis.fetch = async (url, config) => {
+      capturedConfig = config;
+      return createOkResponse({ ok: true });
+    };
+    await makeApiCall('https://example.com/api');
+    expect(capturedConfig.signal).toBeInstanceOf(AbortSignal);
+    expect(typeof capturedConfig.signal.aborted).toBe('boolean');
+  });
 });
 
 describe('getKlipyGifs', () => {

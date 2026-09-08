@@ -11,8 +11,7 @@ export const birdLog = (...content) => console.log('🐦💬 ', ...content);
 
 export const getRandomNum = (maxValue) => Number(rando(0, maxValue - 1));
 
-export const getRandomColor = (options = {}) =>
-  options.length ? randomColor(options) : randomColor();
+export const getRandomColor = () => randomColor();
 
 export const normalizeMsgContent = (msg) => msg.content.toLowerCase().trim();
 
@@ -38,10 +37,12 @@ export const makeApiCall = async (
   apiEndpoint,
   requestMethod = 'GET',
   requestHeaders = null,
-  requestBody = null
+  requestBody = null,
+  timeoutMs = 10000
 ) => {
   const fetchConfig = {
     method: requestMethod,
+    signal: AbortSignal.timeout(timeoutMs),
   };
   if (
     (requestMethod.toUpperCase() === 'POST' ||
