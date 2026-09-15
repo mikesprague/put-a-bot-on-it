@@ -85,9 +85,9 @@ export default {
         {
           role: 'system',
           content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to GPT-Image for images
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.5-flare for images
             that represent various National Days. You will be provided with the name of a National Day.
-            You should reply with a prompt that describes the image for GPT-Image to generate:
+            You should reply with a prompt that describes the image for GPT-Image-2.5-flare to generate:
               - Images should be photo realistic
               - Images should not contain any text
               - Return only the text for image prompt
@@ -102,7 +102,7 @@ export default {
     });
 
     const imagePrompt = imagePromptResponse.output_text
-      .replace('Prompt for GPT-Image:', '')
+      .replace('Prompt for GPT-Image-2.5-flare:', '')
       .trim();
 
     // const imagePrompt = `action shot of ${aiSummary}, photo, extremely detailed, perfect composition, no words`;

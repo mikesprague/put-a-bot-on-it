@@ -41,7 +41,7 @@ export default {
           {
             role: 'system',
             content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to GPT-Image to generate photos based on the user's input:
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.5-flare to generate photos based on the user's input:
             - You should reply with a prompt that describes the image the user wants based on their input
             - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-2.5-flare" model
             - The prompt should be no more than 1 paragraph long
@@ -63,7 +63,7 @@ export default {
       });
 
       const imagePrompt = imagePromptResponse.output_text
-        .replace('Prompt for GPT-Image:', '')
+        .replace('Prompt for GPT-Image-2.5-flare:', '')
         .trim();
       console.log(imagePrompt);
 

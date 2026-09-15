@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.5',
+      model: 'gpt-5.6-luna',
       tools: [{ type: 'web_search' }],
       input: [
         {
@@ -71,9 +71,9 @@ export default {
         {
           role: 'system',
           content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to GPT-Image for images
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.5-flare for images
             that represent collections of news articles. You should reply with a prompt that describes
-            the image you want GPT-Image to generate:
+            the image you want GPT-Image-2.5-flare to generate:
               - Images should be photo realistic
               - Images should not contain any text
               - Return only the text for image prompt
@@ -88,7 +88,7 @@ export default {
     });
 
     const imagePrompt = imagePromptResponse.output_text
-      .replace('Prompt for GPT-Image:', '')
+      .replace('Prompt for GPT-Image-2.5-flare:', '')
       .trim();
 
     birdLog(`[/news (imagePrompt)] ${imagePrompt}`);
