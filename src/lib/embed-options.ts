@@ -12,7 +12,7 @@ export const commands = [
   {
     name: 'Beavis and Butt-Head',
     value: 'beavis butthead',
-    emoji: null,
+    emoji: ['beavis', 'butthead', 'beavis_butthead'],
   },
   {
     name: 'Borat',
