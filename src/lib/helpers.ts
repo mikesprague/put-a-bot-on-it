@@ -247,7 +247,7 @@ export const sendContent = async ({
 }: {
   interaction: ChatInputCommandInteraction;
   content: string;
-  reaction?: string | null;
+  reaction?: string | string[] | null;
   ttl?: number | null;
   deferred?: boolean;
   ephemeral?: boolean;
@@ -266,7 +266,9 @@ export const sendContent = async ({
     }
     if (reaction) {
       const message = await interaction.fetchReply();
-      message.react(reaction);
+      for (const emoji of reaction) {
+        message.react(emoji);
+      }
       if (ttl) {
         setTimeout(async () => {
           await message.delete();

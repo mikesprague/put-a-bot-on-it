@@ -1,6 +1,11 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 
-import { getRandomNum, makeApiCall, sendContent } from '../lib/helpers.ts';
+import {
+  getCustomEmojiCode,
+  getRandomNum,
+  makeApiCall,
+  sendContent,
+} from '../lib/helpers.ts';
 
 const { YOUTUBE_API_KEY } = process.env;
 
@@ -18,10 +23,16 @@ export default {
     const randomNum = getRandomNum(apiData.items.length);
     const { videoId } = apiData.items[randomNum].id;
     const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+    const emojiArray = ['cat_jam', 'party_cat'];
+    const catEmoji = getCustomEmojiCode(
+      emojiArray[getRandomNum(emojiArray.length)]
+    ) as string;
+    const earthWindFireEmoji = ['🌎', '🌬️', '🔥', catEmoji];
     return await sendContent({
       interaction,
       content: videoUrl,
       deferred: true,
+      reaction: earthWindFireEmoji,
     });
   },
 };
