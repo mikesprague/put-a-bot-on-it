@@ -30,13 +30,13 @@
     "dayjs": "1.11.23",
     "discord.js": "14.27.0",
     "he": "1.2.0",
-    "openai": "7.15.0",
+    "openai": "7.20.0",
     "randomcolor": "0.6.2"
   },
   "devDependencies": {
     "@types/common-tags": "1.8.4",
     "@types/he": "1.2.3",
-    "@types/node": "26.5.1",
+    "@types/node": "26.6.2",
     "@types/randomcolor": "0.5.9",
     "@typescript/native": "npm:typescript@7.0.2",
     "bun": "1.4.2",
