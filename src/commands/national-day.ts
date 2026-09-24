@@ -47,7 +47,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.6-luna',
+      model: 'gpt-6-luna',
       input: [
         {
           role: 'system',
@@ -80,7 +80,7 @@ export default {
     });
 
     const imagePromptResponse = await openai.responses.create({
-      model: 'gpt-5.6-luna',
+      model: 'gpt-6-luna',
       input: [
         {
           role: 'system',

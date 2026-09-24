@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-5.6-luna',
+      model: 'gpt-6-luna',
       tools: [{ type: 'web_search' }],
       input: [
         {
@@ -66,7 +66,7 @@ export default {
     });
 
     const imagePromptResponse = await openai.responses.create({
-      model: 'gpt-5.6-luna',
+      model: 'gpt-6-luna',
       input: [
         {
           role: 'system',

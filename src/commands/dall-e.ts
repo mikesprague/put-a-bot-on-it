@@ -36,7 +36,7 @@ export default {
       birdLog(`[dall-e] ${prompt}`);
 
       const imagePromptResponse = await openai.responses.create({
-        model: 'gpt-5.6-luna',
+        model: 'gpt-6-luna',
         input: [
           {
             role: 'system',
