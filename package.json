@@ -43,7 +43,7 @@
     "bun-types": "1.4.2",
     "cz-git": "1.14.0",
     "oxfmt": "0.69.0",
-    "oxlint": "1.83.0",
+    "oxlint": "1.84.0",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "config": {
