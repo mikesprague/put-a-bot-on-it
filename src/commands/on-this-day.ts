@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import he from 'he';
+import * as he from 'he';
 
 import { getRandomNum, makeApiCall, sendContent } from '../lib/helpers.ts';
 import { onThisDayApi } from '../lib/urls.ts';
