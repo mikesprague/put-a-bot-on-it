@@ -2,6 +2,7 @@ import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 
 import { commands } from '../lib/embed-options.ts';
 import {
+  birdLog,
   filterArrayOfObjects,
   getCustomEmojiCode,
   getKlipyGifs,
@@ -59,7 +60,7 @@ export default {
       file: { hd: { gif: { url: string } } };
     }> = await getKlipyGifs({ searchTerm });
 
-    // console.log(subjectGifs);
+    birdLog(`/embed - gifs returned: ${subjectGifs.length}`);
 
     const randomNum = useArg
       ? getRandomNum(Math.min(subjectGifs.length, 5))
@@ -67,18 +68,27 @@ export default {
 
     const embedImage: string = subjectGifs[randomNum].file.hd.gif.url;
 
-    const subjectEmbed = prepareEmbed({
-      embedImage,
-      embedFooter: useArg ? `query: ${arg}` : '',
-      embedColor,
-    });
+    birdLog(`/embed - gif url: ${embedImage}`);
 
-    await registerKlipyGifShare(subjectGifs[randomNum], searchTerm);
+    try {
+      const subjectEmbed = prepareEmbed({
+        embedImage,
+        embedFooter: useArg ? `query: ${arg}` : '',
+        embedColor,
+      });
 
-    await sendEmbed({
-      interaction,
-      content: subjectEmbed,
-      reaction: subjectEmoji ?? undefined,
-    });
+      await registerKlipyGifShare(subjectGifs[randomNum], searchTerm);
+
+      await sendEmbed({
+        interaction,
+        content: subjectEmbed,
+        reaction: subjectEmoji ?? undefined,
+      });
+    } catch (error: unknown) {
+      birdLog(`/embed - error preparing embed: ${(error as Error).message}`);
+      await interaction.editReply({
+        content: `Error preparing embed: ${(error as Error).message}`,
+      });
+    }
   },
 };
