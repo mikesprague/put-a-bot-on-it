@@ -41,7 +41,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-6-luna',
+      model: 'gpt-6.1-terra',
       tools: [{ type: 'web_search' }],
       input: [
         {

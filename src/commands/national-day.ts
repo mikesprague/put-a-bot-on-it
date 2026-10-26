@@ -47,7 +47,7 @@ export default {
     `;
 
     const textResponse = await openai.responses.create({
-      model: 'gpt-6-luna',
+      model: 'gpt-6.1-terra',
       input: [
         {
           role: 'system',

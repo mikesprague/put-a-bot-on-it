@@ -9,7 +9,7 @@ export const gptAnalyzeText = async ({
   systemPrompt,
   textToAnalyze,
   openAiClient,
-  model = 'gpt-6-luna',
+  model = 'gpt-6-terra',
   user = randomUUID(),
 }: {
   systemPrompt: string;
@@ -39,7 +39,7 @@ export const gptAnalyzeText = async ({
 export const gptGetHaiku = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-6-luna',
+  model = 'gpt-6.1-terra',
   user = randomUUID(),
 }: {
   textToAnalyze: string;
@@ -67,7 +67,7 @@ export const gptGetHaiku = async ({
 export const gptGetLimerick = async ({
   textToAnalyze,
   openAiClient,
-  model = 'gpt-6-luna',
+  model = 'gpt-6.1-terra',
   user = randomUUID(),
 }: {
   textToAnalyze: string;
