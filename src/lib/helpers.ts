@@ -172,16 +172,25 @@ export const generateImageAttachment = async ({
   userId: string;
   options?: Record<string, unknown>;
 }): Promise<{ embedFile: AttachmentBuilder; embedImage: string }> => {
+  const outputFormat =
+    /animate|animated|animation|frames|frame count|frame duration|gif|loop|looping|moving|motion/gi.test(
+      prompt
+    )
+      ? 'gif'
+      : 'png';
   const response = await openai.images.generate({
     prompt,
     n: 1,
+    // if prompt includes 'animate', 'animated', 'animation', 'frames', 'frame count', 'frame duration', 'gif',
+    // 'loop', 'looping', 'moving', or 'motion' set output format to 'gif', otherwise set output format to 'png'
+    output_format: outputFormat,
     model: 'gpt-image-2.6-flare',
     size: 'auto',
     ...options,
     user: userId,
   });
   const aiImage = response.data?.[0]?.b64_json ?? '';
-  const aiImageName = `${randomUUID()}.png`;
+  const aiImageName = `${randomUUID()}.${outputFormat}`;
   const embedFile = new AttachmentBuilder(Buffer.from(aiImage, 'base64'), {
     name: aiImageName,
   });
