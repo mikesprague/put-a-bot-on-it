@@ -42,9 +42,9 @@ export default {
         {
           role: 'system',
           content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.5-flare to generate photos based on the supplied cat fact:
-            - Images should be captured in a realistic photograph with natural lighting
-            - Images should not contain any text
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.6-flare to generate animated gifs based on the supplied cat fact:
+            - GIFs should be captured in a realistic photograph with natural lighting
+            - GIFs should not contain any text
             - Return only the text for image prompt
             `,
         },
@@ -57,7 +57,7 @@ export default {
     });
 
     const imagePrompt = imagePromptResponse.output_text
-      .replace('Prompt for GPT-Image-2.5-flare:', '')
+      .replace('Prompt for GPT-Image-2.6-flare:', '')
       .trim();
     console.log(imagePrompt);
     const { embedFile, embedImage } = await generateImageAttachment({

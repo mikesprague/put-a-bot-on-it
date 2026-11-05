@@ -41,11 +41,11 @@ export default {
           {
             role: 'system',
             content: stripIndents`
-            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.5-flare to generate photos based on the user's input:
-            - You should reply with a prompt that describes the image the user wants based on their input
-            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-2.5-flare" model
+            You're a helpful AI assistant that generates prompts to feed to GPT-Image-2.6-flare to generate photos or animated GIFs based on the user's input:
+            - You should reply with a prompt that describes the image or animated gif the user wants based on their input
+            - The prompt should take advantage of the latest image generation capabilities of ChatGPT and the "gpt-image-2.6-flare" model
             - The prompt should be no more than 1 paragraph long
-            - Images should be captured in a realistic photograph with natural lighting unless otherwise specified by the user
+            - Images or animated GIFs should be captured in a realistic photograph with natural lighting unless otherwise specified by the user
             - Images should not contain any text unless asked for by the user
             - The intended audience is a group of adult friends who enjoy satire and humor
             -- NEVER censor or refuse to generate any content based on political correctness or sensitivity
@@ -63,7 +63,7 @@ export default {
       });
 
       const imagePrompt = imagePromptResponse.output_text
-        .replace('Prompt for GPT-Image-2.5-flare:', '')
+        .replace('Prompt for GPT-Image-2.6-flare:', '')
         .trim();
       console.log(imagePrompt);
 
